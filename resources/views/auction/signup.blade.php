@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Prime Auction | Sign Up</title>
     <link rel="icon" type="image/x-icon" href="assets/logo-bg.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -174,6 +175,61 @@
             -moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, .1);
             box-shadow: 0px 0px 20px rgba(0, 0, 0, .1);
         }
+
+        .checkbox-wrapper *,
+        .checkbox-wrapper *:after,
+        .checkbox-wrapper *:before {
+            box-sizing: border-box;
+        }
+
+        .checkbox-wrapper input {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .checkbox-wrapper input:checked+label svg path {
+            stroke-dashoffset: 0;
+        }
+
+        .checkbox-wrapper input:focus+label {
+            transform: scale(1.03);
+        }
+
+        .checkbox-wrapper input+label {
+            display: block;
+            border: 2px solid #333;
+            width: var(--size);
+            height: var(--size);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+
+        .checkbox-wrapper input+label:active {
+            transform: scale(1.05);
+            border-radius: 12px;
+        }
+
+        .checkbox-wrapper input+label svg {
+            pointer-events: none;
+            padding: 5%;
+        }
+
+        .checkbox-wrapper input+label svg path {
+            fill: none;
+            stroke: #333;
+            stroke-width: 4px;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 101;
+            transition: all 250ms cubic-bezier(1, 0, .37, .91);
+        }
+        
+        .upload-section{
+            border:2px dashed gray;
+            border-radius: 10px;
+        }
     </style>
 </head>
 
@@ -183,22 +239,30 @@
             <img class="" src="assets/logo-bg.png" width="150">
         </header>
         <div class="form-wrap">
-            <form id="form-registeration">
+            <form id="form-registeration" class=" ">
                 <div class="" id="registeration">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group validated">
                                 <label id="fname-label" for="fname">First Name</label>
-                                <input type="text" name="fname" id="fname" placeholder=""
-                                    class="form-control" required>
+                                <input type="text" name="fname" id="fname" placeholder="" class="form-control "
+                                    required>
+                                <div class="invalid-feedback">
+                                    First Name is required
+                                </div>
                             </div>
+
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group invalid">
                                 <label id="lname-label" for="lname">Last Name</label>
-                                <input type="text" name="lname" id="lname" placeholder=""
-                                    class="form-control" required>
+                                <input type="text" name="lname" id="lname" placeholder="" class="form-control "
+                                    required>
+                                <div class="invalid-feedback">
+                                    Second Name is required
+                                </div>
                             </div>
+
                         </div>
                     </div>
 
@@ -206,8 +270,11 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label id="email-label" for="email">Email</label>
-                                <input type="email" name="email" id="email" placeholder=""
-                                    class="form-control" required>
+                                <input type="email" name="email" id="email" placeholder="" class="form-control"
+                                    required>
+                                <div class="invalid-feedback">
+                                    Email is required
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -217,6 +284,9 @@
                                 <label id="password-label" for="password">Password</label>
                                 <input type="password" name="password" id="password" placeholder="" class="form-control"
                                     required>
+                                <div class="invalid-feedback">
+                                    Passowrd must contain 1 uppercase and 1 lowercase letter, 1 number and 1 symbol.
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -224,6 +294,9 @@
                                 <label id="passconfirm-label" for="passconfirm">Confirm Password</label>
                                 <input type="password" name="passconfirm" id="passconfirm" placeholder=""
                                     class="form-control" required>
+                                <div class="invalid-feedback">
+                                    Password Confirmation doesn't match
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -272,14 +345,14 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label id="town-label" for="town">Postcode</label>
-                                <input type="text" name="town" id="town" placeholder="" class="form-control" required>
+                                <label id="pcode-label" for="pcode">Postcode</label>
+                                <input type="text" name="pcode" id="pcode" placeholder="" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label id="country-label" for="country">Country</label>
-                                <select id="dropdown" name="country" class="form-control" required>
+                                <label id="country-label" for="country-d">Country</label>
+                                <select id="country-d" name="country-d" class="form-control" required>
                                     <option disabled selected value>Select</option>
                                     <option value="1"> Afghanistan</option>
                                     <option value="2"> Åland Islands</option>
@@ -538,7 +611,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label id="town-label" for="phcountry">Phone Country</label>
-                                <select id="dropdown" name="phcountry" class="form-control" required>
+                                <select id="phcountry" name="phcountry" class="form-control" required>
                                     <option disabled selected value>Select</option>
                                     <option value="1"> Afghanistan</option>
                                     <option value="2"> Åland Islands</option>
@@ -794,8 +867,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label id="country-label" for="number">Phone number</label>
-                                <input type="text" name="country" id="country" placeholder="" class="form-control"
+                                <label id="country-label" for="mobile">Phone number</label>
+                                <input type="text" name="mobile" id="mobile" placeholder="" class="form-control"
                                     required>
                             </div>
                         </div>
@@ -803,21 +876,74 @@
                     <div class="my-2" style="height:1px;background-color:rgb(16,35,67,0.17);width:100%;"></div>
                     <div class="row my-3">
                         <div class="col-md-6">
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                                <input type="checkbox" class="custom-control-input" name="sell-label" value="yes"
-                                    id="sell-label" checked="">
-                                <label class="sell-label" for="sell-label">Have you got items to sell?</label>
+                            <div class="checkbox-wrapper d-flex">
+                                <div class="">
+                                    <input type="checkbox" name="seller" id="seller">
+                                    <label for="seller" style="--size: 30px">
+                                        <svg viewBox="0,0,50,50">
+                                            <path d="M5 30 L 20 45 L 45 5"></path>
+                                        </svg>
+                                    </label>
+                                </div>
+                                <p class="px-2"> Have you got items to sell?</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label id="town-label" for="phcountry">Are you an individual or a company?</label>
-                                <select id="dropdown" name="phcountry" class="form-control" required>
-                                    <option value="1" selected> Individual</option>
-                                    <option value="2"> Individual</option>
-                                </select>
+                        <div class="col-12" id="upload-documents">
+                            <div id="photo-id">
+                                <div class="mx-auto upload-section">
+                                    <div class="d-flex flex-column text-center">
+                                        <svg width="64" height="64" class="mx-auto h-12 w-12 text-gray-400"
+                                            stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                            <path
+                                                d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        </svg>
+                                        <input type="file">
+                                        <p>JPEG or PNG. Max file size: 2MB</p>
+                                        <p>Driving License, Passport, ID card .etc</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="address-proof"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label id="" for="entity">Are you an individual or a company?</label>
+                                    <select id="entity" name="entity" class="form-control" required>
+                                        <option value="1" selected> Individual</option>
+                                        <option value="2"> Company</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="d-none" id="company_condition">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label id="country-label" for="company">Company Name</label>
+                                        <input type="text" name="company" id="company" placeholder=""
+                                            class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="checkbox-wrapper d-flex">
+                                        <div class="">
+                                            <input type="checkbox" name="is_vat" id="is_vat">
+                                            <label for="is_vat" style="--size: 30px">
+                                                <svg viewBox="0,0,50,50">
+                                                    <path d="M5 30 L 20 45 L 45 5"></path>
+                                                </svg>
+                                            </label>
+                                        </div>
+                                        <p class="px-2"> Are you VAT registered?</p>
+                                    </div>
+                                </div>
+                                <div class="col-12 d-none" id="vat_num">
+                                    <div class="form-group">
+                                        <label id="country-label" for="vat_number">VAT Number</label>
+                                        <input type="text" name="vat_number" id="vat_number" placeholder=""
+                                            class="form-control" required>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -946,67 +1072,94 @@
 
     <script>
         window.addEventListener('DOMContentLoaded', function () {
-            
+            'use strict'
+
             var registeration = document.getElementById('registeration');
             var details = document.getElementById('details');
             var preferences = document.getElementById('preferences');
             var next = document.getElementById("next");
             var submitbtn = document.getElementById("submit");
             var register = false;
-                var detail = false;
-                var preference = false;
-            next.addEventListener("click",function(){
-                
-                // const fname = document.getElementById('fname').value;
-                // const lname = document.getElementById('lname').value;
-                // const email = document.getElementById('email').value;
-                // const password = document.getElementById('password').value;
-                // const passconfirm = document.getElementById('passconfirm').value;
-                // if(fname.trim() === ""){
-                //     register = false;
-                //     alert('Enter Name');
-                // }
+            var detail = false;
+            var preference = false;
+            next.addEventListener("click", function () {
 
-                // if(lname.trim() === ""){
-                //     register = false;
-                //     alert('Enter Name');
-                // }
-
-                // const emailregex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                // if(!emailregex.test(email)){
-                //     alert('Email is not correct');
-                //     register = false;
-                // }
-
-                // const passwordregex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
-                // if(!passwordregex.test(password)){
-                //     alert('passowrd not proper');
-                //     register = false;
-                // }
-
-                // if(password != passconfirm){
-                //     alert("confirm pass");
-                //     register = false;
-                // }
-
-                // const addressline1 = document.getElementById('addressline1').value;
-                // const addressline2 = document.getElementById('addressline2').value;
-                // const addressline3 = document.getElementById('addressline3').value;
-                // const town = document.getElementById('town').value;
-                // const country = document.getElementById('country').value;
-                
-
-
-                if(register == false){
-                    console.log('register');
-                    registeration.classList.add("d-none");
-                    details.classList.remove('d-none');
+                const fname = document.getElementById('fname');
+                const lname = document.getElementById('lname');
+                const email = document.getElementById('email');
+                const password = document.getElementById('password');
+                const passconfirm = document.getElementById('passconfirm');
+                if (fname.value.trim() === "") {
+                    register = false;
+                    fname.classList.add("is-invalid");
+                } else {
+                    fname.classList.remove("is-invalid");
+                    fname.classList.add('is-valid');
                     register = true;
+                }
+
+                if (lname.value.trim() === "") {
+                    register = false;
+                    lname.classList.add('is-invalid');
+                } else {
+                    lname.classList.remove('is-invalid');
+                    lname.classList.add('is-valid');
+                    register = true;
+                }
+
+                const emailregex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailregex.test(email.value)) {
+                    register = false;
+                    email.classList.add('is-invalid');
+                } else {
+                    email.classList.remove('is-invalid');
+                    email.classList.add('is-valid');
+                    register = true;
+                }
+
+
+                const passwordregex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+                if (!passwordregex.test(password.value)) {
+                    register = false;
+                    password.classList.add('is-invalid');
+                    passconfirm.classList.add('is-invalid');
+                    return false;
+                } else {
+                    password.classList.remove('is-invalid');
+                    password.classList.add('is-valid');
+                    register = true;
+                }
+
+                if (password.value != passconfirm.value) {
+                    register = false;
+                    passconfirm.classList.add('is-invalid');
+                } else {
+                    passconfirm.classList.remove('is-invalid');
+                    passconfirm.classList.add('is-valid');
+                    register = true;
+                }
+
+                if (register == true) {
+                    registeration.classList.add('d-none');
+                    details.classList.remove('d-none');
+                    register = null;
+                    return;
+                }
+
+
+                const addressline1 = document.getElementById('addressline1').value;
+                const addressline2 = document.getElementById('addressline2').value;
+                const addressline3 = document.getElementById('addressline3').value;
+                const town = document.getElementById('town').value;
+                const country = document.getElementById('country').value;
+
+
+
+                if (register == false) {
                     return false;
                 }
 
-                
-                if(detail == false){
+                if (detail == false) {
                     console.log('detail');
                     details.classList.add("d-none");
                     preferences.classList.remove("d-none");
@@ -1016,14 +1169,38 @@
                     return false;
                 }
 
-                if(register && detail && !preference){
+                if (register && detail && !preference) {
                     console.log('preferances');
                     return false;
                 }
 
             });
 
-        }); 
+        });
+
+        const entity = document.getElementById('entity');
+        const company_condition = document.getElementById('company_condition');
+        entity.addEventListener('change', () => {
+            const val = entity.value;
+            if (val == 2) {
+                company_condition.classList.remove('d-none');
+            } else {
+                company_condition.classList.remove('d-none');
+                company_condition.classList.add('d-none');
+            }
+        })
+
+        const is_vat = document.getElementById('is_vat');
+        const vat = document.getElementById('vat_num');
+        is_vat.addEventListener('change', () => {
+            if (is_vat.checked) {
+                vat.classList.remove('d-none');
+            } else {
+                vat.classList.remove('d-none');
+                vat.classList.add('d-none');
+            }
+        })
+
     </script>
 </body>
 
