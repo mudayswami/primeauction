@@ -29,6 +29,7 @@
             font-weight: 400;
             font-style: normal;
 
+
         }
 
         .container {
@@ -225,11 +226,39 @@
             stroke-dashoffset: 101;
             transition: all 250ms cubic-bezier(1, 0, .37, .91);
         }
-        
-        .upload-section{
-            border:2px dashed gray;
+
+        .upload-section {
+            border: 2px dashed gray;
             border-radius: 10px;
         }
+
+        input[type=file] {
+            width: 300px;
+            max-width: 100%;
+            color: #444;
+            padding: 5px;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #555;
+        }
+
+        input[type=file]::file-selector-button {
+            margin-right: 20px;
+            border: none;
+            background: #084cdf;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            transition: background .2s ease-in-out;
+        }
+
+        input[type=file]::file-selector-button:hover {
+            background: #0d45a5;
+        }
+
+        .photo-id,
+        .address-proof {}
     </style>
 </head>
 
@@ -239,7 +268,17 @@
             <img class="" src="assets/logo-bg.png" width="150">
         </header>
         <div class="form-wrap">
-            <form id="form-registeration" class=" ">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <form id="form-registeration" enctype="multipart/form-data" class=" " action="signup" method="post">
+                @csrf
                 <div class="" id="registeration">
                     <div class="row">
                         <div class="col-md-6">
@@ -308,6 +347,9 @@
                                 <label id="addressline1-label" for="addressline1">Address Line 1</label>
                                 <input type="text" name="addressline1" id="addressline1" placeholder=""
                                     class="form-control" required>
+                                <div class="invalid-feedback">
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -317,6 +359,9 @@
                                 <label id="addressline2-label" for="addressline2">Address Line 2</label>
                                 <input type="text" name="addressline2" id="addressline2" placeholder=""
                                     class="form-control" required>
+                                <div class="invalid-feedback">
+
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -324,6 +369,9 @@
                                 <label id="addressline3-label" for="addressline3">Address Line 3</label>
                                 <input type="text" name="addressline3" id="addressline3" placeholder=""
                                     class="form-control" required>
+                                <div class="invalid-feedback">
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -332,6 +380,9 @@
                             <div class="form-group">
                                 <label id="town-label" for="town">Town</label>
                                 <input type="text" name="town" id="town" placeholder="" class="form-control" required>
+                                <div class="invalid-feedback">
+                                    Town field is required
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -339,6 +390,9 @@
                                 <label id="country-label" for="country">Country</label>
                                 <input type="text" name="country" id="country" placeholder="" class="form-control"
                                     required>
+                                <div class="invalid-feedback">
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -346,7 +400,11 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label id="pcode-label" for="pcode">Postcode</label>
-                                <input type="text" name="pcode" id="pcode" placeholder="" class="form-control" required>
+                                <input type="number" name="pcode" id="pcode" placeholder="" class="form-control"
+                                    required>
+                                <div class="invalid-feedback">
+                                    Postcode is required
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -604,6 +662,9 @@
                                     <option value="248"> Zambia</option>
                                     <option value="249"> Zimbabwe</option>
                                 </select>
+                                <div class="invalid-feedback">
+                                    Country field is required
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -863,13 +924,19 @@
                                     <option value="248"> Zambia</option>
                                     <option value="249"> Zimbabwe</option>
                                 </select>
+                                <div class="invalid-feedback">
+                                    Country field is required
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label id="country-label" for="mobile">Phone number</label>
-                                <input type="text" name="mobile" id="mobile" placeholder="" class="form-control"
+                                <label id="country-label" for="phnumber">Phone number</label>
+                                <input type="number" name="phone_number" id="phnumber" placeholder="" class="form-control"
                                     required>
+                                <div class="invalid-feedback">
+                                    Phone number is required
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -878,7 +945,7 @@
                         <div class="col-md-6">
                             <div class="checkbox-wrapper d-flex">
                                 <div class="">
-                                    <input type="checkbox" name="seller" id="seller">
+                                    <input type="checkbox" name="seller" id="seller" value="1">
                                     <label for="seller" style="--size: 30px">
                                         <svg viewBox="0,0,50,50">
                                             <path d="M5 30 L 20 45 L 45 5"></path>
@@ -888,8 +955,9 @@
                                 <p class="px-2"> Have you got items to sell?</p>
                             </div>
                         </div>
-                        <div class="col-12" id="upload-documents">
-                            <div id="photo-id">
+                        <div class="col-12 d-none" id="upload-documents">
+                            <div id="photo-id" class="my-5">
+                                <span class="text-muted">Photo ID Upload</span>
                                 <div class="mx-auto upload-section">
                                     <div class="d-flex flex-column text-center">
                                         <svg width="64" height="64" class="mx-auto h-12 w-12 text-gray-400"
@@ -898,21 +966,38 @@
                                                 d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
                                         </svg>
-                                        <input type="file">
+                                        <input class="mx-auto" type="file" name="" id="photo-id"
+                                            accept="image/png,image/jpeg">
                                         <p>JPEG or PNG. Max file size: 2MB</p>
                                         <p>Driving License, Passport, ID card .etc</p>
                                     </div>
                                 </div>
                             </div>
-                            <div id="address-proof"></div>
+                            <div id="address-proof " class="my-5">
+                                <span class="text-muted">Proof of Address Upload</span>
+                                <div class="mx-auto upload-section">
+                                    <div class="d-flex flex-column text-center">
+                                        <svg width="64" height="64" class="mx-auto h-12 w-12 text-gray-400"
+                                            stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                            <path
+                                                d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                                        </svg>
+                                        <input class="mx-auto" type="file" id="address-proof" name=""
+                                            accept="image/png,image/jpeg">
+                                        <p>JPEG or PNG. Max file size: 2MB</p>
+                                        <p>Utility bill, council tax bill .etc from last 3 months</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
                                     <label id="" for="entity">Are you an individual or a company?</label>
                                     <select id="entity" name="entity" class="form-control" required>
-                                        <option value="1" selected> Individual</option>
-                                        <option value="2"> Company</option>
+                                        <option value="individual" selected> Individual</option>
+                                        <option value="company"> Company</option>
                                     </select>
                                 </div>
                             </div>
@@ -927,7 +1012,7 @@
                                 <div class="col-12">
                                     <div class="checkbox-wrapper d-flex">
                                         <div class="">
-                                            <input type="checkbox" name="is_vat" id="is_vat">
+                                            <input type="checkbox" name="is_vat" id="is_vat" value="1">
                                             <label for="is_vat" style="--size: 30px">
                                                 <svg viewBox="0,0,50,50">
                                                     <path d="M5 30 L 20 45 L 45 5"></path>
@@ -951,21 +1036,36 @@
                 <div class="d-none" id="preferences">
                     <div class="row my-3">
                         <div class="col-md-12">
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                                <label class="sell-label mx-2" for="sell-label"><input type="checkbox"
-                                        class="custom-control-input" name="sell-label" value="yes" id="sell-label"> I
-                                    accept the <a href="#">Terms & Conditions</a> of business and <a href="#">Privacy
-                                        Policy</a> of Auction Rebel LTD T/a Prime Auction</label>
+                            <div class="checkbox-wrapper d-flex">
+                                <div class="">
+                                    <input type="checkbox" name="terms-conditions" id="terms-conditions" value="1">
+                                    <label for="terms-conditions" style="--size: 30px">
+                                        <svg viewBox="0,0,50,50">
+                                            <path d="M5 30 L 20 45 L 45 5"></path>
+                                        </svg>
+                                    </label>
+                                </div>
+                                <span class="sell-label mx-2"> I accept the <a href="#">Terms & Conditions</a> of
+                                    business and <a href="#">Privacy
+                                        Policy</a> of Auction Rebel LTD T/a Prime Auction</span>
                             </div>
                         </div>
                     </div>
                     <div class="row my-3">
                         <div class="col-md-12">
-                            <div class="custom-control custom-checkbox custom-control-inline">
-                                <label class="sell-label mx-2" for="sell-label"><input type="checkbox"
-                                        class="custom-control-input" name="sell-label" value="yes" id="sell-label">
-                                    Please keep me informed about forthcoming sales, changes and improvements to Auction
-                                    Rebel Ltd T/A Prime Auction</label>
+                            <div class="checkbox-wrapper d-flex">
+                                <div class="">
+
+                                    <input type="checkbox" name="subscribe" id="subscribe" value="1">
+                                    <label for="subscribe" style="--size: 30px">
+                                        <svg viewBox="0,0,50,50">
+                                            <path d="M5 30 L 20 45 L 45 5"></path>
+                                        </svg>
+                                    </label>
+                                </div>
+                                <span class="sell-label mx-2">Please keep me informed about forthcoming sales, changes
+                                    and improvements to Auction
+                                    Rebel Ltd T/A Prime Auction</span>
                             </div>
                         </div>
                     </div>
@@ -975,85 +1075,100 @@
                             like)
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" class="custom-control-input" name="auctions" value="yes"
-                                id="sell-label">
-                            <label class="sell-label mx-2" for="sell-label">
+                            <input type="checkbox" class="custom-control-input" name="categories[]" value="auctions"
+                                id="auctions">
+                            <label class="sell-label mx-2" for="auctions">
                                 Auctions
                             </label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" class="custom-control-input" name="art" value="yes" id="sell-label">
-                            <label class="sell-label mx-2" for="sell-label">
+                            <input type="checkbox" class="custom-control-input" name="categories[]" value="Art"
+                                id="art">
+                            <label class="sell-label mx-2" for="art">
                                 Art</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" class="custom-control-input" name="art" value="yes" id="sell-label">
-                            <label class="sell-label mx-2" for="sell-label">
+                            <input type="checkbox" class="custom-control-input" name="categories[]"
+                                value="Cars & Automotive" id="automotive">
+                            <label class="sell-label mx-2" for="automotive">
                                 Cars & Automotive</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" class="custom-control-input" name="art" value="yes" id="sell-label">
-                            <label class="sell-label mx-2" for="sell-label">
+                            <input type="checkbox" class="custom-control-input" name="categories[]"
+                                value="Children & Baby" id="Children">
+                            <label class="sell-label mx-2" for="Children">
                                 Children & Baby</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" class="custom-control-input" name="art" value="yes" id="sell-label">
-                            <label class="sell-label mx-2" for="sell-label">
+                            <input type="checkbox" class="custom-control-input" name="categories[]" value="Collectibles"
+                                id="Collectibles">
+                            <label class="sell-label mx-2" for="Collectibles">
                                 Collectibles</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" class="custom-control-input" name="art" value="yes" id="sell-label">
-                            <label class="sell-label mx-2" for="sell-label">
+                            <input type="checkbox" class="custom-control-input" name="categories[]" value="Electronics"
+                                id="Electronics">
+                            <label class="sell-label mx-2" for="Electronics">
                                 Electronics</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" class="custom-control-input" name="art" value="yes" id="sell-label">
-                            <label class="sell-label mx-2" for="sell-label">
+                            <input type="checkbox" class="custom-control-input" name="categories[]" value="Fashion"
+                                id="Fashion">
+                            <label class="sell-label mx-2" for="Fashion">
                                 Fashion</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" class="custom-control-input" name="art" value="yes" id="sell-label">
-                            <label class="sell-label mx-2" for="sell-label">
+                            <input type="checkbox" class="custom-control-input" name="categories[]" value="Handbags"
+                                id="Handbags">
+                            <label class="sell-label mx-2" for="Handbags">
                                 Handbags</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" class="custom-control-input" name="art" value="yes" id="sell-label">
-                            <label class="sell-label mx-2" for="sell-label">
+                            <input type="checkbox" class="custom-control-input" name="categories[]"
+                                value="Home Appliances" id="Appliances">
+                            <label class="sell-label mx-2" for="Appliances">
                                 Home Appliances</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" class="custom-control-input" name="art" value="yes" id="sell-label">
-                            <label class="sell-label mx-2" for="sell-label">
+                            <input type="checkbox" class="custom-control-input" name="categories[]"
+                                value="Home Improvement" id="Improvement">
+                            <label class="sell-label mx-2" for="Improvement">
                                 Home Improvement</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" class="custom-control-input" name="art" value="yes" id="sell-label">
-                            <label class="sell-label mx-2" for="sell-label">
+                            <input type="checkbox" class="custom-control-input" name="categories[]"
+                                value="Homewares, Furniture & Garden" id="Homewares">
+                            <label class="sell-label mx-2" for="Homewares">
                                 Homewares, Furniture & Garden</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" class="custom-control-input" name="art" value="yes" id="sell-label">
-                            <label class="sell-label mx-2" for="sell-label">
+                            <input type="checkbox" class="custom-control-input" name="categories[]" value="Jewellery"
+                                id="Jewellery">
+                            <label class="sell-label mx-2" for="Jewellery">
                                 Jewellery</label>
                         </div>
                         <div class="col-md-6 d-flex align-items-center">
-                            <input type="checkbox" class="custom-control-input" name="art" value="yes" id="sell-label">
-                            <label class="sell-label mx-2" for="sell-label">
+                            <input type="checkbox" class="custom-control-input" name="categories[]" value="Liquidations"
+                                id="Liquidations">
+                            <label class="sell-label mx-2" for="Liquidations">
                                 Liquidations</label>
                         </div>
                         <div class="col-md-6 d-flex">
-                            <input type="checkbox" class="custom-control-input" name="art" value="yes" id="sell-label">
-                            <div class="sell-label mx-2 " for="sell-label">
-                                Plant, Machinery & Commercial Vehicles</div>
+                            <input type="checkbox" class="custom-control-input" name="categories[]"
+                                value="Plant, Machinery & Commercial Vehicles" id="commercial">
+                            <label class="sell-label mx-2 " for="commercial">
+                                Plant, Machinery & Commercial Vehicles</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" class="custom-control-input" name="art" value="yes" id="sell-label">
-                            <label class="sell-label mx-2" for="sell-label">
+                            <input type="checkbox" class="custom-control-input" name="categories[]"
+                                value="Retail Returns" id="Retail">
+                            <label class="sell-label mx-2" for="Retail">
                                 Retail Returns</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="checkbox" class="custom-control-input" name="art" value="yes" id="sell-label">
-                            <label class="sell-label mx-1" for="sell-label">
+                            <input type="checkbox" class="custom-control-input" name="categories[]" value="Watches"
+                                id="Watches">
+                            <label class="sell-label mx-1" for="Watches">
                                 Watches</label>
                         </div>
 
@@ -1063,7 +1178,8 @@
                 <div class="row">
                     <div class="col-md-4">
                         <button type="button" id="next" class="btn btn-primary btn-block">Next</button>
-                        <button type="submit" id="submit" class="btn btn-primary btn-block d-none ">Submit</button>
+                        <button type="submit" id="submits" class="btn btn-primary btn-block d-none "
+                            disabled>Submit</button>
                     </div>
                 </div>
             </form>
@@ -1071,118 +1187,168 @@
     </div>
 
     <script>
+        var registeration = document.getElementById('registeration');
+        var details = document.getElementById('details');
+        var preferences = document.getElementById('preferences');
+        var next = document.getElementById("next");
+        var submitbtn = document.getElementById("submits");
+        var forms = document.getElementById("form-registeration");
+        var register = true;
+        var detail = true;
+        var preference = true;
         window.addEventListener('DOMContentLoaded', function () {
             'use strict'
 
-            var registeration = document.getElementById('registeration');
-            var details = document.getElementById('details');
-            var preferences = document.getElementById('preferences');
-            var next = document.getElementById("next");
-            var submitbtn = document.getElementById("submit");
-            var register = false;
-            var detail = false;
-            var preference = false;
+
             next.addEventListener("click", function () {
+                if (register != null) {
+                    const fname = document.getElementById('fname');
+                    const lname = document.getElementById('lname');
+                    const email = document.getElementById('email');
+                    const password = document.getElementById('password');
+                    const passconfirm = document.getElementById('passconfirm');
 
-                const fname = document.getElementById('fname');
-                const lname = document.getElementById('lname');
-                const email = document.getElementById('email');
-                const password = document.getElementById('password');
-                const passconfirm = document.getElementById('passconfirm');
-                if (fname.value.trim() === "") {
-                    register = false;
-                    fname.classList.add("is-invalid");
-                } else {
-                    fname.classList.remove("is-invalid");
-                    fname.classList.add('is-valid');
-                    register = true;
+                    if (fname.value.trim() === "") {
+                        fname.classList.add("is-invalid");
+                        return false;
+                    } else {
+                        fname.classList.remove("is-invalid");
+                        fname.classList.add('is-valid');
+                        register = true;
+                    }
+
+                    if (lname.value.trim() === "") {
+                        lname.classList.add('is-invalid');
+                        return false;
+                    } else {
+                        lname.classList.remove('is-invalid');
+                        lname.classList.add('is-valid');
+                    }
+
+                    const emailregex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailregex.test(email.value)) {
+                        email.classList.add('is-invalid');
+                        return false;
+                    } else {
+                        email.classList.remove('is-invalid');
+                        email.classList.add('is-valid');
+                    }
+
+                    const passwordregex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+                    if (!passwordregex.test(password.value)) {
+                        password.classList.add('is-invalid');
+                        passconfirm.classList.add('is-invalid');
+                        return false;
+                    } else {
+                        password.classList.remove('is-invalid');
+                        password.classList.add('is-valid');
+                    }
+
+                    if (password.value != passconfirm.value) {
+                        passconfirm.classList.add('is-invalid');
+                        return false;
+                    } else {
+                        passconfirm.classList.remove('is-invalid');
+                        passconfirm.classList.add('is-valid');
+                    }
+
+                    if (register == true) {
+                        registeration.classList.add('d-none');
+                        details.classList.remove('d-none');
+                        register = null;
+                        return;
+                    }
                 }
 
-                if (lname.value.trim() === "") {
-                    register = false;
-                    lname.classList.add('is-invalid');
-                } else {
-                    lname.classList.remove('is-invalid');
-                    lname.classList.add('is-valid');
-                    register = true;
-                }
+                if (detail != null) {
 
-                const emailregex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailregex.test(email.value)) {
-                    register = false;
-                    email.classList.add('is-invalid');
-                } else {
-                    email.classList.remove('is-invalid');
-                    email.classList.add('is-valid');
-                    register = true;
-                }
+                    const addressline1 = document.getElementById('addressline1');
+                    const addressline2 = document.getElementById('addressline2');
+                    const addressline3 = document.getElementById('addressline3');
+                    const town = document.getElementById('town');
+                    const country = document.getElementById('country');
+                    const postcode = document.getElementById('pcode');
+                    // const country      = document.getElementById('country-d');
+                    const phcountry = document.getElementById('phcountry');
+                    const phnumber = document.getElementById('phnumber');
+                    const seller = document.getElementById('seller');
+                    const entity = document.getElementById('entity');
+                    const is_vat = document.getElementById('is_vat');
 
+                    if (postcode.value.trim() === "") {
+                        postcode.classList.add("is-invalid");
+                        console.log('entered-pcode');
+                        return false;
+                    } else {
+                        postcode.classList.remove("is-invalid");
+                        postcode.classList.add('is-valid');
+                    }
 
-                const passwordregex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
-                if (!passwordregex.test(password.value)) {
-                    register = false;
-                    password.classList.add('is-invalid');
-                    passconfirm.classList.add('is-invalid');
-                    return false;
-                } else {
-                    password.classList.remove('is-invalid');
-                    password.classList.add('is-valid');
-                    register = true;
-                }
+                    if (town.value.trim() === "") {
+                        console.log('entered-town');
+                        town.classList.add("is-invalid");
+                        return false;
+                    } else {
+                        town.classList.remove("is-invalid");
+                        town.classList.add('is-valid');
+                    }
 
-                if (password.value != passconfirm.value) {
-                    register = false;
-                    passconfirm.classList.add('is-invalid');
-                } else {
-                    passconfirm.classList.remove('is-invalid');
-                    passconfirm.classList.add('is-valid');
-                    register = true;
-                }
+                    if (phnumber.value.trim() === "") {
+                        phnumber.classList.add("is-invalid");
+                        return false;
+                    } else {
+                        phnumber.classList.remove("is-invalid");
+                        phnumber.classList.add('is-valid');
+                    }
 
-                if (register == true) {
-                    registeration.classList.add('d-none');
-                    details.classList.remove('d-none');
-                    register = null;
-                    return;
-                }
+                    if (entity.value == 2 && company.value.trim() === "") {
+                        company.classList.add("is-invalid");
+                        return false;
+                    } else if (entity.value == 2) {
+                        company.classList.remove("is-invalid");
+                        company.classList.add('is-valid');
+                    }
 
+                    if (is_vat.checked && vat_number.value.trim() === "") {
+                        vat_number.classList.add("is-invalid");
+                        return false;
+                    } else if (is_vat.checked) {
+                        vat_number.classList.remove("is-invalid");
+                        vat_number.classList.add('is-valid');
+                    }
 
-                const addressline1 = document.getElementById('addressline1').value;
-                const addressline2 = document.getElementById('addressline2').value;
-                const addressline3 = document.getElementById('addressline3').value;
-                const town = document.getElementById('town').value;
-                const country = document.getElementById('country').value;
-
-
-
-                if (register == false) {
-                    return false;
-                }
-
-                if (detail == false) {
-                    console.log('detail');
-                    details.classList.add("d-none");
-                    preferences.classList.remove("d-none");
-                    next.classList.add('d-none');
-                    submitbtn.classList.remove('d-none');
-                    detail = true;
-                    return false;
-                }
-
-                if (register && detail && !preference) {
-                    console.log('preferances');
-                    return false;
+                    console.log('details-valid');
+                    if (detail == true) {
+                        console.log('details-inside');
+                        details.classList.add("d-none");
+                        preferences.classList.remove("d-none");
+                        next.classList.add('d-none');
+                        submitbtn.classList.remove('d-none');
+                        detail = null;
+                        return;
+                    }
                 }
 
             });
 
         });
 
-        const entity = document.getElementById('entity');
+        submitbtn.addEventListener('click', () => {
+            forms.submit();
+        });
+        const termsAndConditions = document.getElementById('terms-conditions');
+        termsAndConditions.addEventListener('change', () => {
+            if (termsAndConditions.checked) {
+                submitbtn.disabled = false;
+            } else {
+                submitbtn.disabled = true;
+            }
+        })
+
         const company_condition = document.getElementById('company_condition');
         entity.addEventListener('change', () => {
             const val = entity.value;
-            if (val == 2) {
+            if (val == 'company') {
                 company_condition.classList.remove('d-none');
             } else {
                 company_condition.classList.remove('d-none');
@@ -1190,7 +1356,6 @@
             }
         })
 
-        const is_vat = document.getElementById('is_vat');
         const vat = document.getElementById('vat_num');
         is_vat.addEventListener('change', () => {
             if (is_vat.checked) {
@@ -1198,6 +1363,17 @@
             } else {
                 vat.classList.remove('d-none');
                 vat.classList.add('d-none');
+            }
+        })
+
+        const uploadDocuments = document.getElementById('upload-documents');
+
+        seller.addEventListener('change', () => {
+            if (seller.checked) {
+                uploadDocuments.classList.remove('d-none');
+            } else {
+                uploadDocuments.classList.remove('d-none');
+                uploadDocuments.classList.add('d-none');
             }
         })
 

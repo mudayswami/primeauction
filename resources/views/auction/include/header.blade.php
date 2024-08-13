@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white fw-normal fs-5">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{url('/store')}}"><img style="width:105px;" src="{{url('assets/logo.png')}}" ></a>
+        <a class="navbar-brand" href="{{url('/store')}}"><img style="width:105px;" src="{{url('assets/logo.png')}}"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -11,6 +11,30 @@
                 <button class="btn btn-search" type="submit">Search</button>
             </form>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                @if(session('user_data'))
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Hi, {{session('user_data')['first_name']}}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <div class="d-flex fw-bold ">
+                                <div>
+
+                                    <li><a class="dropdown-item" href="">{{session('user_data')['email']}}</a></li>
+                                    <li><a class="dropdown-item" href="">Profile</a></li>
+                                    <li><a class="dropdown-item" href="{{url('logout')}}">Logout</a></li>
+
+                                </div>
+                            </div>
+
+                        </ul>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link active " aria-current="page" href="{{url('login')}}">Login</a>
+                    </li>
+                @endif
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{url('auction')}}">Auction</a>
                 </li>
@@ -18,7 +42,7 @@
                     <a class="nav-link active" href="{{url('store')}}">Buy Now</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active"  href="#" id="navbarDropdown" role="button"
+                    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Auction Category
                     </a>
@@ -52,14 +76,10 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{url('aboutus')}}">About Us</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active " aria-current="page" href="{{url('login')}}">Login</a>
-                </li>
-                <!-- <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-        </li> -->
+
+
             </ul>
-           
+
         </div>
     </div>
 </nav>

@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\auctionController;
-use App\Http\Controllers\detailController;
-use App\Http\Controllers\homeController;
-use App\Http\Controllers\storeController;
-use App\Http\Controllers\userController;
-use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\AuctionController;
+use App\Http\Controllers\DetailController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\StoreController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,19 +19,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get("/", [homeController::class,'index']);
-Route::get("auction",[auctionController::class,'auction']);
-Route::get("category",[auctionController::class,'category']);
-Route::get("catalogue/{id}",[auctionController::class,"catalogue"]);
-Route::get("bid",[auctionController::class,"bid"]);
-Route::get("login",[userController::class,"login"]);
-Route::get("signup",[userController::class,"signup"]);
-Route::get("aboutus",[auctionController::class,"aboutus"]);
-Route::get("store",[storeController::class,"home"]);
-Route::get("store/products",[storeController::class,"products"]);
-Route::get("store/item",[storeController::class,"item"]);
-Route::get("store/department",[storeController::class,"department"]);
-Route::get("store/aboutus",[storeController::class,"aboutus"]);
+Route::get("/", [HomeController::class,'index']);
+Route::get("auction",[AuctionController::class,'auction']);
+Route::get("category",[AuctionController::class,'category']);
+Route::get("catalogue/{id}",[AuctionController::class,"catalogue"]);
+Route::get("bid",[AuctionController::class,"bid"]);
+Route::get("aboutus",[AuctionController::class,"aboutus"]);
+Route::get("store",[StoreController::class,"home"]);
+Route::get("store/products",[StoreController::class,"products"]);
+Route::get("store/item",[StoreController::class,"item"]);
+Route::get("store/department",[StoreController::class,"department"]);
+Route::get("store/aboutus",[StoreController::class,"aboutus"]);
 
-Route::get("dashboard",[dashboardController::class,"dashboard"]);
-Route::get("faq",[detailController::class,"faqs"]);
+Route::get("dashboard",[DashboardController::class,"dashboard"]);
+Route::get("faq",[DetailController::class,"faqs"]);
+
+
+Route::get("signup",[UserController::class,"signup"]);
+Route::post("signup",[UserController::class,"create_user"]);
+Route::get("login",[UserController::class,"login"]);
+Route::post("login",[UserController::class,"sign_in"]);
+Route::get("logout",[UserController::class,'logout']);

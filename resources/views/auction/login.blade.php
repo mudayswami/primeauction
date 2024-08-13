@@ -10,13 +10,15 @@
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.4/components/logins/login-5/assets/css/login-5.css">
     <style>
-        body{
+        body {
             background: #fff;
         }
+
         .bg-sec {
             background-color: aliceblue;
         }
-        .bg-shadow{
+
+        .bg-shadow {
             box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
         }
     </style>
@@ -34,7 +36,8 @@
                                     height="80" alt="BootstrapBrain Logo">
                                 <h2 class="h1 fw-bold mb-4">Welcome back!</h2>
                                 <hr class="border-primary-subtle mb-4">
-                                <p class="lead m-0">Don't miss out on exclusive deals – log in now and start bidding!</p>
+                                <p class="lead m-0">Don't miss out on exclusive deals – log in now and start bidding!
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -42,12 +45,22 @@
                         <div class="card-body p-3 p-md-4 p-xl-5">
                             <div class="row">
                                 <div class="col-12">
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                     <div class="mb-5">
                                         <h3>Log in</h3>
                                     </div>
                                 </div>
                             </div>
-                            <form action="#!">
+                            <form action="login" method="post">
+                                @csrf
                                 <div class="row gy-3 gy-md-4 overflow-hidden">
                                     <div class="col-12">
                                         <label for="email" class="form-label">Email <span
@@ -81,7 +94,8 @@
                                 <div class="col-12">
                                     <hr class="mt-5 mb-4 border-secondary-subtle">
                                     <div class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-end">
-                                        <a href="signup" class="link-secondary text-decoration-none">Create new account</a>
+                                        <a href="signup" class="link-secondary text-decoration-none">Create new
+                                            account</a>
                                         <a href="#!" class="link-secondary text-decoration-none">Forgot password</a>
                                     </div>
                                 </div>
