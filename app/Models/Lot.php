@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class tbl_lot extends Model
+class Lot extends Model
 {
     use HasFactory;
 
@@ -14,6 +14,6 @@ class tbl_lot extends Model
 
     protected $guarded = [];
     public function auction(){
-        return $this->belongsTo(tbl_auction::class,'auction_id');
+        return $this->belongsTo(Auction::class,'auction_id');
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\HomeController;
@@ -20,11 +21,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get("/", [HomeController::class,'index']);
+
+
 Route::get("auction",[AuctionController::class,'auction']);
 Route::get("category",[AuctionController::class,'category']);
 Route::get("catalogue/{id}",[AuctionController::class,"catalogue"]);
-Route::get("bid",[AuctionController::class,"bid"]);
+Route::get("bid/{id}",[AuctionController::class,"bid"])->middleware('auth');
 Route::get("aboutus",[AuctionController::class,"aboutus"]);
+Route::get("catalogue/{id}/register",[AuctionController::class,"registerToBid"])->middleware('auth');
+Route::post("catalogue/{id}/register",[AuctionController::class,"auctionRegister"])->middleware('auth');
+
 Route::get("store",[StoreController::class,"home"]);
 Route::get("store/products",[StoreController::class,"products"]);
 Route::get("store/item",[StoreController::class,"item"]);
@@ -32,11 +38,17 @@ Route::get("store/department",[StoreController::class,"department"]);
 Route::get("store/aboutus",[StoreController::class,"aboutus"]);
 
 Route::get("dashboard",[DashboardController::class,"dashboard"]);
-Route::get("faq",[DetailController::class,"faqs"]);
 
+Route::get("faq",[DetailController::class,"faqs"]);
 
 Route::get("signup",[UserController::class,"signup"]);
 Route::post("signup",[UserController::class,"create_user"]);
-Route::get("login",[UserController::class,"login"]);
+Route::get("login",[UserController::class,"login"])->name('login');
 Route::post("login",[UserController::class,"sign_in"]);
 Route::get("logout",[UserController::class,'logout']);
+
+Route::get("account/profile",[AccountController::class,'myAccount'])->middleware('auth');
+Route::post("update-profile",[AccountController::class,'updateProfile'])->middleware('auth');
+Route::get("account/address",[AccountController::class,'address'])->middleware('auth');
+Route::get("account/add-address",[AccountController::class,'addAddress'])->middleware('auth');
+Route::post("add-address",[AccountController::class,"postAddress"])->middleware('auth');

@@ -8,7 +8,7 @@
 @push('styles')
     </style>
     <style>
-       .category-header {
+        .category-header {
             font-weight: 700;
             margin-top: .5rem;
         }
@@ -19,8 +19,7 @@
         }
 
         .category {
-            position: relative
-            margin-bottom: 2.5rem;
+            position: relative margin-bottom: 2.5rem;
         }
 
         .cateogory-item {}
@@ -57,23 +56,24 @@
         }
 
         .auction-list-item {
-            padding: 14px 14px;
-            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+            padding: 14px 14px 14px 0px;
+            box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
             margin-bottom: 2rem;
-            border-radius: 12px;
+            border-radius: 4px;
         }
 
         .auction-list-item:hover {
-            box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+            box-shadow: rgba(14, 30, 37, 0.12) 0px 0px 4px 0px, rgba(14, 30, 37, 0.32) 0px 0px 6px 0px;
         }
 
         .auction-item-img {
-            border-radius: 12px;
-            overflow:auto;
+            border-radius: 4px;
+            overflow: auto;
+            max-width: 150px;
             /* width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                        position: absolute; */
+                            height: 100%;
+                            object-fit: cover;
+                            position: absolute; */
         }
 
         .catalogue-category {
@@ -85,12 +85,18 @@
         }
 
         .cata-btn {
-            padding: 1rem 2rem;
+            padding: .6rem 2rem;
             background: var(--redc);
             text-decoration: none;
             color: white;
             font-weight: 600;
-            border-radius: 12px;
+            border-radius: 4px;
+        }
+
+        .cata-btn:hover {
+            background: white;
+            color: var(--bluec) !important;
+            border: solid 1px var(--redc);
         }
 
         .item-tags {
@@ -98,13 +104,13 @@
         }
 
         .filter-btn {
-            color: var(--redc);
+            color: var(--bluec);
             background: white;
             display: inline-block;
             box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
             min-width: 100%;
             padding: .5rem 2rem;
-            border-radius: 10px;
+            border-radius: px;
             font-weight: 500;
             font-size: 20px;
         }
@@ -112,14 +118,14 @@
         .item-description {
             font-weight: 700;
         }
-        
+
 
         .btn-filter {}
 
         @media(max-width:768px) {
             .auction-item-img {
-                border-radius: 12px;
-                overflow:auto;
+                border-radius: 4px;
+                overflow: auto;
             }
 
             .desktop-filter {
@@ -127,8 +133,8 @@
             }
 
             .item-description {
-            padding: 1rem 0rem;
-            font-weight: 700;
+                padding: 1rem 0rem;
+                font-weight: 700;
             }
 
         }
@@ -139,7 +145,7 @@
     @include('auction.include.auctionSearch')
     <main class="container" styles="min-height:50vh;">
         <div class="row">
-            <div class="col-12 col-lg-4">
+            <div class="col-12 col-lg-3">
                 <div class="filter-btn d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu"
                     aria-controls="offcanvasMenu"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -167,43 +173,50 @@
                                 <div class="primary-category">
                                     <div class="category-item">
                                         <div class="form-check checkbox" data-href="auction?anushka">
-                                            <input class="form-check-input" type="checkbox" href="auction/anushka" name="cg">
+                                            <input class="form-check-input" type="checkbox" href="auction/anushka"
+                                                name="cg">
                                             <label class="form-check-label">Consumer Goods</label>
                                         </div>
                                     </div>
                                     <div class="category-item">
                                         <div class="form-check checkbox" data-href="auction?anushka">
-                                            <input class="form-check-input" type="checkbox" href="auction/anushka" name="cg">
+                                            <input class="form-check-input" type="checkbox" href="auction/anushka"
+                                                name="cg">
                                             <label class="form-check-label">IT & Electricals</label>
                                         </div>
                                     </div>
                                     <div class="category-item">
                                         <div class="form-check checkbox" data-href="auction?anushka">
-                                            <input class="form-check-input" type="checkbox" href="auction/anushka" name="cg">
+                                            <input class="form-check-input" type="checkbox" href="auction/anushka"
+                                                name="cg">
                                             <label class="form-check-label">Automotive & Vehicle</label>
                                         </div>
                                     </div>
                                     <div class="category-item">
                                         <div class="form-check checkbox" href="auction?anushka">
-                                            <input class="form-check-input" type="checkbox" href="auction/anushka" name="cg">
+                                            <input class="form-check-input" type="checkbox" href="auction/anushka"
+                                                name="cg">
                                             <label class="form-check-label">Industrial</label>
                                         </div>
                                     </div>
                                     <div class="category-item">
                                         <div class="form-check checkbox" href="auction?anushka">
-                                            <input class="form-check-input" type="checkbox" href="auction/anushka" name="cg">
+                                            <input class="form-check-input" type="checkbox" href="auction/anushka"
+                                                name="cg">
                                             <label class="form-check-label">Other Industries</label>
                                         </div>
                                     </div>
                                     <div class="category-item">
                                         <div class="form-check checkbox" href="auction?anushka">
-                                            <input class="form-check-input" type="checkbox" href="auction/anushka" name="cg">
+                                            <input class="form-check-input" type="checkbox" href="auction/anushka"
+                                                name="cg">
                                             <label class="form-check-label">Food & Beverage</label>
                                         </div>
                                     </div>
                                     <div class="category-item">
                                         <div class="form-check checkbox" href="auction?anushka">
-                                            <input class="form-check-input" type="checkbox" href="auction/anushka" name="cg">
+                                            <input class="form-check-input" type="checkbox" href="auction/anushka"
+                                                name="cg">
                                             <label class="form-check-label">Plant & machinery</label>
                                         </div>
                                     </div>
@@ -218,43 +231,50 @@
                                 <div class="secondary-category">
                                     <div class="category-item">
                                         <div class="form-check checkbox" href="auction?anushka">
-                                            <input class="form-check-input" type="checkbox" href="auction/anushka" name="cg">
+                                            <input class="form-check-input" type="checkbox" href="auction/anushka"
+                                                name="cg">
                                             <label class="form-check-label">Homewares</label>
                                         </div>
                                     </div>
                                     <div class="category-item">
                                         <div class="form-check checkbox" href="auction?anushka">
-                                            <input class="form-check-input" type="checkbox" href="auction/anushka" name="cg">
+                                            <input class="form-check-input" type="checkbox" href="auction/anushka"
+                                                name="cg">
                                             <label class="form-check-label">Toys</label>
                                         </div>
                                     </div>
                                     <div class="category-item">
                                         <div class="form-check checkbox" href="auction?anushka">
-                                            <input class="form-check-input" type="checkbox" href="auction/anushka" name="cg">
+                                            <input class="form-check-input" type="checkbox" href="auction/anushka"
+                                                name="cg">
                                             <label class="form-check-label">Children & Baby Products</label>
                                         </div>
                                     </div>
                                     <div class="category-item">
                                         <div class="form-check checkbox" href="auction?anushka">
-                                            <input class="form-check-input" type="checkbox" href="auction/anushka" name="cg">
+                                            <input class="form-check-input" type="checkbox" href="auction/anushka"
+                                                name="cg">
                                             <label class="form-check-label">Garden & Outdoor</label>
                                         </div>
                                     </div>
                                     <div class="category-item">
                                         <div class="form-check checkbox" href="auction?anushka">
-                                            <input class="form-check-input" type="checkbox" href="auction/anushka" name="cg">
+                                            <input class="form-check-input" type="checkbox" href="auction/anushka"
+                                                name="cg">
                                             <label class="form-check-label">It Accessories</label>
                                         </div>
                                     </div>
                                     <div class="category-item">
                                         <div class="form-check checkbox" href="auction?anushka">
-                                            <input class="form-check-input" type="checkbox" href="auction/anushka" name="cg">
+                                            <input class="form-check-input" type="checkbox" href="auction/anushka"
+                                                name="cg">
                                             <label class="form-check-label">Perfumes & Cosmetics</label>
                                         </div>
                                     </div>
                                     <div class="category-item">
                                         <div class="form-check checkbox" href="auction?anushka">
-                                            <input class="form-check-input" type="checkbox" href="auction/anushka" name="cg">
+                                            <input class="form-check-input" type="checkbox" href="auction/anushka"
+                                                name="cg">
                                             <label class="form-check-label">Audio & Musical Equipment</label>
                                         </div>
                                     </div>
@@ -269,7 +289,8 @@
                                 <div class="type-category">
                                     <div class="category-item">
                                         <div class="form-check checkbox" data-href="auction?anushka">
-                                            <input class="form-check-input" type="checkbox" href="auction/anushka" name="cg">
+                                            <input class="form-check-input" type="checkbox" href="auction/anushka"
+                                                name="cg">
                                             <label class="form-check-label"><svg viewBox="0 0 24 24" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
                                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -292,7 +313,7 @@
                                             <div class="form-check checkbox" data-href="auction?anushka">
                                                 <input class="form-check-input" type="checkbox" href="auction/anushka"
                                                     name="cg">
-                                                <label class="form-check-label">United Kindom</label>
+                                                <label class="form-check-label">United Kingdom</label>
                                             </div>
                                         </div>
                                     </div>
@@ -440,51 +461,69 @@
                         </div>
                 </section>
             </div>
-            <div class="col-12 col-lg-8">
+            <div class="col-12 col-lg-9">
                 <div class="auction-items">
                     @foreach ($auction as $key => $value)                    
-                    <div class="auction-list-item">
-                        <div class="row">
-                            <div class="col-lg-4 col-12 d-flex justify-content-evenly align-items-center">
-                                <img class="auction-item-img"
-                                    src="{{'/primeshop/public/'.$value['img']}}">
-                            </div>
-                            <div class="col-lg-8 col-12 d-flex flex-column justify-content-center">
-                                <div class="item-description">
-                                    {{$value['title']}}
-                                </div>
-                                <div class="dates-section">
-                                    <div class="item-dates-header category-header">Auction Dates</div>
-                                    <div class="item-dates">
-                                        <div class="">Starts : {{date('Y-M-d H:i:s', strtotime($value['start']))}} BST</div>
-                                        <div class="">Ends : {{date('Y-M-d H:i:s', strtotime($value['end']))}} BST</div>
+                        <div class="auction-list-item">
+                            <div class="row">
+                                <div class="col-lg-3 col-12 d-flex justify-content-evenly align-items-center flex-column">
+                                    <img class="auction-item-img" src="{{'/primeshop/public/' . $value['img']}}">
+                                    <div>
+                                        <p>
+                                            <svg viewBox="0 0 24 24" fill="none" width='42' height="42"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                                </g>
+                                                <g id="SVGRepo_iconCarrier">
+                                                    <path
+                                                        d="M12 7V12L14.5 10.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                                                        stroke="#102343" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round"></path>
+                                                </g>
+                                            </svg>{{$value['type']}}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p class="small">
+                                            @if($value['location'])
+                                                {{$value['location']}}
+                                            @else
+                                                Multiple Sites
+                                            @endif
+                                        </p>
                                     </div>
                                 </div>
-                                <div class="item-tags">
-                                    @foreach (json_decode($value['category'],true) as $category)
-                                        <span class="badge rounded-pill bg-light text-dark">{{$category}}(134)</span>
-                                    @endforeach
-                                </div>
-                                <div class="catalogue-category">
-                                    <div class="auction-type fw-bold"><svg viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
-                                            </g>
-                                            <g id="SVGRepo_iconCarrier">
-                                                <path
-                                                    d="M12 7V12L14.5 10.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
-                                                    stroke="#102343" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                            </g>
-                                        </svg>{{$value['type']}}</div>
-                                    <div class="catalogue-btn">
-                                        <a class="cata-btn" href="catalogue/{{$value['id']}}">view catalogue</a>
+                                <div class="col-lg-9 col-12 d-flex flex-column  justify-content-center">
+                                    <div class="item-description fs-5">
+                                        {{$value['description']}}
                                     </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="dates-section">
+                                            <div class="item-dates-header category-header">Auction Dates</div>
+                                            <div class="item-dates">
+                                                <div class="">Starts : {{date('d M y H:i:s', strtotime($value['start']))}} BST
+                                                </div>
+                                                <div class="">Ends : {{date('d M y H:i:s', strtotime($value['end']))}} BST</div>
+                                            </div>
+                                        </div>
+                                        <div class="catalogue-btn">
+                                            <a class="cata-btn" href="catalogue/{{$value['id']}}">view catalogue</a>
+                                        </div>
+                                    </div>
+                                    <div class="item-tags">
+                                        @foreach (json_decode($value['category'], true) as $category)
+                                            <span class="badge rounded-pill bg-light text-dark">{{$category}}(134)</span>
+                                        @endforeach
+                                    </div>
+                                    <!-- <div class="catalogue-category">
+                                        <div class="auction-type fw-bold">
+                                        </div>
+                                        
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
 
                 </div>

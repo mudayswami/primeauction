@@ -13,12 +13,12 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 @if(session('user_data'))
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                        <a class="nav-link fw-light dropdown-toggle active" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Hi, {{session('user_data')['first_name']}}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <div class="d-flex fw-bold ">
+                            <div class="d-flex fw-light ">
                                 <div>
 
                                     <li><a class="dropdown-item" href="">{{session('user_data')['email']}}</a></li>
@@ -32,22 +32,22 @@
                     </li>
                 @else
                     <li class="nav-item">
-                        <a class="nav-link active " aria-current="page" href="{{url('login')}}">Login</a>
+                        <a class="nav-link active fw-light" aria-current="page" href="{{url('login')}}">Login</a>
                     </li>
                 @endif
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{url('auction')}}">Auction</a>
+                    <a class="nav-link active fw-light" aria-current="page" href="{{url('auction')}}">Auctions</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{url('store')}}">Buy Now</a>
+                    <a class="nav-link active fw-light" href="{{url('store')}}">Buy Now</a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item fw-light dropdown">
                     <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Auction Category
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <div class="d-flex fw-bold ">
+                        <div class="d-flex fw-light ">
                             <div>
 
                                 <li><a class="dropdown-item" href="{{url('category')}}">Retail Returns</a></li>
@@ -73,7 +73,7 @@
                         <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
                     </ul>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item fw-light">
                     <a class="nav-link active" aria-current="page" href="{{url('aboutus')}}">About Us</a>
                 </li>
 

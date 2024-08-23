@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class tbl_auction extends Model
+class Auction extends Model
 {
     use HasFactory;
 
@@ -13,7 +13,7 @@ class tbl_auction extends Model
     protected $fillable = [''];
 
     public function lots(){
-        return $this->hasMany(tbl_lot::class,'auction_id');
+        return $this->hasMany(Lot::class,'auction_id');
     }
     
 }

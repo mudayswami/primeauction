@@ -7,18 +7,18 @@
 @push('styles')
 
     .cata-btn {
-    padding: 1rem 2rem;
+    padding: .5rem 2rem;
     background: var(--bluec);
     text-decoration: none;
     color: white;
     font-weight: 600;
-    border-radius: 12px;
+    border-radius: 8px;
     text-align:center;
     margin:1rem 0;
     }
     .item-description {
-    font-weight: 700;
-    font-size:1.7rem;
+    font-weight: 500;
+    font-size:1.2rem;
     }
     .featured-lot{
     display:flex;
@@ -39,7 +39,7 @@
     padding: .5rem 1rem;
     color: white;
     text-decoration: none;
-    border-radius: 12px;
+    border-radius: 8px;
     margin-left: .5rem;
     }
     .bid-section{
@@ -51,9 +51,8 @@
     .img-container{
     width:100%;
     height:auto;
-
-
-
+    max-width:400px;
+    margin:auto;
     }
     .img-container img{
     padding:3rem 1rem 0 1rem;
@@ -61,7 +60,9 @@
     height:auto;
     object-fit:cover;
     }
-
+    .auction-item-img{
+        max-width:150px;
+    }
     .info-nav{
     padding:1rem;
     box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
@@ -79,8 +80,8 @@
     text-decoration: none;
     color: white;
     font-weight: 600;
-    border-radius: 12px;
-    text-align:center;
+    border-radius: 8px;
+    text-align:center;=
     margin:1rem 0;
     font-size:0.75rem;
     }
@@ -96,19 +97,17 @@
                 <div class="col-md-1 col-12"><span class="text-muted h4">Lot 1</span></div>
                 <div class="col-md-11 col-12">
                     <a href="#">
-                        <p class="h4">Job Lot of Phone Cases for Multiple Brands Including iPhone and Samsung</p>
+                        <p class="fs-5">{{$lot->title}}</p>
                     </a>
-                    <a href="#">
-                        <p class="h5"><u>Back to: Trade Lots, Retail Surplus & Retail Returns | Collective Auction |
-                                Featuring Trader Bundles, Homewares, Fashion, Furniture, Electronics & more</u></p>
+                    <a href="{{url('catalogue') . '/' . $lot->auction->id}}">
+                        <p class="h5"><u>Back to: {{$lot->auction->title}}</u></p>
                     </a>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 col-12">
+                <div class="col-md-6 col-12 ">
                     <div class="img-container">
-                        <img
-                            src="https://portal-images.azureedge.net/auctions-2024/wi415967/images/9859bed5-eaa9-4268-8a05-b1990124255f.jpg?w=540&h=360&mode=max">
+                        <img src="{{'/primeshop/public/' . $lot->img}}">
 
                     </div>
                 </div>
@@ -116,24 +115,24 @@
                     <div class="lot-message"></div>
                     <div class="bid-section border border-1">
                         <div class="row">
-                            <h5 class="text-center py-2">Reserve not met</h5>
+                            <span class="text-center py-2">Reserve not met</span>
                         </div>
                         <div class="row d-none">
-                            <div class="col-4 h5 p-3 fw-bold">Closing Bid</div>
-                            <div class="col-8 h5 p-3 ">Price of the lot has not been published</div>
+                            <div class="col-4 fs-6 p-3 fw-bold">Closing Bid</div>
+                            <div class="col-8 fs-6 p-3 ">Price of the lot has not been published</div>
                         </div>
                         <div class="row">
-                            <div class="col-6 h5 p-3 fw-bold">Current Bid</div>
-                            <div class="col-6 h5 p-3 ">150</div>
+                            <div class="col-6 fs-6 p-3 fw-bold" id="opening-bid">Opening Bid</div>
+                            <div class="col-6 fs-6 p-3 "></div>
+                            <div class="col-6 fs-6 p-3 fw-bold" id="current-bid">Current Bid</div>
+                            <div class="col-6 fs-6 p-3 ">150</div>
+                            <div class="col-6 fs-6 p-3 fw-bold" id="next-minimum-bid">Next minimum bid</div>
+                            <div class="col-6 fs-6 p-3 ">150</div>
                         </div>
                         <div class="row">
-                            <div class="col-6 h5 p-3 fw-bold">Next minimum bid</div>
-                            <div class="col-6 h5 p-3 ">150</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-8 h5 p-3 fw-bold">
+                            <div class="col-8 fs-6 p-3 fw-bold">
                                 <div class="input-group">
-                                    <input type="text" class="form-control p-3" placeholder="Enter your maximum bid"
+                                    <input type="text" class="form-control p-2" placeholder="Enter your maximum bid"
                                         aria-label="bid" aria-describedby="basic-addon2">
                                     <span class="input-group-text" id="basic-addon2">GBP</span>
                                 </div>
@@ -141,16 +140,26 @@
                             <div class="col-4 "><button class="cata-btn">Place Bid</button></div>
                         </div>
                         <div class="row">
-                            <div class="col-4 h5 p-3 fw-bold">Buyer's Premium</div>
-                            <div class="col-8 h5 p-3 fw-bold">26%</div>
+                            <div class="col-4 fs-6 p-3 fw-bold">Buyer's Premium</div>
+                            <div class="col-8 fs-6 p-3 fw-bold">{{$lot->buyer_premium}}%</div>
                             <div class="col-6 py-3 btn-outline-light text-center border border-1"><a href="#">
-                                
-<svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M2 9.1371C2 14 6.01943 16.5914 8.96173 18.9109C10 19.7294 11 20.5 12 20.5C13 20.5 14 19.7294 15.0383 18.9109C17.9806 16.5914 22 14 22 9.1371C22 4.27416 16.4998 0.825464 12 5.50063C7.50016 0.825464 2 4.27416 2 9.1371Z" fill="#1C274C"></path> </g></svg>Add to watchlist</a></div>
+
+                                    <svg width="32px" height="32px" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path
+                                                d="M2 9.1371C2 14 6.01943 16.5914 8.96173 18.9109C10 19.7294 11 20.5 12 20.5C13 20.5 14 19.7294 15.0383 18.9109C17.9806 16.5914 22 14 22 9.1371C22 4.27416 16.4998 0.825464 12 5.50063C7.50016 0.825464 2 4.27416 2 9.1371Z"
+                                                fill="#1C274C"></path>
+                                        </g>
+                                    </svg>Add to watchlist</a></div>
                             <div class="col-6 py-3 btn-outline-light text-center border border-1"><a href="#">
-                                <img src="{{url('assets/svg/mail.svg')}}">Ask a
+                                    <img src="{{url('assets/svg/mail.svg')}}">Ask a
                                     question</a>
                             </div>
-                            <div class="col-6 py-3 btn-outline-light text-center border border-1"><a href="#"><img src="{{url('assets/svg/hammer.svg')}}">Register to
+                            <div class="col-6 py-3 btn-outline-light text-center border border-1"><a href="#"><img
+                                        src="{{url('assets/svg/hammer.svg')}}">Register to
                                     bid</a></div>
                             <div class="col-6 py-3 btn-outline-light text-center border border-1"><a href="#">Share</a>
                             </div>
@@ -158,18 +167,18 @@
                     </div>
                     <div class="bid-section">
                         <div class="row">
-                            <div class="col-4 h5 fw-light p-3">Timed Auction</div>
-                            <div class="col-8 h5 fw-light p-3"></div>
-                            <div class="col-4 h5 fw-light p-3">Lot Location</div>
-                            <div class="col-8 h5 fw-light p-3">Multiple Sites</div>
+                            <div class="col-4 fs-6 fw-light p-3">{{$lot->auction->type}} Auction</div>
+                            <div class="col-8 fs-6 fw-light p-3"></div>
+                            <div class="col-4 fs-6 fw-light p-3">Lot Location</div>
+                            <div class="col-8 fs-6 fw-light p-3">Multiple Sites</div>
                         </div>
                     </div>
                     <div class="">
                         <div class="row">
-                            <div class="col-7 h5 fw-light p-3"></div>
-                            <div class="col-5 h5 fw-light p-3"><a href="#"><u>Next Lot: 2</u><img
+                            <div class="col-7 fs-6 fw-light p-3"></div>
+                            <div class="col-5 fs-6 fw-light p-3"><a href="#"><u>Next Lot: 2</u><img
                                         src="{{url('assets/short-right-arrow.svg')}}" alt></a></div>
-                            <div class="col-12 h5 fw-light p-3">
+                            <div class="col-12 fs-6 fw-light p-3">
                                 <div class="input-group">
                                     <input type="text" class="form-control p-3" placeholder="Jump to Lot" aria-label="bid"
                                         aria-describedby="basic-addon2">
@@ -197,29 +206,88 @@
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"
                         tabindex="0">
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                            the
-                            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-                            type
-                            and scrambled it to make a type specimen book. It has survived not only five centuries, but also
-                            the
-                            leap into electronic typesetting, remaining essentially unchanged. It was popularised in the
-                            1960s
-                            with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
-                            desktop
-                            publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                        <span class="fw-bold">Title : </span>
+                        <br><span class="fw-bold">Description : </span>
+                        <br><span class="fw-bold">Condition : </span>
+                        <br><span class="fw-bold">Delivery Option : </span>
+                        <br><span class="fw-bold">Location : </span>
+                        <br><span class="fw-bold">Category : </span>
                     </div>
-                    <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-                        <p>It is a long established fact that a reader will be distracted by the readable content of a page
-                            when
-                            looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
-                            distribution of letters, as opposed to using 'Content here, content here', making it look like
-                            readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as
-                            their
-                            default model text, and a search for 'lorem ipsum' will uncover many web sites still in their
-                            infancy. Various versions have evolved over the years, sometimes by accident, sometimes on
-                            purpose
-                            (injected humour and the like).</p>
+                    <div class="tab-pane fade" id="nav-auction" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <div class="row">
+                            <div class="col-lg-2 d-flex flex-column align-items-center">
+                                <img class="auction-item-img" src="{{'/primeshop/public/' . $lot->auction->img}}">
+                                <div class="type py-1">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                        </g>
+                                        <g id="SVGRepo_iconCarrier">
+                                            <path
+                                                d="M12 7V12L14.5 10.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                                                stroke="#102343" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round"></path>
+                                        </g>
+                                    </svg> <span class="fw-bold">{{$lot->auction->type}}</span>
+                                </div>
+                                <div class="venue-address d-flex flex-column">
+                                    <span>@if(isset($lot->auction->location)) {{$lot->aucction->location}} @else Multiple Sites
+                                    @endif</span>
+                                    <!-- <span> Ashton Under </span> -->
+                                    <!-- <span>Lyne United</span> -->
+                                </div>
+                            </div>
+                            <div class="col-lg-8 py-2">
+                                <div class="item-description">
+                                    {{$lot->auction->description}}
+                                </div>
+                                <div class="dates-section">
+                                    <div class="item-dates-header category-header">Auction Dates</div>
+                                    <div class="item-dates h6">
+                                        <div class=""><span class="fw-bold">Starts :</span>
+                                            {{date('d M y H:i:s', strtotime($lot->auction->start))}} BST</div>
+                                        <div class=""><span class="fw-bold">Ends :</span>
+                                            {{date('d M y H:i:s', strtotime($lot->auction->end))}} BST</div>
+                                    </div>
+                                </div>
+                                <div class="payment-info py-3">
+                                    <table class="">
+                                        <tbody>
+                                            <tr class="width:200px">
+                                                <td>
+                                                    <div class="h5">Auction currency</div>
+                                                </td>
+                                                <td><span class="">GBP</span></td>
+                                            </tr>
+                                            <tr class="width:200px">
+                                                <td>
+                                                    <div class="h5">Buyer's Premium</div>
+                                                </td>
+                                                <td><span class="">{{$lot->auction->buyer_premium}}%</span></td>
+                                            </tr>
+                                            <tr class="width:200px">
+                                                <td>
+                                                    <div class="h5">VAT on hammer</div>
+                                                </td>
+                                                <td><span class="">{{$lot->auction->vat_rate}}%</span></td>
+                                            </tr>
+                                            <tr class="width:200px">
+                                                <td>
+                                                    <div class="h5">Accepted cards for registeration</div>
+                                                </td>
+                                                <td><span class=""></span></td>
+                                            </tr>
+                                            <tr class="width:200px">
+                                                <td>
+                                                    <div class="h5">Accepted cards for payment</div>
+                                                </td>
+                                                <td><span class=""></span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="nav-auction" role="tabpanel" aria-labelledby="nav-contact-tab"
                         tabindex="0">

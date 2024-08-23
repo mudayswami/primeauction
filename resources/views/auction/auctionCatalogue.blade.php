@@ -25,7 +25,7 @@
     }
 
     .auction-item-img {
-    border-radius: 12px;
+    border-radius: 8px;
     }
     .catalogue-category {
     padding: 12px 0px;
@@ -35,12 +35,12 @@
     align-items: center
     }
     .cata-btn {
-    padding: 1rem 2rem;
+    padding: .6rem 2rem;
     background: var(--redc);
     text-decoration: none;
     color: white;
     font-weight: 600;
-    border-radius: 12px;
+    border-radius: 8px;
     text-align:center;
     margin:1rem 0;
 
@@ -68,7 +68,7 @@
     padding: .5rem 1rem;
     color: white;
     text-decoration: none;
-    border-radius: 12px;
+    border-radius: 8px;
     margin-left: .5rem;
     }
 
@@ -141,6 +141,7 @@
     align-items:center;
     margin:2rem 0;
     }
+
     @media(max-width:768px) {
     .featured-lot{
     display:flex;
@@ -169,9 +170,21 @@
     <section>
         <div class="container">
             <div class="row">
+                @if(isset($registered) && $registered->approved == 0)
+                    <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
+                            <use xlink:href="#info-fill" />
+                            </svg><div class="px-1"><strong class="fs-5">Your auction registration is now pending</strong><br><span> You have successfully registered for this auction, pending approval to bid. Please check your email for further information.</span></div>
+                    </div>
+                @elseif(isset($registered) && $registered->approved == 1)
+                <div class="alert alert-info alert-dismissible fade show d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
+                            <use xlink:href="#info-fill" />
+                            </svg><div class="px-1"><strong class="fs-5">You are registered for this auction</strong><br><span> You are now approved to bid at this auction.</span></div>
+                    </div>
+                @endif
                 <div class="col-lg-2 d-flex flex-column align-items-center">
-                    <img class="auction-item-img"
-                        src="{{'/primeshop/public/'.$auction['img']}}">
+                    <img class="auction-item-img" src="{{'/primeshop/public/' . $auction['img']}}">
                     <div class="type py-1">
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -185,9 +198,9 @@
                         </svg> <span class="fw-bold">{{$auction['type']}}</span>
                     </div>
                     <div class="venue-address d-flex flex-column">
-                        <span>Prime Auction</span>
-                        <span> Ashton Under </span>
-                        <span>Lyne United</span>
+                        <span>@if(isset($value['location'])) {{$value['location']}} @else Multiple Sites @endif</span>
+                        <!-- <span> Ashton Under </span> -->
+                        <!-- <span>Lyne United</span> -->
                     </div>
                 </div>
                 <div class="col-lg-8 py-2">
@@ -197,8 +210,10 @@
                     <div class="dates-section">
                         <div class="item-dates-header category-header">Auction Dates</div>
                         <div class="item-dates h6">
-                            <div class=""><span class="fw-bold">Starts :</span> {{date('Y-M-d H:i:s',strtotime($auction['start']))}} BST</div>
-                            <div class=""><span class="fw-bold">Ends :</span> {{date('Y-M-d H:i:s', strtotime($auction['end']))}} BST</div>
+                            <div class=""><span class="fw-bold">Starts :</span>
+                                {{date('d M y H:i:s', strtotime($auction['start']))}} BST</div>
+                            <div class=""><span class="fw-bold">Ends :</span>
+                                {{date('d M y H:i:s', strtotime($auction['end']))}} BST</div>
                         </div>
                     </div>
                     <div class="payment-info py-3">
@@ -240,13 +255,14 @@
                     </div>
                 </div>
                 <div class="col-lg-2 buying">
-                    <a href="#">
-                        <div class="cata-btn">Register to bid</div>
-                    </a>
-                    <div class="regulations">
+                    @if(!isset($registered))
+                    <a href="{{$auction['id']}}/register"><button type="submit" class="btn cata-btn">Register to
+                            bid</button></a>
+                    @endif
+                    <div class="regulations d-flex flex-column">
                         <a class=" ">Terms & conditions</a>
                         <a class=" ">Important Information</a>
-                        <a class=" ">Ask a question</a>
+                        <a class="" href="mailto:primeauction.tech@gmail.com">Ask a question</a>
                     </div>
                 </div>
             </div>
@@ -496,7 +512,7 @@
                                                 <div class="form-check checkbox" data-href="auction?">
                                                     <input class="form-check-input" type="checkbox" href="auction/"
                                                         name="cg">
-                                                    <label class="form-check-label">United Kindom</label>
+                                                    <label class="form-check-label">United Kingdom</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -638,7 +654,7 @@
                                     <div class="category-item">
                                         <div class="form-check checkbox" data-href="auction?">
                                             <input class="form-check-input" type="checkbox" href="auction/" name="cg">
-                                            <label class="form-check-label">United Kindom</label>
+                                            <label class="form-check-label">United Kingdom</label>
                                         </div>
                                     </div>
                                 </div>
@@ -647,79 +663,84 @@
                 </div>
                 <div class="col-12 col-lg-9">
                     @foreach ($lots as $key => $value)
-                    <div class="auction-items">
-                        <div class="row">
-                            <div class="col-lg-2 ">
-                                <img class="auction-item-img "
-                                    src="https://portal-images.azureedge.net/auctions-2024/wi415942/images/6b3d0e7e-6a89-4d4e-b7ed-602bf14fd18c.jpeg?w=250">
-                            </div>
-                            <div class="col-lg-7 px-4">
-                                <div class="lot-number light-header py-1">{{$value['lot_num']}}</div>
-                                <div class="lot-title category-header"><a href="catalogue">{{$value['title']}}</a></div>
-                                <div class="lot-description  py-2">
-                                    <p>{{$value['description']}}</p>
+                        <div class="auction-items">
+                            <div class="row">
+                                <div class="col-lg-2 ">
+                                    <img class="auction-item-img "
+                                    src="{{'/primeshop/public/' . $value['img']}}">
                                 </div>
-                                @foreach (json_decode($value['category'],true) as $category)
-                                    <div class="tags "><span class="badge rounded-pill bg-web">{{$category}}</span></div>
-                                @endforeach
-                                <div class="extra">
-                                    <div class="watchlist">
-                                        <div class="add"><svg width="64px" height="64px" viewBox="0 0 24 24" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
+                                <div class="col-lg-7 px-4">
+                                    <div class="lot-number light-header py-1">{{$value['lot_num']}}</div>
+                                    <div class="lot-title category-header"><a href="catalogue">{{$value['title']}}</a></div>
+                                    <div class="lot-description  py-2">
+                                        <p>{{$value['description']}}</p>
+                                    </div>
+                                    @foreach (json_decode($value['category'], true) as $category)
+                                        <div class="tags "><span class="badge rounded-pill bg-web">{{$category}}</span></div>
+                                    @endforeach
+                                    <div class="extra">
+                                        <div class="watchlist">
+                                            <div class="add"><svg width="64px" height="64px" viewBox="0 0 24 24" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                        stroke-linejoin="round"></g>
+                                                    <g id="SVGRepo_iconCarrier">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M5.62436 4.4241C3.96537 5.18243 2.75 6.98614 2.75 9.13701C2.75 11.3344 3.64922 13.0281 4.93829 14.4797C6.00072 15.676 7.28684 16.6675 8.54113 17.6345C8.83904 17.8642 9.13515 18.0925 9.42605 18.3218C9.95208 18.7365 10.4213 19.1004 10.8736 19.3647C11.3261 19.6292 11.6904 19.7499 12 19.7499C12.3096 19.7499 12.6739 19.6292 13.1264 19.3647C13.5787 19.1004 14.0479 18.7365 14.574 18.3218C14.8649 18.0925 15.161 17.8642 15.4589 17.6345C16.7132 16.6675 17.9993 15.676 19.0617 14.4797C20.3508 13.0281 21.25 11.3344 21.25 9.13701C21.25 6.98614 20.0346 5.18243 18.3756 4.4241C16.7639 3.68739 14.5983 3.88249 12.5404 6.02065C12.399 6.16754 12.2039 6.25054 12 6.25054C11.7961 6.25054 11.601 6.16754 11.4596 6.02065C9.40166 3.88249 7.23607 3.68739 5.62436 4.4241ZM12 4.45873C9.68795 2.39015 7.09896 2.10078 5.00076 3.05987C2.78471 4.07283 1.25 6.42494 1.25 9.13701C1.25 11.8025 2.3605 13.836 3.81672 15.4757C4.98287 16.7888 6.41022 17.8879 7.67083 18.8585C7.95659 19.0785 8.23378 19.292 8.49742 19.4998C9.00965 19.9036 9.55954 20.3342 10.1168 20.6598C10.6739 20.9853 11.3096 21.2499 12 21.2499C12.6904 21.2499 13.3261 20.9853 13.8832 20.6598C14.4405 20.3342 14.9903 19.9036 15.5026 19.4998C15.7662 19.292 16.0434 19.0785 16.3292 18.8585C17.5898 17.8879 19.0171 16.7888 20.1833 15.4757C21.6395 13.836 22.75 11.8025 22.75 9.13701C22.75 6.42494 21.2153 4.07283 18.9992 3.05987C16.901 2.10078 14.3121 2.39015 12 4.45873Z"
+                                                            fill="#1C274C"></path>
+                                                    </g>
+                                                </svg> Add to WatchList</div>
+                                            <div class="loading d-none"></div>
+                                            <div class="remove" style="display:none;"><svg width="64px" height="64px"
+                                                    viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
+                                                        stroke-linejoin="round"></g>
+                                                    <g id="SVGRepo_iconCarrier">
+                                                        <path
+                                                            d="M2 9.1371C2 14 6.01943 16.5914 8.96173 18.9109C10 19.7294 11 20.5 12 20.5C13 20.5 14 19.7294 15.0383 18.9109C17.9806 16.5914 22 14 22 9.1371C22 4.27416 16.4998 0.825464 12 5.50063C7.50016 0.825464 2 4.27416 2 9.1371Z"
+                                                            fill="#1C274C"></path>
+                                                    </g>
+                                                </svg> Remove from WatchList</div>
+                                        </div>
+                                        <div class="type">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
-                                                    stroke-linejoin="round"></g>
-                                                <g id="SVGRepo_iconCarrier">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M5.62436 4.4241C3.96537 5.18243 2.75 6.98614 2.75 9.13701C2.75 11.3344 3.64922 13.0281 4.93829 14.4797C6.00072 15.676 7.28684 16.6675 8.54113 17.6345C8.83904 17.8642 9.13515 18.0925 9.42605 18.3218C9.95208 18.7365 10.4213 19.1004 10.8736 19.3647C11.3261 19.6292 11.6904 19.7499 12 19.7499C12.3096 19.7499 12.6739 19.6292 13.1264 19.3647C13.5787 19.1004 14.0479 18.7365 14.574 18.3218C14.8649 18.0925 15.161 17.8642 15.4589 17.6345C16.7132 16.6675 17.9993 15.676 19.0617 14.4797C20.3508 13.0281 21.25 11.3344 21.25 9.13701C21.25 6.98614 20.0346 5.18243 18.3756 4.4241C16.7639 3.68739 14.5983 3.88249 12.5404 6.02065C12.399 6.16754 12.2039 6.25054 12 6.25054C11.7961 6.25054 11.601 6.16754 11.4596 6.02065C9.40166 3.88249 7.23607 3.68739 5.62436 4.4241ZM12 4.45873C9.68795 2.39015 7.09896 2.10078 5.00076 3.05987C2.78471 4.07283 1.25 6.42494 1.25 9.13701C1.25 11.8025 2.3605 13.836 3.81672 15.4757C4.98287 16.7888 6.41022 17.8879 7.67083 18.8585C7.95659 19.0785 8.23378 19.292 8.49742 19.4998C9.00965 19.9036 9.55954 20.3342 10.1168 20.6598C10.6739 20.9853 11.3096 21.2499 12 21.2499C12.6904 21.2499 13.3261 20.9853 13.8832 20.6598C14.4405 20.3342 14.9903 19.9036 15.5026 19.4998C15.7662 19.292 16.0434 19.0785 16.3292 18.8585C17.5898 17.8879 19.0171 16.7888 20.1833 15.4757C21.6395 13.836 22.75 11.8025 22.75 9.13701C22.75 6.42494 21.2153 4.07283 18.9992 3.05987C16.901 2.10078 14.3121 2.39015 12 4.45873Z"
-                                                        fill="#1C274C"></path>
+                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
                                                 </g>
-                                            </svg> Add to WatchList</div>
-                                        <div class="loading d-none"></div>
-                                        <div class="remove" style="display:none;"><svg width="64px" height="64px" viewBox="0 0 24 24"
-                                                fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
-                                                    stroke-linejoin="round"></g>
                                                 <g id="SVGRepo_iconCarrier">
                                                     <path
-                                                        d="M2 9.1371C2 14 6.01943 16.5914 8.96173 18.9109C10 19.7294 11 20.5 12 20.5C13 20.5 14 19.7294 15.0383 18.9109C17.9806 16.5914 22 14 22 9.1371C22 4.27416 16.4998 0.825464 12 5.50063C7.50016 0.825464 2 4.27416 2 9.1371Z"
-                                                        fill="#1C274C"></path>
+                                                        d="M12 7V12L14.5 10.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                                                        stroke="#102343" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round"></path>
                                                 </g>
-                                            </svg> Remove from WatchList</div>
-                                    </div>
-                                    <div class="type">
-                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
-                                            </g>
-                                            <g id="SVGRepo_iconCarrier">
-                                                <path
-                                                    d="M12 7V12L14.5 10.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
-                                                    stroke="#102343" stroke-width="2" stroke-linecap="round"
-                                                    stroke-linejoin="round"></path>
-                                            </g>
-                                        </svg> <span class="fw-bold">Timed</span>
+                                            </svg> <span class="fw-bold">Timed</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-3 px-2 text-lg-center text-start  d-flex flex-column justify-content-evenly">
-                                <div>
-                                    <div class="opening-bid"><span class="light-header">Opening Bid:</span>{{$value['start_bid']}} GBP</div>
-                                    <div class="opening-bid"><a href="#">(?) Additional Fees</a></div>
-                                </div>
-                                <a href="catalogue">
-                                    <a href="{{url('bid')}}"><div class="cata-btn">View & Bid</div></a>
-                                </a>
-                                <div>
-                                    <div class="bidding-ends light-header">Bidding Ends: 1d 3h</div>
-                                    <div class="lot-location"><span class="light-header">Lot Location:</span>Rochdale</div>
+                                <div class="col-lg-3 px-2 text-lg-center text-start  d-flex flex-column justify-content-evenly">
+                                    <div>
+                                        <div class="opening-bid"><span class="light-header">Opening
+                                                Bid:</span>{{$value['start_bid']}} GBP</div>
+                                        <div class="opening-bid"><a href="#">(?) Additional Fees</a></div>
+                                    </div>
+                                    <a href="catalogue">
+                                        <a href="{{url('bid').'/'.$value['enc_id']}}">
+                                            <div class="cata-btn">View & Bid</div>
+                                        </a>
+                                    </a>
+                                    <div>
+                                        <div class="bidding-ends light-header">Bidding Ends: 1d 3h</div>
+                                        <div class="lot-location"><span class="light-header">Lot
+                                                Location:</span>@if(isset($value['location'])) {{$value['location']}} @else
+                                                Multiple Sites @endif</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
-                    
+
                 </div>
             </div>
         </div>
@@ -729,30 +750,30 @@
 @endpush
 
 @push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var watchlists = document.querySelectorAll('.watchlist');
-    
-    watchlists.forEach(function(watchlist) {
-        var addButton = watchlist.querySelector('.add');
-        var loadingDiv = watchlist.querySelector('.loading');
-        var removeButton = watchlist.querySelector('.remove');
-        
-        addButton.addEventListener('click', function() {
-            addButton.style.display = 'none';
-            removeButton.style.display = 'block'; 
-            setTimeout(function() {
-                loadingDiv.style.display = 'none';
-                removeButton.style.display = 'block'; 
-            }, 1000);  
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var watchlists = document.querySelectorAll('.watchlist');
+
+            watchlists.forEach(function (watchlist) {
+                var addButton = watchlist.querySelector('.add');
+                var loadingDiv = watchlist.querySelector('.loading');
+                var removeButton = watchlist.querySelector('.remove');
+
+                addButton.addEventListener('click', function () {
+                    addButton.style.display = 'none';
+                    removeButton.style.display = 'block';
+                    setTimeout(function () {
+                        loadingDiv.style.display = 'none';
+                        removeButton.style.display = 'block';
+                    }, 1000);
+                });
+
+                removeButton.addEventListener('click', function () {
+                    removeButton.style.display = 'none';
+                    addButton.style.display = 'block';
+                });
+            });
         });
-        
-        removeButton.addEventListener('click', function() {
-            removeButton.style.display = 'none';
-            addButton.style.display = 'block'; 
-        });
-    });
-});
-</script>
+    </script>
 
 @endpush

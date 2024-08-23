@@ -208,7 +208,7 @@
 
         .checkbox-wrapper input+label:active {
             transform: scale(1.05);
-            border-radius: 12px;
+            border-radius: 8px;
         }
 
         .checkbox-wrapper input+label svg {

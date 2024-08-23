@@ -35,7 +35,7 @@
     flex-direction:column;
     }
     .cata-btn {
-    padding: 1rem 2rem;
+    padding: .6rem 2rem;
     background: var(--redc);
     text-decoration: none;
     color: white;

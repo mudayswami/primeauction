@@ -109,7 +109,7 @@
             padding: 1rem 2rem;
             color: white;
             text-decoration: none;
-            border-radius: 12px;
+            border-radius: 8px;
             margin-left: .5rem;
         }
 

@@ -69,7 +69,7 @@ class userController extends Controller
             'company' => $request->company,
             'vat_number' => $request->vat_number,
             'subscribe' => $request->subscribe,
-            'interested_category' => json_encode($request->catgory)
+            'interested_category' => json_encode($request->categories)
         ]);
 
         Auth::login($user);
@@ -89,11 +89,12 @@ class userController extends Controller
         }
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
-            $user_data['user_id'] = $user->user_id;
-            $user_data['first_name'] = $user->first_name;
-            $user_data['last_name'] = $user->last_name;
-            $user_data['email'] = $user->email;
-            $user_data['phone_number'] = $user->phone_number;
+            $user_data['user_id']       = $user->user_id;
+            $user_data['verified']      = $user->verified;
+            $user_data['first_name']    = $user->first_name;
+            $user_data['last_name']     = $user->last_name;
+            $user_data['email']         = $user->email;
+            $user_data['phone_number']  = $user->phone_number;
             session()->put('user_data', $user_data);
             return redirect('/');
         } else {

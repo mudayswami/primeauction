@@ -14,18 +14,20 @@ return new class extends Migration
     {
         Schema::create('user',function(Blueprint $table){
             $table->id();
-            $table->string('user_id');
+            $table->string('user_id')->unique();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');
             $table->string('password');
             $table->string('address')->nullable();
+            $table->integer('verified')->default(0);
             $table->string('town');
             $table->string('post_code');
             $table->string('country');
             $table->bigInteger('phone_number');
             $table->string('phone_country');
             $table->integer('seller')->default(0);
+            $table->tinyInteger('seller_approved')->default(0);
             $table->string('photo_id')->nullable();
             $table->string('address_proof')->nullable();
             $table->string('entity');
@@ -43,6 +45,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('user');
+        // Schema::dropIfExists('user');
     }
 };
