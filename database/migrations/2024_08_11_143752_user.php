@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('vat_number')->nullable();
             $table->integer('subscribe')->nullable()->default(0);
             $table->string('interested_category')->nullable();
+            $table->string('stripe_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

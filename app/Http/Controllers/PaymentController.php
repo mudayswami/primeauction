@@ -25,7 +25,7 @@ class PaymentController extends Controller
 
     }
 
-    
+
     function checkout(request $request){
         $stripeSecretKey = 'sk_test_51PZCCv2KFnGSCktKCxvlYCl4nozRiVDdXZTDyjAP2FUnFNWtTIksgQZZjcJMoWIkukYIyT5VS4RuRfycuLHr12xr005EQVxDOH';
         $YOUR_DOMAIN = 'http://localhost/primeauction/public';
@@ -35,7 +35,7 @@ class PaymentController extends Controller
         
         
         $checkout_session = \Stripe\Checkout\Session::create([
-          'customer_email' => 'customer@example.com',
+          'customer_email' => session('user_data')['email'],
           'submit_type' => 'pay',
           'billing_address_collection' => 'required',
           'shipping_address_collection' => [
@@ -55,7 +55,10 @@ class PaymentController extends Controller
           'success_url' => $YOUR_DOMAIN . '/success.html',
           'cancel_url' => $YOUR_DOMAIN . '/cancel.html',
         ]);
-       return redirect()->away($checkout_session->url); 
+        
+        dd($checkout_session);
+        
+        return redirect()->away($checkout_session->url); 
         // header("HTTP/1.1 303 See Other");
         // header("Location: " . $checkout_session->url);
             }

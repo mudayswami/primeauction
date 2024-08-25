@@ -54,6 +54,6 @@ Route::get("account/address",[AccountController::class,'address'])->middleware('
 Route::get("account/add-address",[AccountController::class,'addAddress'])->middleware('auth');
 Route::post("add-address",[AccountController::class,"postAddress"])->middleware('auth');
 
-Route::get('checkout/{id}',[PaymentController::class,'checkout']);
-Route::post('store-payment-method',[PaymentController::class,'saveCard']);
-Route::post('store-payment-method',[PaymentController::class,'setup_intent']);
+Route::get('checkout/{id}',[PaymentController::class,'checkout'])->middleware('auth');
+Route::post('store-payment-method',[PaymentController::class,'saveCard'])->middleware('auth');
+Route::post('store-payment-method',[PaymentController::class,'setup_intent'])->middleware('auth');
