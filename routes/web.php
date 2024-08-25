@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,3 +53,7 @@ Route::post("update-profile",[AccountController::class,'updateProfile'])->middle
 Route::get("account/address",[AccountController::class,'address'])->middleware('auth');
 Route::get("account/add-address",[AccountController::class,'addAddress'])->middleware('auth');
 Route::post("add-address",[AccountController::class,"postAddress"])->middleware('auth');
+
+Route::get('checkout/{id}',[PaymentController::class,'checkout']);
+Route::post('store-payment-method',[PaymentController::class,'saveCard']);
+Route::post('store-payment-method',[PaymentController::class,'setup_intent']);
