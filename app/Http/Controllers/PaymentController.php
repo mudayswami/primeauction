@@ -5,17 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Stripe\Stripe;
 use Stripe\SetupIntent;
-
+use Auth;
 class PaymentController extends Controller
 {
     function savecard(){
-        $stripeSecretKey = 'sk_test_51PZCCv2KFnGSCktKCxvlYCl4nozRiVDdXZTDyjAP2FUnFNWtTIksgQZZjcJMoWIkukYIyT5VS4RuRfycuLHr12xr005EQVxDOH';
+        $stripeSecretKey = env('STRIPE_SECRET');
         Stripe::setApiKey($stripeSecretKey);
+        $user = Auth::user();
 
         // Create a SetupIntent
         $setupIntent = SetupIntent::create([
+            'customer'=>$user->stripe_id,
             'usage' => 'on_session',
-            'payment_method_types' => ['card'],
+            'payment_method_options' => ['card' => ['request_three_d_secure' => 'any']],
         ]);
 
         // Pass the client secret to the view
@@ -27,15 +29,15 @@ class PaymentController extends Controller
 
 
     function checkout(request $request){
-        $stripeSecretKey = 'sk_test_51PZCCv2KFnGSCktKCxvlYCl4nozRiVDdXZTDyjAP2FUnFNWtTIksgQZZjcJMoWIkukYIyT5VS4RuRfycuLHr12xr005EQVxDOH';
+        $stripeSecretKey = env('STRIPE_SECRET');
         $YOUR_DOMAIN = 'http://localhost/primeauction/public';
 
         \Stripe\Stripe::setApiKey($stripeSecretKey);
         header('Content-Type: application/json');
         
-        
+        $user = Auth::user();
         $checkout_session = \Stripe\Checkout\Session::create([
-          'customer_email' => session('user_data')['email'],
+          'customer' => $user->stripe_id,
           'submit_type' => 'pay',
           'billing_address_collection' => 'required',
           'shipping_address_collection' => [
@@ -51,12 +53,12 @@ class PaymentController extends Controller
                 ],
                 'quantity' => 1,
             ]],
+          'payment_method_options' => ['card' => ['request_three_d_secure' => 'any']],
           'mode' => 'payment',
-          'success_url' => $YOUR_DOMAIN . '/success.html',
-          'cancel_url' => $YOUR_DOMAIN . '/cancel.html',
+          'success_url' => $YOUR_DOMAIN . '/payment-success',
+          'cancel_url' => $YOUR_DOMAIN . '/payment-failed',
         ]);
         
-        dd($checkout_session);
         
         return redirect()->away($checkout_session->url); 
         // header("HTTP/1.1 303 See Other");
@@ -64,7 +66,7 @@ class PaymentController extends Controller
             }
 
 
-        function setup_intent(request $request){
+        function setupIntent(request $request){
             $user = auth()->user();
 
             // Retrieve the PaymentMethod ID sent from the frontend
@@ -76,5 +78,13 @@ class PaymentController extends Controller
     
             return response()->json(['success' => true, 'message' => 'Payment method added successfully']);
         
+        }
+
+        function paymentSuccess(request $request){
+            return view('stripe1.paymentsuccess');
+        }
+        
+        function paymentFailed(request $request){
+            return view('stripe1.paymentFailed');
         }
 }

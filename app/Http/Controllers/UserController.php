@@ -90,18 +90,13 @@ class userController extends Controller
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
             if(!isset($user->stripe_id)){
-
-                $stripeSecretKey = 'sk_test_51PZCCv2KFnGSCktKCxvlYCl4nozRiVDdXZTDyjAP2FUnFNWtTIksgQZZjcJMoWIkukYIyT5VS4RuRfycuLHr12xr005EQVxDOH';
+                $stripeSecretKey = env('STRIPE_SECRET');
                 $YOUR_DOMAIN = 'http://localhost/primeauction/public';
-        
                 $stripe =  new \Stripe\StripeClient($stripeSecretKey);
-                header('Content-Type: application/json');
-                $customer = $stripe->customer->create([
-                    'email' => $user->email,  // Use the user's email
-                    'name' => $user->first_name." ".$user->last_name,    // Use the user's name
+                $customer = $stripe->customers->create([
+                    'email' => $user->email,
+                    'name' => $user->first_name." ".$user->last_name,
                 ]);
-        
-                // Store the Stripe customer ID in your database
                 $user->stripe_id = $customer->id;
                 $user->save();
             }

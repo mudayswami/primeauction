@@ -1301,6 +1301,14 @@
                         phnumber.classList.add('is-valid');
                     }
 
+                    if (country.value.trim() === "") {
+                        country.classList.add("is-invalid");
+                        return false;
+                    } else {
+                        country.classList.remove("is-invalid");
+                        country.classList.add('is-valid');
+                    }
+
                     if (entity.value == 2 && company.value.trim() === "") {
                         company.classList.add("is-invalid");
                         return false;

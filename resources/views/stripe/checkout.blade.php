@@ -22,12 +22,19 @@
 
     <script>
         // Initialize Stripe
-        var stripe = Stripe('pk_test_51PZCCv2KFnGSCktKp7It7cbq7Y6QkthbMkrQg8KYvcgMBnXVQhmPps66BJkc1pyLpSpOTPPJGgcBk4InEkZex5P200b4bhYatP');
+        var stripe = Stripe('{{env("STRIPE_PUBLISH")}}');
         var elements = stripe.elements();
-
+        var clientSecret = '{{$clientSecret}}'
         // Create an instance of the card Element
-        var card = elements.create('card');
-        card.mount('#card-element');
+        const appearance = {
+                theme: 'flat',
+            };
+            elements = stripe.elements({ appearance, clientSecret });
+
+            const paymentElement = elements.create('payment');
+            paymentElement.mount('#card-element');
+        // var card = elements.create('card');
+        // card.mount('#card-element');
 
         // Handle real-time validation errors from the card Element.
         card.addEventListener('change', function(event) {
@@ -48,6 +55,7 @@
             var cardholderName = document.getElementById('cardholder-name').value;
 
             // Create a SetupIntent and confirm the card setup
+            
             stripe.confirmCardSetup(
                 '{{ $clientSecret }}', {
                     payment_method: {

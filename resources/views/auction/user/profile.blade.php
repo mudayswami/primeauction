@@ -61,9 +61,9 @@
                 <div>
                     <ul class="list-group my-2 left-nav">
                         <li class="list-group-item"><b>Profile</b></li>
-                        <li class="list-group-item"><a href="#">Details</a></li>
-                        <li class="list-group-item"><a href="#">Payment Cards</a></li>
-                        <li class="list-group-item"><a href="#">Address</a></li>
+                        <li class="list-group-item"><a href="{{url('account/profile')}}">Details</a></li>
+                        <li class="list-group-item"><a href="{{url('account/cards')}}">Payment Cards</a></li>
+                        <li class="list-group-item"><a href="{{url('account/address')}}">Address</a></li>
                     </ul>
                     <ul class="list-group my-2 left-nav">
                         <li class="list-group-item"><b>Activity</b></li>
