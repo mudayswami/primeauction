@@ -16,4 +16,11 @@ class Lot extends Model
     public function auction(){
         return $this->belongsTo(Auction::class,'auction_id');
     }
+
+    public function bids(){
+        return $this->hasMany(Bids::class,'id');
+    }
+    public function auctionRegister(){
+        return $this->belongsTo(AuctionRegister::class,'auction_id');
+    }
 }

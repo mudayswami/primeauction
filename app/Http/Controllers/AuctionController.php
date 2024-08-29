@@ -7,7 +7,9 @@ use App\Models\Lot;
 use Illuminate\Http\Request;
 use App\Models\AuctionRegister;
 use App\Models\AddressBook;
+use App\Models\Bids;
 use Auth;
+use DB;
 class AuctionController extends Controller
 {
     function auction(Request $request)
@@ -20,7 +22,7 @@ class AuctionController extends Controller
     {
         $data['auction'] = Auction::find($id)->toArray();
         $data['lots'] = Lot::where('auction_id', $id)->get()->toArray();
-        if(auth::check()){
+        if(Auth::check()){
             $data['registered'] = AuctionRegister::select('approved')->where(['user_id'=>session('user_data')['user_id'],'auction_id'=>$id])->get()->first();
         }
         return view("auction.auctionCatalogue", $data);
@@ -33,8 +35,18 @@ class AuctionController extends Controller
     }
 
     function bid(Request $request, $id)
-    {
-        $data['lot'] = Lot::with('auction')->where('enc_id',$id)->get()->first();
+    {   
+        $user_id                    = session('user_data')['user_id'];
+        $data['lot']                = Lot::with('auctionRegister')->where('enc_id',$id)->get()->first();
+        $data['auction_register']   = AuctionRegister::where(['auction_id'=>$data['lot']->auction->id,'user_id'=>$user_id])->select('approved')->get()->first();
+        $data['bids']               = Bids::where('lot',$data['lot']->id)->orderBy('bid_amount','desc')->get()->toArray();
+        $data['user_bid']           = [];
+        foreach($data['bids'] as $key => $value){
+            if($value['user_id'] == $user_id){
+                array_push($data['user_bid'],$value);
+            }
+        }
+        // $data['data'] = DB::table('auction_register')->join('tbl_lot','tbl_lot.auction_id','=','auction_register.auction_id')->leftjoin('bids','tbl_lot.id','=','bids.lot')->get();
         return view("auction.bid", $data);
     }
     function aboutus(Request $request)
@@ -69,5 +81,21 @@ class AuctionController extends Controller
         }else{
             return redirect('catalogue/'.$auction_id);
         }
+    }
+
+    function bidSet(Request $request){
+        $user_id        = session('user_data')['user_id'];
+        $lot            = Lot::with('bids')->find($request->lot)->orderBy('bid_amount','desc');
+        Bids::create([
+            'user_id' => '66c064dbce60a',
+            'lot'   => $request->lot,
+            'bid_amount' => $request->bid,
+            'max_bid_amount' => $request->bid,
+            'reserve_met' => 1
+        ]);
+
+        $data['user_bid'] = Bids::where(['user_id'=>$user_id,'lot'=>$request->lot])->orderBy('bid_amount','desc')->get()->toArray();
+        $data['bids'] = Bids::where(['lot'=>$request->lot])->orderBy('bid_amount','desc')->get()->toArray();
+        return $data;
     }
 }

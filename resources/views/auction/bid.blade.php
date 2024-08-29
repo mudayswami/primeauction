@@ -117,27 +117,56 @@
                         <div class="row">
                             <span class="text-center py-2">Reserve not met</span>
                         </div>
+                        <div class="alert alert-success alert-dismissible fade show d-flex align-items-center {{!empty($bids) && $bids[0]['user_id'] == session('user_data')['user_id'] ? '': 'd-none'}}" role="alert" id='bid-success'>
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="20" role="img" aria-label="Info:">
+                                <use xlink:href="#info-fill" />
+                                </svg><div class="px-1" id="bidSuccessText">You're currently in the lead</div>
+                        </div>
+                        <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center {{!empty($user_bid) && $bids[0]['user_id'] != session('user_data')['user_id'] ? '': 'd-none'}}" role="alert" id='bid-success'>
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="20" role="img" aria-label="Info:">
+                                <use xlink:href="#info-fill" />
+                                </svg><div class="px-1" id="bidSuccessText">You're outbid on this lot</div>
+                        </div>
                         <div class="row d-none">
                             <div class="col-4 fs-6 p-3 fw-bold">Closing Bid</div>
                             <div class="col-8 fs-6 p-3 ">Price of the lot has not been published</div>
                         </div>
                         <div class="row">
-                            <div class="col-6 fs-6 p-3 fw-bold" id="opening-bid">Opening Bid</div>
-                            <div class="col-6 fs-6 p-3 "></div>
-                            <div class="col-6 fs-6 p-3 fw-bold" id="current-bid">Current Bid</div>
-                            <div class="col-6 fs-6 p-3 ">150</div>
-                            <div class="col-6 fs-6 p-3 fw-bold" id="next-minimum-bid">Next minimum bid</div>
-                            <div class="col-6 fs-6 p-3 ">150</div>
+                            @if(empty($bids))
+                            <div id="opening-bid" class="row p-3">
+                                <div class="col-6 fs-6 fw-bold" id="opening-bid">Opening Bid</div>
+                                <div class="col-6 fs-6 "><span id="openingBid">{{$lot->start_bid}}</span> £</div>
+                            </div>
+                            @endif
+                            <div class="row p-3 {{empty($bids) ? 'd-none' : ''}}" id="current-bid">
+                                <div class="col-6 fs-6 fw-bold" >Current Bid</div>
+                                <div class="col-6 fs-6 "><span id="currentBid">{{!empty($bids) ? $bids[0]['bid_amount'] : ''}}</span> £</div>
+                            </div>
+                            <div class="row p-3 {{empty($user_bid) ? 'd-none' : '' }}" id="your-maximum-bid">
+                                <div class="col-6 fs-6 fw-bold" >Your Maximum Bid</div>
+                                <div class="col-6 fs-6 " ><span id="youMaximumBid">{{empty($user_bid) ? '' : $user_bid[0]['bid_amount'] }}</span>£</div>
+                            </div>
+                            <div class="row p-3" id="next-minimum-bid">
+                                <div class="col-6 fs-6  fw-bold" id="next-minimum-bid">Next Minimum Bid</div>
+                                <div class="col-6 fs-6"><span id="nextMinimumBid">@if(empty($bids)) {{$lot->start_bid + $lot->next_bid}} @else {{$bids[0]['bid_amount']  + $lot->next_bid}} @endif</span>£</div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-none alert alert-danger alert-dismissible fade show d-flex align-items-center" role="alert" id='bid-error'>
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="20" role="img" aria-label="Info:">
+                                <use xlink:href="#info-fill" />
+                                </svg><div class="px-1" id="bidErrorText"></div>
                         </div>
                         <div class="row">
                             <div class="col-8 fs-6 p-3 fw-bold">
                                 <div class="input-group">
-                                    <input type="text" class="form-control p-2" placeholder="Enter your maximum bid"
-                                        aria-label="bid" aria-describedby="basic-addon2">
+                                    <input type="number"  class="form-control p-2" placeholder="Enter your maximum bid"
+                                        aria-label="bid" aria-describedby="basic-addon2" id="bid">
                                     <span class="input-group-text" id="basic-addon2">GBP</span>
                                 </div>
                             </div>
-                            <div class="col-4 "><button class="cata-btn">Place Bid</button></div>
+                            <div class="col-4 "><button class="cata-btn" id='bidplace'>Place Bid</button></div>
+                            
                         </div>
                         <div class="row">
                             <div class="col-4 fs-6 p-3 fw-bold">Buyer's Premium</div>
@@ -345,8 +374,42 @@
 @endpush
 
 @push('scripts')
-    <script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="{{asset('js/bp.js')}}"></script>
+<script>
+    const bidplace  = document.getElementById('bidplace');
+    const bid       = document.getElementById('bid');
+    const openBid   = document.getElementById('openingBid');
+    const bids      = {{sizeof($bids)}};
+bidplace.addEventListener('click',()=>{
+    const nextMinimumBid = document.getElementById('nextMinimumBid');
+    $('#bid-error').removeClass('d-none');
+    $('#bid-error').addClass('d-none');
+    if(bids != 0 && bid.value.trim() <= Number(nextMinimumBid.textContent)){
+        $('#bid-error').removeClass('d-none');
+        $('#bidErrorText').empty();
+        $('#bidErrorText').html('Bid Should be greater than or equal to '+nextMinimumBid.innerHTML +'£');
+        return false;
+    }
 
+    if(bids == 0 && bid.value.trim() <= Number(openBid.textContent)){
+        $('#bid-error').removeClass('d-none');
+        $('#bidErrorText').empty();
+        $('#bidErrorText').html('Bid Should be greater than or equal to '+openBid.innerHTML +'£');
+        return false;
+    }
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': '{{csrf_token()}}'
+        },
+        url : "{{ url('bp') }}",
+        data : {'bid' : bid.value,'lot':{{$lot->id}} },
+        type : 'post',
+        success : function(result){
+            console.log("===== " + result + " =====");
+            bid.value=0;
+        }
+    });
+});
     </script>
-
 @endpush

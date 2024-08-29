@@ -14,4 +14,7 @@ class User extends Authenticatable
         'country','phone_number','phone_country','seller','photo_id','address_proof','entity','company','vat_number',
         'subscribe','interested_category'
     ]; 
+    public function bids(){
+        return $this->hasMany(Bids::class); 
+    }
 }

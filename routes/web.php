@@ -31,6 +31,7 @@ Route::get("bid/{id}",[AuctionController::class,"bid"])->middleware('auth');
 Route::get("aboutus",[AuctionController::class,"aboutus"]);
 Route::get("catalogue/{id}/register",[AuctionController::class,"registerToBid"])->middleware('auth');
 Route::post("catalogue/{id}/register",[AuctionController::class,"auctionRegister"])->middleware('auth');
+Route::post("bp",[AuctionController::class,"bidSet"]);
 
 Route::get("store",[StoreController::class,"home"]);
 Route::get("store/products",[StoreController::class,"products"]);
