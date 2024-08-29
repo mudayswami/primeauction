@@ -408,6 +408,7 @@ bidplace.addEventListener('click',()=>{
         success : function(result){
             console.log("===== " + result + " =====");
             bid.value=0;
+            location.href= location.href;
         }
     });
 });
