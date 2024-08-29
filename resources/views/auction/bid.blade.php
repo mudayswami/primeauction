@@ -107,7 +107,7 @@
             <div class="row">
                 <div class="col-md-6 col-12 ">
                     <div class="img-container">
-                        <img src="{{'/primeshop/public/' . $lot->img}}">
+                        <img src="{{'https://phplaravel-1294642-4704161.cloudwaysapps.com/bid/24014d887f21f3293f9008f0972621f5/public/' . $lot->img}}">
 
                     </div>
                 </div>
@@ -245,7 +245,7 @@
                     <div class="tab-pane fade" id="nav-auction" role="tabpanel" aria-labelledby="nav-contact-tab">
                         <div class="row">
                             <div class="col-lg-2 d-flex flex-column align-items-center">
-                                <img class="auction-item-img" src="{{'/primeshop/public/' . $lot->auction->img}}">
+                                <img class="auction-item-img" src="{{'https://phplaravel-1294642-4704161.cloudwaysapps.com/bid/24014d887f21f3293f9008f0972621f5/public/' . $lot->auction->img}}">
                                 <div class="type py-1">
                                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

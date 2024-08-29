@@ -467,7 +467,7 @@
                         <div class="auction-list-item">
                             <div class="row">
                                 <div class="col-lg-3 col-12 d-flex justify-content-evenly align-items-center flex-column">
-                                    <img class="auction-item-img" src="{{'/primeshop/public/' . $value['img']}}">
+                                    <img class="auction-item-img" src="{{'https://phplaravel-1294642-4704161.cloudwaysapps.com/bid/24014d887f21f3293f9008f0972621f5/public/' . $value['img']}}">
                                     <div>
                                         <p>
                                             <svg viewBox="0 0 24 24" fill="none" width='42' height="42"
