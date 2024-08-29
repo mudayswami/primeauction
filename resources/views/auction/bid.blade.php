@@ -107,7 +107,7 @@
             <div class="row">
                 <div class="col-md-6 col-12 ">
                     <div class="img-container">
-                        <img src="{{ url($lot->img}}">
+                        <img src="{{ url($lot->img()}}">
 
                     </div>
                 </div>
