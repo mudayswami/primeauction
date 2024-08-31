@@ -15,5 +15,9 @@ class Auction extends Model
     public function lots(){
         return $this->hasMany(Lot::class,'auction_id');
     }
+
+    public function auctionRegister(){
+        return $this->hasMany(AuctionRegister::class,'auction_id');
+    }
     
 }

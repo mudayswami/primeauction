@@ -47,9 +47,9 @@ class PaymentController extends Controller
                 'price_data' => [
                 'currency' => 'gbp',
                 'product_data' => [
-                    'name' => 'Anubhav',
+                    'name' => 'Rado Digital Watch',
                 ],
-                'unit_amount' => 100,
+                'unit_amount' => 10000,
                 ],
                 'quantity' => 1,
             ]],

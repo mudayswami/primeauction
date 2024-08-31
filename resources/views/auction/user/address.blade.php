@@ -89,7 +89,7 @@
     <div class="container my-3">
         <div class="row">
 
-            <h4 class="text-center fw-bold py-3" id="page-heading">Profile Details</h4>
+            <h4 class="text-center fw-bold py-3" id="page-heading">Address</h4>
             <div class="col-sm-12 col-md-12 col-lg-3">
                 <div>
                     <ul class="list-group my-2 left-nav">
@@ -100,11 +100,11 @@
                     </ul>
                     <ul class="list-group my-2 left-nav">
                         <li class="list-group-item"><b>Activity</b></li>
-                        <li class="list-group-item"><a href="#">Registerations</a></li>
-                        <li class="list-group-item"><a href="#">Placed Bids</a></li>
-                        <li class="list-group-item"><a href="#">Won Lots</a></li>
-                        <li class="list-group-item"><a href="#">Lost Lots</a></li>
-                        <li class="list-group-item"><a href="#">Watchlist</a></li>
+                        <li class="list-group-item"><a href="{{url('account/registeration')}}">Registerations</a></li>
+                        <li class="list-group-item"><a href="{{url('account/placed-bids')}}">Placed Bids</a></li>
+                        <li class="list-group-item"><a href="{{url('account/won-lots')}}">Won Lots</a></li>
+                        <li class="list-group-item"><a href="{{url('account/lost-lots')}}">Lost Lots</a></li>
+                        <li class="list-group-item"><a href="{{url('account/watchlist')}}">Watchlist</a></li>
                     </ul>
                 </div>
             </div>

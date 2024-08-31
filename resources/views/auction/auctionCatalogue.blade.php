@@ -2,6 +2,7 @@
 
 @push('meta')
     <title>Prime Auction</title>
+    <?xml version="1.0" encoding="utf-8"?>
 @endpush
 
 @push('styles')
@@ -170,6 +171,19 @@
     <section>
         <div class="container">
             <div class="row">
+                @if((date($auction['start'])) > (date('Y-m-d H:i:s')) )
+                <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
+                        <use xlink:href="#info-fill" />
+                        </svg><div class="px-1"><strong class="fs-5">Bidding on this auction has not started</strong><br><span> Please register now so you are approved to bid when auction starts.</span></div>
+                </div>
+                @elseif((date($auction['end'])) < (date('Y-m-d H:i:s')) )
+                <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
+                        <use xlink:href="#info-fill" />
+                        </svg><div class="px-1"><strong class="fs-5">The auction is closed!</strong><br><span> It is no longer possible to bid at this auction</span></div>
+                </div>
+                @endif
                 @if(isset($registered) && $registered->approved == 0)
                     <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center" role="alert">
                         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
@@ -255,9 +269,8 @@
                     </div>
                 </div>
                 <div class="col-lg-2 buying">
-                    @if(!isset($registered))
-                    <a href="{{$auction['id']}}/register"><button type="submit" class="btn cata-btn">Register to
-                            bid</button></a>
+                    @if((date($auction['end'])) > (date('Y-m-d H:i:s')) && !isset($registered))
+                    <a href="{{$auction['id']}}/register"><button type="submit" class="btn cata-btn">@if(date($auction['start']) > date('Y-m-d H:i:s')) Coming Soon @else Register to bid @endif</button></a>
                     @endif
                     <div class="regulations d-flex flex-column">
                         <a class=" ">Terms & conditions</a>
@@ -267,6 +280,7 @@
                 </div>
             </div>
             <div class="divider"></div>
+            @if((date($auction['start'])) < (date('Y-m-d H:i:s')) )
             <div class=" category-header py-2">Featured Lots</div>
             <div class="featured-lot">
                 <div class="card my-2 mx-1" style="width: 18rem;">
@@ -280,56 +294,13 @@
                         </div>
                     </a>
                 </div>
-                <div class="card my-2 mx-1" style="width: 18rem;">
-                    <a href="/">
-                        <img src="https://portal-images.azureedge.net/auctions-2024/wi415927/images/7cb50f34-e8cb-479c-b7bc-9a1cf44e61d2.png?w=250"
-                            class="card-img-top"
-                            alt="https://portal-images.azureedge.net/auctions-2024/wi415932/images/efc76ed6-93ed-4385-aac2-35d066663c21.png?w=250">
-                        <div class="card-body">
-                            <p class="card-text">VR Virtual Reality VR3D Glasses Helmet VR Google Lens Adjustable For
-                                Iphone, Android</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="card my-2 mx-1" style="width: 18rem;">
-                    <a href="/">
-                        <img src="https://portal-images.azureedge.net/auctions-2024/wi415968/images/079e823a-4dcd-4403-82ef-b369695e4d44.jpeg?w=250"
-                            class="card-img-top"
-                            alt="https://portal-images.azureedge.net/auctions-2024/wi415932/images/efc76ed6-93ed-4385-aac2-35d066663c21.png?w=250">
-                        <div class="card-body">
-                            <p class="card-text">VR Virtual Reality VR3D Glasses Helmet VR Google Lens Adjustable For
-                                Iphone, Android</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="card my-2 mx-1" style="width: 18rem;">
-                    <a href="/">
-                        <img src="https://portal-images.azureedge.net/auctions-2024/wi415932/images/efc76ed6-93ed-4385-aac2-35d066663c21.png?w=250"
-                            class="card-img-top"
-                            alt="https://portal-images.azureedge.net/auctions-2024/wi415932/images/efc76ed6-93ed-4385-aac2-35d066663c21.png?w=250">
-                        <div class="card-body">
-                            <p class="card-text">VR Virtual Reality VR3D Glasses Helmet VR Google Lens Adjustable For
-                                Iphone, Android</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="card my-2 mx-1" style="width: 18rem;">
-                    <a href="/">
-                        <img src="https://portal-images.azureedge.net/auctions-2024/wi415987/images/fdb53228-4b60-4f77-a2c6-1833350a1a30.png?w=250"
-                            class="card-img-top"
-                            alt="https://portal-images.azureedge.net/auctions-2024/wi415932/images/efc76ed6-93ed-4385-aac2-35d066663c21.png?w=250">
-                        <div class="card-body">
-                            <p class="card-text">VR Virtual Reality VR3D Glasses Helmet VR Google Lens Adjustable For
-                                Iphone, Android</p>
-                        </div>
-                    </a>
-                </div>
             </div>
+            @endif
             <div class="row ">
                 <div class="col-lg-3"></div>
                 <div class="col-lg-6 col-12">
                     <div class="subsearch ">
-                        <div class="fw-bold py-1">There are 198 within this auction</div>
+                        <div class="fw-bold py-1">There are {{$auction['lots']}} within this auction</div>
                         <form class="d-flex mx-auto justify-content">
                             <input class="form-control inp-search fs-5" type="search" placeholder="Search"
                                 aria-label="Search">
@@ -675,34 +646,16 @@
                                     <div class="lot-description  py-2">
                                         <p>{{$value['description']}}</p>
                                     </div>
-                                    @foreach (json_decode($value['category'], true) as $category)
-                                        <div class="tags "><span class="badge rounded-pill bg-web">{{$category}}</span></div>
-                                    @endforeach
+                                    <div class="d-flex ">
+                                        @foreach (json_decode($value['category'], true) as $category)
+                                        <div class="tags px-1"><span class="badge rounded-pill bg-web">{{$category}}</span></div>
+                                        @endforeach
+                                    </div>
                                     <div class="extra">
                                         <div class="watchlist">
-                                            <div class="add"><svg width="64px" height="64px" viewBox="0 0 24 24" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
-                                                        stroke-linejoin="round"></g>
-                                                    <g id="SVGRepo_iconCarrier">
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M5.62436 4.4241C3.96537 5.18243 2.75 6.98614 2.75 9.13701C2.75 11.3344 3.64922 13.0281 4.93829 14.4797C6.00072 15.676 7.28684 16.6675 8.54113 17.6345C8.83904 17.8642 9.13515 18.0925 9.42605 18.3218C9.95208 18.7365 10.4213 19.1004 10.8736 19.3647C11.3261 19.6292 11.6904 19.7499 12 19.7499C12.3096 19.7499 12.6739 19.6292 13.1264 19.3647C13.5787 19.1004 14.0479 18.7365 14.574 18.3218C14.8649 18.0925 15.161 17.8642 15.4589 17.6345C16.7132 16.6675 17.9993 15.676 19.0617 14.4797C20.3508 13.0281 21.25 11.3344 21.25 9.13701C21.25 6.98614 20.0346 5.18243 18.3756 4.4241C16.7639 3.68739 14.5983 3.88249 12.5404 6.02065C12.399 6.16754 12.2039 6.25054 12 6.25054C11.7961 6.25054 11.601 6.16754 11.4596 6.02065C9.40166 3.88249 7.23607 3.68739 5.62436 4.4241ZM12 4.45873C9.68795 2.39015 7.09896 2.10078 5.00076 3.05987C2.78471 4.07283 1.25 6.42494 1.25 9.13701C1.25 11.8025 2.3605 13.836 3.81672 15.4757C4.98287 16.7888 6.41022 17.8879 7.67083 18.8585C7.95659 19.0785 8.23378 19.292 8.49742 19.4998C9.00965 19.9036 9.55954 20.3342 10.1168 20.6598C10.6739 20.9853 11.3096 21.2499 12 21.2499C12.6904 21.2499 13.3261 20.9853 13.8832 20.6598C14.4405 20.3342 14.9903 19.9036 15.5026 19.4998C15.7662 19.292 16.0434 19.0785 16.3292 18.8585C17.5898 17.8879 19.0171 16.7888 20.1833 15.4757C21.6395 13.836 22.75 11.8025 22.75 9.13701C22.75 6.42494 21.2153 4.07283 18.9992 3.05987C16.901 2.10078 14.3121 2.39015 12 4.45873Z"
-                                                            fill="#1C274C"></path>
-                                                    </g>
-                                                </svg> Add to WatchList</div>
+                                            <div class="add"><img width="30" src="{{url('assets/svg/outline-heart.svg')}}" > Add to WatchList</div>
                                             <div class="loading d-none"></div>
-                                            <div class="remove" style="display:none;"><svg width="64px" height="64px"
-                                                    viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round"
-                                                        stroke-linejoin="round"></g>
-                                                    <g id="SVGRepo_iconCarrier">
-                                                        <path
-                                                            d="M2 9.1371C2 14 6.01943 16.5914 8.96173 18.9109C10 19.7294 11 20.5 12 20.5C13 20.5 14 19.7294 15.0383 18.9109C17.9806 16.5914 22 14 22 9.1371C22 4.27416 16.4998 0.825464 12 5.50063C7.50016 0.825464 2 4.27416 2 9.1371Z"
-                                                            fill="#1C274C"></path>
-                                                    </g>
-                                                </svg> Remove from WatchList</div>
+                                            <div class="remove" style="display:none;"><img width="30" src="{{url('assets/svg/filled-heart.svg')}}" > Remove from WatchList</div>
                                         </div>
                                         <div class="type">
                                             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -721,13 +674,13 @@
                                 </div>
                                 <div class="col-lg-3 px-2 text-lg-center text-start  d-flex flex-column justify-content-evenly">
                                     <div>
-                                        <div class="opening-bid"><span class="light-header">Opening
+                                        <div class="opening-bid d-none"><span class="light-header">Opening
                                                 Bid:</span>{{$value['start_bid']}} GBP</div>
                                         <div class="opening-bid"><a href="#">(?) Additional Fees</a></div>
                                     </div>
                                     <a href="catalogue">
                                         <a href="{{url('bid').'/'.$value['enc_id']}}">
-                                            <div class="cata-btn">View & Bid</div>
+                                            <div class="cata-btn">@if((date($auction['end'])) < (date('Y-m-d H:i:s')) ) Bidding Closed @else View & Bid @endif</div>
                                         </a>
                                     </a>
                                     <div>
@@ -750,6 +703,7 @@
 @endpush
 
 @push('scripts')
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var watchlists = document.querySelectorAll('.watchlist');
@@ -762,15 +716,39 @@
                 addButton.addEventListener('click', function () {
                     addButton.style.display = 'none';
                     removeButton.style.display = 'block';
-                    setTimeout(function () {
-                        loadingDiv.style.display = 'none';
-                        removeButton.style.display = 'block';
-                    }, 1000);
+                    // setTimeout(function () {
+                    //     loadingDiv.style.display = 'none';
+                    //     removeButton.style.display = 'block';
+                    // }, 1000);
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': '{{csrf_token()}}'
+                        },
+                        url : "{{ url('wl') }}",
+                        data : {'status' : 1 ,'lot':'s'},
+                        type : 'post',
+                        success : function(result){
+                            console.log("===== " + result + " =====");
+                           
+                        }
+                    });
                 });
 
                 removeButton.addEventListener('click', function () {
                     removeButton.style.display = 'none';
                     addButton.style.display = 'block';
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': '{{csrf_token()}}'
+                        },
+                        url : "{{ url('wl') }}",
+                        data : {'status' : 0 ,'lot':'s' },
+                        type : 'post',
+                        success : function(result){
+                            console.log("===== " + result + " =====");
+                            
+                        }
+                    });
                 });
             });
         });

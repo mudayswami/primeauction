@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\AddressBook;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Auction;
+use App\Models\Lot;
 use Auth;
+use DB;
 
 class AccountController extends Controller
 {
@@ -66,5 +69,32 @@ class AccountController extends Controller
         ]);
 
         return redirect('account/address')->with('status','Address Added');
+    }
+
+    function registerations(){
+        $user_id = session('user_data')['user_id'];
+        $data['auction'] = Auction::join('auction_register','auction_register.auction_id','=','tbl_auction.id')->where('auction_register.user_id',$user_id)->
+        select('tbl_auction.*', 'auction_register.id as auction_register_id' ,'auction_register.approved as approved')->get()->toArray();
+        return view('auction.user.registerations',$data);
+    }
+
+    function placedBids(){
+        $user_id = session('user_data')['user_id'];
+
+        DB::statement("SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));");
+        $data['lots'] = Lot::rightjoin('bids','bids.lot','=','tbl_lot.id')->where('bids.user_id',$user_id)->select('tbl_lot.*','bids.*')->orderBy('bid_amount','desc')->groupBy('bids.lot')->get()->toArray();
+        return view('auction.user.placeBids',$data);
+    }
+
+    function wonLots(){
+
+    }
+
+    function lostLots(){
+
+    }
+
+    function watchlist(){
+
     }
 }

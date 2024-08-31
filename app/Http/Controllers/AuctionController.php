@@ -14,7 +14,7 @@ class AuctionController extends Controller
 {
     function auction(Request $request)
     {
-        $data['auction'] = Auction::all()->toArray();
+        $data['auction'] = Auction::where('end','>=',date('Y-m-d H:i:s'))->get()->toArray();
         return view("auction.mainAuction", $data);
     }
 
@@ -37,7 +37,7 @@ class AuctionController extends Controller
     function bid(Request $request, $id)
     {   
         $user_id                    = session('user_data')['user_id'];
-        $data['lot']                = Lot::with('auctionRegister')->where('enc_id',$id)->get()->first();
+        $data['lot']                = Lot::with('auctionRegister')->where( 'enc_id', $id)->get()->first();
         $data['auction_register']   = AuctionRegister::where(['auction_id'=>$data['lot']->auction->id,'user_id'=>$user_id])->select('approved')->get()->first();
         $data['bids']               = Bids::where('lot',$data['lot']->id)->orderBy('bid_amount','desc')->get()->toArray();
         $data['user_bid']           = [];
@@ -87,7 +87,7 @@ class AuctionController extends Controller
         $user_id        = session('user_data')['user_id'];
         $lot            = Lot::with('bids')->find($request->lot)->orderBy('bid_amount','desc');
         Bids::create([
-            'user_id' => '66c064dbce60a',
+            'user_id' => $user_id,
             'lot'   => $request->lot,
             'bid_amount' => $request->bid,
             'max_bid_amount' => $request->bid,
@@ -97,5 +97,9 @@ class AuctionController extends Controller
         $data['user_bid'] = Bids::where(['user_id'=>$user_id,'lot'=>$request->lot])->orderBy('bid_amount','desc')->get()->toArray();
         $data['bids'] = Bids::where(['lot'=>$request->lot])->orderBy('bid_amount','desc')->get()->toArray();
         return $data;
+    }
+
+    function watchlist(Request $request){
+        
     }
 }

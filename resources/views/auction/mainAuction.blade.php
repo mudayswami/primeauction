@@ -58,7 +58,7 @@
         .auction-list-item {
             padding: 14px 14px 14px 0px;
             box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-            margin-bottom: 2rem;
+            margin-bottom: 1.3rem;
             border-radius: 4px;
         }
 
@@ -69,7 +69,7 @@
         .auction-item-img {
             border-radius: 4px;
             overflow: auto;
-            max-width: 150px;
+            max-width: 120px;
             /* width: 100%;
                             height: 100%;
                             object-fit: cover;
@@ -469,33 +469,35 @@
                                 <div class="col-lg-3 col-12 d-flex justify-content-evenly align-items-center flex-column">
                                     <img class="auction-item-img" src="{{'/primeshop/public/' . $value['img']}}">
                                     <div>
-                                        <p>
-                                            <svg viewBox="0 0 24 24" fill="none" width='42' height="42"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
-                                                </g>
-                                                <g id="SVGRepo_iconCarrier">
-                                                    <path
-                                                        d="M12 7V12L14.5 10.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
-                                                        stroke="#102343" stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round"></path>
-                                                </g>
-                                            </svg>{{$value['type']}}
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <p class="small">
-                                            @if($value['location'])
-                                                {{$value['location']}}
-                                            @else
-                                                Multiple Sites
-                                            @endif
-                                        </p>
+                                        <div>
+                                            <span class="text-muted">
+                                                <svg viewBox="0 0 24 24" fill="none" width='36' height="36"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
+                                                    </g>
+                                                    <g id="SVGRepo_iconCarrier">
+                                                        <path
+                                                            d="M12 7V12L14.5 10.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                                                            stroke="#102343" stroke-width="2" stroke-linecap="round"
+                                                            stroke-linejoin="round"></path>
+                                                    </g>
+                                                </svg>{{$value['type']}}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="small text-muted">
+                                                @if($value['location'])
+                                                    {{$value['location']}}
+                                                @else
+                                                    Multiple Sites
+                                                @endif
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-9 col-12 d-flex flex-column  justify-content-center">
-                                    <div class="item-description fs-5">
+                                    <div class="item-description fs-6">
                                         {{$value['description']}}
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center">

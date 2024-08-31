@@ -93,6 +93,19 @@
     @include('auction.include.auctionSearch')
     <section>
         <div class="container">
+            @if((date($lot->auction->start)) > (date('Y-m-d H:i:s')) )
+            <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
+                    <use xlink:href="#info-fill" />
+                    </svg><div class="px-1"><strong class="fs-5">Bidding on this auction has not started</strong><br><span> Please register now so you are approved to bid when auction starts.</span></div>
+            </div>
+            @elseif((date($lot->auction->end)) < (date('Y-m-d H:i:s')) )
+            <div class="alert alert-danger alert-dismissible fade show d-flex align-items-center " role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
+                    <use xlink:href="#info-fill" />
+                    </svg><div class="px-1"><strong class="fs-5">The auction is closed!</strong><br><span> It is no longer possible to bid at this auction</span></div>
+            </div>
+            @endif
             <div class="row">
                 <div class="col-md-1 col-12"><span class="text-muted h4">Lot 1</span></div>
                 <div class="col-md-11 col-12">
@@ -114,15 +127,16 @@
                 <div class="col-md-6 col-12 ">
                     <div class="lot-message"></div>
                     <div class="bid-section border border-1">
+                        @if((date($lot->auction->end)) > (date('Y-m-d H:i:s')))
                         <div class="row">
                             <span class="text-center py-2">Reserve not met</span>
                         </div>
-                        <div class="alert alert-success alert-dismissible fade show d-flex align-items-center {{!empty($bids) && $bids[0]['user_id'] == session('user_data')['user_id'] ? '': 'd-none'}}" role="alert" id='bid-success'>
+                        <div class="alert alert-success alert-dismissible fade show d-flex align-items-center <?php if(!empty($bids) && $bids[0]['user_id'] == session('user_data')['user_id']){echo '';}else{ echo 'd-none'; } ?>"  role="alert" id='bid-success'>
                             <svg class="bi flex-shrink-0 me-2" width="24" height="20" role="img" aria-label="Info:">
                                 <use xlink:href="#info-fill" />
                                 </svg><div class="px-1" id="bidSuccessText">You're currently in the lead</div>
                         </div>
-                        <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center {{!empty($user_bid) && $bids[0]['user_id'] != session('user_data')['user_id'] ? '': 'd-none'}}" role="alert" id='bid-success'>
+                        <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center <?php if(!empty($user_bid) && $bids[0]['user_id'] != session('user_data')['user_id']){echo '';}else{ echo 'd-none'; } ?>" role="alert" id='bid-success'>
                             <svg class="bi flex-shrink-0 me-2" width="24" height="20" role="img" aria-label="Info:">
                                 <use xlink:href="#info-fill" />
                                 </svg><div class="px-1" id="bidSuccessText">You're outbid on this lot</div>
@@ -165,8 +179,11 @@
                                     <span class="input-group-text" id="basic-addon2">GBP</span>
                                 </div>
                             </div>
-                            <div class="col-4 "><button class="cata-btn" id='bidplace'>Place Bid</button></div>
-                            
+                            @if(empty($auction_register))
+                                <div class="col-4 "><a href="{{url('catalogue/'.$lot->auction->id.'/register')}}"><button class="cata-btn">Place Bid</button></a></div>
+                            @else
+                                <div class="col-4 "><button class="cata-btn" id='bidplace'>Place Bid</button></div>
+                            @endif
                         </div>
                         <div class="row">
                             <div class="col-4 fs-6 p-3 fw-bold">Buyer's Premium</div>
@@ -187,12 +204,24 @@
                                     <img src="{{url('assets/svg/mail.svg')}}">Ask a
                                     question</a>
                             </div>
-                            <div class="col-6 py-3 btn-outline-light text-center border border-1"><a href="#"><img
-                                        src="{{url('assets/svg/hammer.svg')}}">Register to
-                                    bid</a></div>
+                            <div class="col-6 py-3 btn-outline-light text-center border border-1">
+                                @if(empty($auction_register))
+                                <a href="{{url('catalogue/'.$lot->auction->id.'/register')}}"><img src="{{url('assets/svg/hammer.svg')}}">Register to bid</a>
+                                @else
+                                <a href=""><img src="{{url('assets/svg/hammer.svg')}}">Registered</a>
+                                @endif
+                            </div>
                             <div class="col-6 py-3 btn-outline-light text-center border border-1"><a href="#">Share</a>
                             </div>
                         </div>
+                        @else
+                        <div class="row">
+                            <div id="closing-bid" class="row p-3">
+                                <div class="col-4 fs-6 fw-bold" id="closing-bid">Close Bid</div>
+                                <div class="col-8 fs-6 "><span id="closingBid text-muted">Closing bid is yet not published</span> </div>
+                            </div>
+                        </div>
+                        @endif
                     </div>
                     <div class="bid-section">
                         <div class="row">
@@ -205,7 +234,7 @@
                     <div class="">
                         <div class="row">
                             <div class="col-7 fs-6 fw-light p-3"></div>
-                            <div class="col-5 fs-6 fw-light p-3"><a href="#"><u>Next Lot: 2</u><img
+                            <div class="col-5 fs-6 fw-light p-3 d-none"><a href="#"><u>Next Lot: 2</u><img
                                         src="{{url('assets/short-right-arrow.svg')}}" alt></a></div>
                             <div class="col-12 fs-6 fw-light p-3">
                                 <div class="input-group">
@@ -260,7 +289,7 @@
                                     </svg> <span class="fw-bold">{{$lot->auction->type}}</span>
                                 </div>
                                 <div class="venue-address d-flex flex-column">
-                                    <span>@if(isset($lot->auction->location)) {{$lot->aucction->location}} @else Multiple Sites
+                                    <span>@if(isset($lot->auction->location)) {{$lot->auction->location}} @else Multiple Sites
                                     @endif</span>
                                     <!-- <span> Ashton Under </span> -->
                                     <!-- <span>Lyne United</span> -->
@@ -376,6 +405,7 @@
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="{{asset('js/bp.js')}}"></script>
+@if((date($lot->auction->end)) > (date('Y-m-d H:i:s')))
 <script>
     const bidplace  = document.getElementById('bidplace');
     const bid       = document.getElementById('bid');
@@ -413,4 +443,5 @@ bidplace.addEventListener('click',()=>{
     });
 });
     </script>
+    @endif
 @endpush
