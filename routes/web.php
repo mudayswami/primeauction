@@ -23,7 +23,7 @@ Route::get("aboutus",[AuctionController::class,"aboutus"]);
 Route::get("catalogue/{id}/register",[AuctionController::class,"registerToBid"])->middleware('auth');
 Route::post("catalogue/{id}/register",[AuctionController::class,"auctionRegister"])->middleware('auth');
 Route::post("bp",[AuctionController::class,"bidSet"]);
-Route::post("wl",[AuctionController::class,"watchlist"]);
+Route::get("cron-lot-winner",[AuctionController::class,"lotWinner"]);
 
 Route::get("store",[StoreController::class,"home"]);
 Route::get("store/products",[StoreController::class,"products"]);
@@ -55,6 +55,7 @@ Route::get('account/placed-bids',[AccountController::class,'placedBids'])->middl
 Route::get('account/won-lots',[AccountController::class,'wonLots'])->middleware('auth');
 Route::get('account/lost-lots',[AccountController::class,'lostLots'])->middleware('auth');
 Route::get('account/watchlist',[AccountController::class,'watchlist'])->middleware('auth');
+Route::post("wl",[AccountController::class,"addIntoWatchlist"]);
 
 
 Route::get('checkout/{id}',[PaymentController::class,'checkout'])->middleware('auth');

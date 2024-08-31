@@ -82,7 +82,7 @@ class AccountController extends Controller
         $user_id = session('user_data')['user_id'];
 
         DB::statement("SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));");
-        $data['lots'] = Lot::rightjoin('bids','bids.lot','=','tbl_lot.id')->where('bids.user_id',$user_id)->select('tbl_lot.*','bids.*')->orderBy('bid_amount','desc')->groupBy('bids.lot')->get()->toArray();
+        $data['lots'] = Lot::rightjoin('bids','bids.lot','=','tbl_lot.id')->where('bids.user_id',$user_id)->select('tbl_lot.*','bids.status as bid_status')->orderBy('bid_amount','desc')->groupBy('bids.lot')->get()->toArray();
         return view('auction.user.placeBids',$data);
     }
 
@@ -94,7 +94,12 @@ class AccountController extends Controller
 
     }
 
-    function watchlist(){
-
+    function watchlist(Request $request){
+        
     }
+
+    function addIntoWatchlist(Request $reqeust){
+        
+    }
+    
 }

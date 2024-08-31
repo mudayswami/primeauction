@@ -37,7 +37,7 @@ class AuctionController extends Controller
     function bid(Request $request, $id)
     {   
         $user_id                    = session('user_data')['user_id'];
-        $data['lot']                = Lot::with('auctionRegister')->where( 'enc_id', $id)->get()->first();
+        $data['lot']                = Lot::with('auctionRegister')->where('id', $id)->get()->first();
         $data['auction_register']   = AuctionRegister::where(['auction_id'=>$data['lot']->auction->id,'user_id'=>$user_id])->select('approved')->get()->first();
         $data['bids']               = Bids::where('lot',$data['lot']->id)->orderBy('bid_amount','desc')->get()->toArray();
         $data['user_bid']           = [];
@@ -85,21 +85,35 @@ class AuctionController extends Controller
 
     function bidSet(Request $request){
         $user_id        = session('user_data')['user_id'];
-        $lot            = Lot::with('bids')->find($request->lot)->orderBy('bid_amount','desc');
+        $lot            = Lot::join('bids','bids.lot','=','tbl_lot.id')->where(['tbl_lot.id'=>$request->lot,'bids.status'=>'active'])->select('tbl_lot.*', 'bids.status  as bid_status','bids.id as bid_id','bids.bid_amount as bid_amount')->orderBy('bid_amount','desc')->get()->toArray();
+        // dd($lot);
+        if(!empty($lot)){
+
+            if(($lot[0]['bid_amount'] + $lot[0]['next_bid']) > $request->bid){
+                return 'smallBid';
+            }
+            $bids = Bids::find($lot[0]['bid_id']);
+            $bids->status = 'outbid';
+            $bids->save();
+        }
         Bids::create([
             'user_id' => $user_id,
             'lot'   => $request->lot,
             'bid_amount' => $request->bid,
             'max_bid_amount' => $request->bid,
-            'reserve_met' => 1
+            'reserve_met' => (isset($lot[0]['reserve_bid']) && $request->bid >= $lot[0]['reserve_bid']) ? 1 : 0,
         ]);
 
-        $data['user_bid'] = Bids::where(['user_id'=>$user_id,'lot'=>$request->lot])->orderBy('bid_amount','desc')->get()->toArray();
-        $data['bids'] = Bids::where(['lot'=>$request->lot])->orderBy('bid_amount','desc')->get()->toArray();
+        $data['user_bid']   = Bids::where(['user_id'=>$user_id,'lot'=>$request->lot])->orderBy('bid_amount','desc')->get()->toArray();
+        $data['bids']       = Bids::where(['lot'=>$request->lot])->orderBy('bid_amount','desc')->get()->toArray();
         return $data;
     }
 
-    function watchlist(Request $request){
-        
+
+    function lotWinner(){
+        $auctions = Auction::where('status',1)->where('end','<',date('Y-m-d H:i:s'))->get();
+        foreach($auctions as $auction){
+//            find lot joining bids and change status
+        }
     }
 }

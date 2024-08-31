@@ -201,14 +201,20 @@
                         <div class="col-sm-12 col-md-12 col-lg-12">
                             @foreach ($lots as $key => $value)
                         <div class="auction-items">
-                            <span class="bidstatus bg-success">Outbid</span>
+                            <span class="bidstatus 
+                            @if($value['bid_status'] == 'active')
+                            bg-success">Leading
+                            @elseif($value['bid_status'] == 'outbid')
+                            bg-warning">Outbid
+                            @endif
+                        </span>
                             <div class="row">
                                 <div class="col-lg-2 ">
                                     <img class="auction-item-img "
                                     src="{{'/primeshop/public/' . $value['img']}}">
                                 </div>
                                 <div class="col-lg-7 px-4">
-                                    <div class="lot-title category-header"><a href="catalogue">{{$value['title']}}</a></div>
+                                    <div class="lot-title category-header"><a href="{{url('bid/'.$value['id'])}}">{{$value['title']}}</a></div>
                                     <div class="lot-description  py-2">
                                         <p>{{$value['description']}}</p>
                                     </div>
@@ -224,8 +230,8 @@
                                     <a href="catalogue">
                                         
                                     </a>
-                                    <div>
-                                        <div class="bidding-ends light-header">Bidding Ends: 1d 3h</div>
+                                    <div class="d-none">
+                                        <div class="bidding-ends light-header">Bidding Ends: </div>
                                         <div class="lot-location"><span class="light-header">Lot
                                                 Location:</span></div>
                                     </div>

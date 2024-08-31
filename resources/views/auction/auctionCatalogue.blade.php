@@ -679,12 +679,12 @@
                                         <div class="opening-bid"><a href="#">(?) Additional Fees</a></div>
                                     </div>
                                     <a href="catalogue">
-                                        <a href="{{url('bid').'/'.$value['enc_id']}}">
+                                        <a href="{{url('bid').'/'.$value['id']}}">
                                             <div class="cata-btn">@if((date($auction['end'])) < (date('Y-m-d H:i:s')) ) Bidding Closed @else View & Bid @endif</div>
                                         </a>
                                     </a>
                                     <div>
-                                        <div class="bidding-ends light-header">Bidding Ends: 1d 3h</div>
+                                        <div class="bidding-ends light-header">Bidding Ends: {{date($auction['end'])}}</div>
                                         <div class="lot-location"><span class="light-header">Lot
                                                 Location:</span>@if(isset($value['location'])) {{$value['location']}} @else
                                                 Multiple Sites @endif</div>
