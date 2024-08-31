@@ -120,7 +120,7 @@
             <div class="row">
                 <div class="col-md-6 col-12 ">
                     <div class="img-container">
-                        <img src="{{'/primeshop/public/' . $lot->img}}">
+                        <img src="{{ url($lot->img)}}">
 
                     </div>
                 </div>
@@ -249,7 +249,7 @@
                 </div>
             </div>
             <nav class="info-nav">
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
                     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
                         type="button" role="tab" aria-controls="nav-home" aria-selected="true">Description</button>
                     <button class="nav-link" id="nav-auction-details" data-bs-toggle="tab" data-bs-target="#nav-auction"
@@ -264,17 +264,17 @@
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"
                         tabindex="0">
-                        <span class="fw-bold">Title : </span>
-                        <br><span class="fw-bold">Description : </span>
-                        <br><span class="fw-bold">Condition : </span>
-                        <br><span class="fw-bold">Delivery Option : </span>
-                        <br><span class="fw-bold">Location : </span>
-                        <br><span class="fw-bold">Category : </span>
+                        <p ><span class="fw-bold ">Title : </span>{{$lot->title}}</p>
+                        <p ><span class="fw-bold ">Description : </span>{{$lot->description}}</p>
+                        <p ><span class="fw-bold ">Condition : </span>{{$lot->condition}}</p>
+                        <p ><span class="fw-bold ">Delivery Option : </span>Delivery @if($lot->pickup) / Pickup @endif</p>
+                        <p ><span class="fw-bold ">Location : </span>{{$lot->auction->loccation}} </span>
+                        <p ><span class="fw-bold ">Category : </span>@foreach(json_decode($lot->category,true) as $key => $value) @if($key == 1){{$value}}@else {{$value}} , @endif @endforeach </p>
                     </div>
                     <div class="tab-pane fade" id="nav-auction" role="tabpanel" aria-labelledby="nav-contact-tab">
                         <div class="row">
                             <div class="col-lg-2 d-flex flex-column align-items-center">
-                                <img class="auction-item-img" src="{{'/primeshop/public/' . $lot->auction->img}}">
+                                <img class="auction-item-img" src="{{url($lot->auction->img)}}">
                                 <div class="type py-1">
                                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -362,25 +362,12 @@
                     </div>
                     <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-disabled-tab"
                         tabindex="0">
-                        <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.
-                            Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced
-                            in
-                            their exact original form, accompanied by English versions from the 1914 translation by H.
-                            Rackham.
-                        </p>
+                        <p><span class="fw-bold">Shipping info: </span>{{$lot->ship_info}}</p>
+                        <p><span class="fw-bold">Shipping Cost: </span>{{$lot->ship_ccost}}</p>
                     </div>
                     <div class="tab-pane fade" id="nav-terms" role="tabpanel" aria-labelledby="nav-disabled-tab"
                         tabindex="0">
-                        <p>It is a long established fact that a reader will be distracted by the readable content of a page
-                            when
-                            looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
-                            distribution of letters, as opposed to using 'Content here, content here', making it look like
-                            readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as
-                            their
-                            default model text, and a search for 'lorem ipsum' will uncover many web sites still in their
-                            infancy. Various versions have evolved over the years, sometimes by accident, sometimes on
-                            purpose
-                            (injected humour and the like).</p>
+                        <p>I{{$lot->auction->terms_and_condition}}</p>
                     </div>
                     <div class="tab-pane fade" id="nav-info" role="tabpanel" aria-labelledby="nav-disabled-tab"
                         tabindex="0">

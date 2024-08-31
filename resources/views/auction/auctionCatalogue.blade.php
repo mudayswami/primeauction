@@ -198,7 +198,7 @@
                     </div>
                 @endif
                 <div class="col-lg-2 d-flex flex-column align-items-center">
-                    <img class="auction-item-img" src="{{'/primeshop/public/' . $auction['img']}}">
+                    <img class="auction-item-img" src="{{url($auction['img'])}}">
                     <div class="type py-1">
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -638,7 +638,7 @@
                             <div class="row">
                                 <div class="col-lg-2 ">
                                     <img class="auction-item-img "
-                                    src="{{'/primeshop/public/' . $value['img']}}">
+                                    src="{{ url($value["img"])}}">
                                 </div>
                                 <div class="col-lg-7 px-4">
                                     <div class="lot-number light-header py-1">{{$value['lot_num']}}</div>
