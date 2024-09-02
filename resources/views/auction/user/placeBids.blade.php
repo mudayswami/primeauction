@@ -202,7 +202,7 @@
                             @foreach ($lots as $key => $value)
                         <div class="auction-items">
                             <span class="bidstatus 
-                            @if($value['bid_status'] == 'active')
+                            @if($value['bid_status'] == 'leading')
                             bg-success">Leading
                             @elseif($value['bid_status'] == 'outbid')
                             bg-warning">Outbid

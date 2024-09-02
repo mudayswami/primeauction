@@ -42,7 +42,7 @@
 
         .showmore-label:after {
             color: var(--bluec);
-            content: 'Show More ';
+            /* content: 'Show More '; */
         }
 
         .showmore:checked {
@@ -510,7 +510,7 @@
                                             </div>
                                         </div>
                                         <div class="catalogue-btn">
-                                            <a class="cata-btn" href="catalogue/{{$value['id']}}">view catalogue</a>
+                                            <a class="cata-btn" href="catalogue/{{$value['id']}}">@if(date($value['start']) > date(now()))Coming Soon @else View Catalogue @endif</a>
                                         </div>
                                     </div>
                                     <div class="item-tags">

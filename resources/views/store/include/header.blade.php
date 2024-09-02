@@ -9,7 +9,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
         </div>
-        <a class="navbar-brand" href="{{url('/')}}"><img style="width:105px;"
+        <a class="navbar-brand" href="{{url('/store')}}"><img style="width:105px;"
                 src="{{url('assets/logo-bg.png')}}"></a>
 
         <div class="header-menu">

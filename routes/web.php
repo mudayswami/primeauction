@@ -32,7 +32,8 @@ Route::get("store/department",[StoreController::class,"department"]);
 Route::get("store/aboutus",[StoreController::class,"aboutus"]);
 
 
-Route::get("dashboard",[DashboardController::class,"dashboard"]);
+Route::get("dashboard",[DashboardController::class,"dashboard"])->middleware('auth');
+Route::get("paynow",[DashboardController::class,"paynow"])->middleware('auth');
 
 
 Route::get("faq",[DetailController::class,"faqs"]);
@@ -61,6 +62,6 @@ Route::post("wl",[AccountController::class,"addIntoWatchlist"]);
 Route::get('checkout/{id}',[PaymentController::class,'checkout'])->middleware('auth');
 Route::get('store-payment-method',[PaymentController::class,'saveCard'])->middleware('auth');
 Route::post('store-payment-method',[PaymentController::class,'setupIntent'])->middleware('auth');
-Route::get('payment-sucess',[PaymentController::class,'paymentSuccess']);
-Route::get('payment-failed',[PaymentController::class,'paymentFailed']);
-
+Route::get('payment-success',[PaymentController::class,'paymentSuccess'])->middleware('auth');
+Route::get('payment-failed',[PaymentController::class,'paymentFailed'])->middleware('auth');
+Route::get('pay/{id}',[PaymentController::class,'pay'])->middleware('auth');

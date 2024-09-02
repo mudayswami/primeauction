@@ -12,7 +12,7 @@ class Bids extends Model
     protected $fillable = ['user_id','lot','bid_amount','max_bid_amount','reserve_met','status','paid','transaction'];
 
     public function lots(){
-        return $this->hasMany(Bids::class);
+        return $this->belongsTo(Lot::class,'lot');
     }
 
     public function user(){

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('bid_amount');
             $table->decimal('max_bid_amount');
             $table->tinyInteger('reserve_met');
-            $table->enum('status',['active','withdrawn','outbid','won'])->default('active');
+            $table->enum('status',['leading','withdrawn','outbid','won'])->default('leading');
             $table->tinyInteger('paid')->default(0);
             $table->integer('transaction')->nullable();
             $table->timestamps();

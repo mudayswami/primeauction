@@ -82,16 +82,41 @@ class AccountController extends Controller
         $user_id = session('user_data')['user_id'];
 
         DB::statement("SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));");
-        $data['lots'] = Lot::rightjoin('bids','bids.lot','=','tbl_lot.id')->where('bids.user_id',$user_id)->select('tbl_lot.*','bids.status as bid_status')->orderBy('bid_amount','desc')->groupBy('bids.lot')->get()->toArray();
-        return view('auction.user.placeBids',$data);
+        $data['lots'] = Lot::rightjoin('bids','bids.lot','=','tbl_lot.id')->where('bids.user_id', $user_id)
+            ->where(function ($query) {
+                $query->where('bids.status', 'leading')
+                    ->orWhere('bids.status', 'outbid');
+            })
+            ->select('tbl_lot.*', 'bids.status as bid_status', 'bids.bid_amount')
+            ->orderBy('bids.bid_amount', 'desc')
+            ->groupBy('tbl_lot.id')
+            ->get()
+            ->toArray();
+    return view('auction.user.placeBids',$data);
     }
 
     function wonLots(){
+        $user_id = session('user_data')['user_id'];
 
+        DB::statement("SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));");
+        $data['lots'] = Lot::rightjoin('bids','bids.lot','=','tbl_lot.id')->where(['bids.user_id'=> $user_id,'bids.status'=>'won'])
+            ->select('tbl_lot.*', 'bids.status as bid_status', 'bids.bid_amount')
+            ->groupBy('tbl_lot.id')
+            ->get()
+            ->toArray();
+         return view('auction.user.wonLots',$data);
     }
 
     function lostLots(){
+        $user_id = session('user_data')['user_id'];
 
+        DB::statement("SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));");
+        $data['lots'] = Lot::rightjoin('bids','bids.lot','=','tbl_lot.id')->where(['bids.user_id'=> $user_id,'bids.status'=>'lost'])
+            ->select('tbl_lot.*', 'bids.status as bid_status', 'bids.bid_amount')
+            ->groupBy('tbl_lot.id')
+            ->get()
+            ->toArray();
+         return view('auction.user.lostLots',$data);
     }
 
     function watchlist(Request $request){
@@ -99,7 +124,7 @@ class AccountController extends Controller
     }
 
     function addIntoWatchlist(Request $reqeust){
-        
+
     }
     
 }

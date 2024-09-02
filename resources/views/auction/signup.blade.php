@@ -400,7 +400,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label id="pcode-label" for="pcode">Postcode</label>
-                                <input type="number" name="pcode" id="pcode" placeholder="" class="form-control"
+                                <input type="text" name="pcode" id="pcode" placeholder="" class="form-control"
                                     required>
                                 <div class="invalid-feedback">
                                     Postcode is required

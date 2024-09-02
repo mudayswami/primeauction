@@ -10,17 +10,19 @@ use App\Models\AddressBook;
 use App\Models\Bids;
 use Auth;
 use DB;
+use App\Models\AuctionCategory;
 class AuctionController extends Controller
 {
     function auction(Request $request)
     {
-        $data['auction'] = Auction::where('end','>=',date('Y-m-d H:i:s'))->get()->toArray();
+        $data['auction']    = Auction::where('end','>=',date('Y-m-d H:i:s'))->get()->toArray();
+        $data['category']   = AuctionCategory::all();
         return view("auction.mainAuction", $data);
     }
 
     function catalogue(Request $request, $id)
     {
-        $data['auction'] = Auction::find($id)->toArray();
+        $data['auction'] = Auction::findOrFail($id)->toArray();
         $data['lots'] = Lot::where('auction_id', $id)->get()->toArray();
         if(Auth::check()){
             $data['registered'] = AuctionRegister::select('approved')->where(['user_id'=>session('user_data')['user_id'],'auction_id'=>$id])->get()->first();
@@ -38,7 +40,11 @@ class AuctionController extends Controller
     {   
         $user_id                    = session('user_data')['user_id'];
         $data['lot']                = Lot::with('auctionRegister')->where('id', $id)->get()->first();
+        if(empty($data['lot'])){
+            return redirect('auction');
+        }
         $data['auction_register']   = AuctionRegister::where(['auction_id'=>$data['lot']->auction->id,'user_id'=>$user_id])->select('approved')->get()->first();
+        
         $data['bids']               = Bids::where('lot',$data['lot']->id)->orderBy('bid_amount','desc')->get()->toArray();
         $data['user_bid']           = [];
         foreach($data['bids'] as $key => $value){
@@ -85,14 +91,13 @@ class AuctionController extends Controller
 
     function bidSet(Request $request){
         $user_id        = session('user_data')['user_id'];
-        $lot            = Lot::join('bids','bids.lot','=','tbl_lot.id')->where(['tbl_lot.id'=>$request->lot,'bids.status'=>'active'])->select('tbl_lot.*', 'bids.status  as bid_status','bids.id as bid_id','bids.bid_amount as bid_amount')->orderBy('bid_amount','desc')->get()->toArray();
-        // dd($lot);
+        $lot            = Lot::join('bids','bids.lot','=','tbl_lot.id')->where(['tbl_lot.id'=>$request->lot,'bids.status'=>'leading'])->select('tbl_lot.*', 'bids.status  as bid_status','bids.id as bid_id','bids.bid_amount as bid_amount')->orderBy('bid_amount','desc')->get()->toArray();
         if(!empty($lot)){
 
             if(($lot[0]['bid_amount'] + $lot[0]['next_bid']) > $request->bid){
                 return 'smallBid';
             }
-            $bids = Bids::find($lot[0]['bid_id']);
+            $bids = Bids::findOrFail($lot[0]['bid_id']);
             $bids->status = 'outbid';
             $bids->save();
         }
@@ -112,8 +117,21 @@ class AuctionController extends Controller
 
     function lotWinner(){
         $auctions = Auction::where('status',1)->where('end','<',date('Y-m-d H:i:s'))->get();
+        DB::statement("SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));");
         foreach($auctions as $auction){
-//            find lot joining bids and change status
+            $lots  = Lot::join('bids','bids.lot','=','tbl_lot.id')->where('tbl_lot.auction_id',$auction->id)->
+            select('tbl_lot.*','bids.bid_amount','bids.status as  bid_status')->orderBy('bid_amount','desc')->groupBy('bids.lot')->get();  
+            foreach($lots as $lot){
+                $bids = Bids::where('lot',$lot->id)->get();
+                foreach($bids as $bid){
+                    if($bid->status == 'leading'){
+                        $bid->status = 'won';
+                    }else if($bid->status == 'outbid'){
+                        $bid->status = 'lost';
+                    }
+                    $bid->save();
+                }
+            }
         }
     }
 }

@@ -107,7 +107,7 @@ class userController extends Controller
             $user_data['email']         = $user->email;
             $user_data['phone_number']  = $user->phone_number;
             session()->put('user_data', $user_data);
-            return redirect('/');
+            return redirect('dashboard');
         } else {
             return back()->withErrors("Email or Password doesn't match");
         }
