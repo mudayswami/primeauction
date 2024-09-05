@@ -42,6 +42,9 @@
                 <li class="nav-item">
                     <a class="nav-link active fw-light" href="{{url('store')}}">Buy Now</a>
                 </li>
+                <li class="nav-item fw-light">
+                    <a class="nav-link active" aria-current="page" href="{{url('sell-us')}}">Sell Us</a>
+                </li>
                 <li class="nav-item fw-light dropdown">
                     <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -77,9 +80,7 @@
                 <li class="nav-item fw-light">
                     <a class="nav-link active" aria-current="page" href="{{url('aboutus')}}">About Us</a>
                 </li>
-                <li class="nav-item fw-light">
-                    <a class="nav-link active" aria-current="page" href="{{url('sell-us')}}">Sell Us</a>
-                </li>
+                
 
 
             </ul>
