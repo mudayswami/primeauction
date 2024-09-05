@@ -56,7 +56,7 @@
     <main id="MainContent" class="" role="main" tabindex="-1">
         <section id="" class="container py-5">
             <h1 class="py-3 fs-3 fw-bold">
-                SELL US
+                SELL 
             </h1>
             <div class="page-width page-width--narrow section-template--20100476698960__main-padding text-center">
 
