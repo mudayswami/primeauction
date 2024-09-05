@@ -142,7 +142,8 @@
 @endpush
 
 @push('content')
-    @include('auction.include.auctionSearch')
+@include('auction.include.auctionSearch')
+
     <main class="container" styles="min-height:50vh;">
         <div class="row">
             <div class="col-12 col-lg-3">
@@ -510,7 +511,7 @@
                                             </div>
                                         </div>
                                         <div class="catalogue-btn">
-                                            <a class="cata-btn" href="catalogue/{{$value['id']}}">@if(date($value['start']) > date(now()))Coming Soon @else View Catalogue @endif</a>
+                                            <a class="cata-btn" href="{{url('catalogue')."/".$value['id']}}">@if(date($value['start']) > date(now()))Coming Soon @else View Catalogue @endif</a>
                                         </div>
                                     </div>
                                     <div class="item-tags">

@@ -6,10 +6,10 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="d-flex mx-auto ">
+            <!-- <form class="d-flex mx-auto ">
                 <input class="form-control inp" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-search" type="submit">Search</button>
-            </form>
+            </form> -->
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 @if(session('user_data'))
                     <li class="nav-item dropdown">

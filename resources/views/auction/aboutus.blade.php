@@ -1,4 +1,4 @@
-@extends('store.storeLayout')
+@extends('auction.layout.masterLayout')
 
 @push('meta')
 @endpush

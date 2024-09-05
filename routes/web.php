@@ -23,6 +23,7 @@ Route::get("aboutus",[AuctionController::class,"aboutus"]);
 Route::get("catalogue/{id}/register",[AuctionController::class,"registerToBid"])->middleware('auth');
 Route::post("catalogue/{id}/register",[AuctionController::class,"auctionRegister"])->middleware('auth');
 Route::post("bp",[AuctionController::class,"bidSet"]);
+Route::get('lot',[AuctionController::class,'searchLot']);
 Route::get("cron-lot-winner",[AuctionController::class,"lotWinner"]);
 
 Route::get("store",[StoreController::class,"home"]);

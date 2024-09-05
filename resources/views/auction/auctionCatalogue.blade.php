@@ -255,13 +255,13 @@
                                     <td>
                                         <div class="h5">Accepted cards for registeration</div>
                                     </td>
-                                    <td><span class=""></span></td>
+                                    <td><span class=""><img height="65" src="{{url('assets/cardsoptions.png')}}" alt="cards"></span></td>
                                 </tr>
                                 <tr class="width:200px">
                                     <td>
                                         <div class="h5">Accepted cards for payment</div>
                                     </td>
-                                    <td><span class=""></span></td>
+                                    <td><span class=""><img height="65" src ="{{url('assets/cardsoptions.png')}}" alt="cards"></span></td>
                                 </tr>
 
                             </tbody>
@@ -283,17 +283,19 @@
             @if((date($auction['start'])) < (date('Y-m-d H:i:s')) )
             <div class=" category-header py-2">Featured Lots</div>
             <div class="featured-lot">
+                @foreach($lots as $key => $value)
                 <div class="card my-2 mx-1" style="width: 18rem;">
                     <a href="/">
                         <img src="https://portal-images.azureedge.net/auctions-2024/wi415932/images/efc76ed6-93ed-4385-aac2-35d066663c21.png?w=250"
                             class="card-img-top"
                             alt="https://portal-images.azureedge.net/auctions-2024/wi415932/images/efc76ed6-93ed-4385-aac2-35d066663c21.png?w=250">
                         <div class="card-body">
-                            <p class="card-text">VR Virtual Reality VR3D Glasses Helmet VR Google Lens Adjustable For
-                                Iphone, Android</p>
+                            <p class="card-text">{{$value['title']}}</p>
                         </div>
                     </a>
                 </div>
+                <?php if($key == 4) break;?>
+                @endforeach
             </div>
             @endif
             <div class="row ">
@@ -642,7 +644,7 @@
                                 </div>
                                 <div class="col-lg-7 px-4">
                                     <div class="lot-number light-header py-1">{{$value['lot_num']}}</div>
-                                    <div class="lot-title category-header"><a href="catalogue">{{$value['title']}}</a></div>
+                                    <div class="lot-title category-header"><a href="{{url('bid').'/'.$value['id']}}">{{$value['title']}}</a></div>
                                     <div class="lot-description  py-2">
                                         <p>{{$value['description']}}</p>
                                     </div>
@@ -678,7 +680,7 @@
                                                 Bid:</span>{{$value['start_bid']}} GBP</div>
                                         <div class="opening-bid"><a href="#">(?) Additional Fees</a></div>
                                     </div>
-                                    <a href="catalogue">
+                                    <a href="{{url('bid').'/'.$value['id']}}">
                                         <a href="{{url('bid').'/'.$value['id']}}">
                                             <div class="cata-btn">@if((date($auction['end'])) < (date('Y-m-d H:i:s')) ) Bidding Closed @else View & Bid @endif</div>
                                         </a>
