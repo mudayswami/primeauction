@@ -139,4 +139,8 @@ class AuctionController extends Controller
         $data['lots'] = Lot::with('auction')->where('description','like','%'.$request->search.'%')->get();
         return view('auction.mainLot',$data);
     }
+
+    function sellUs(){
+        return view('auction.sellUs');
+    }
 }

@@ -77,6 +77,9 @@
                 <li class="nav-item fw-light">
                     <a class="nav-link active" aria-current="page" href="{{url('aboutus')}}">About Us</a>
                 </li>
+                <li class="nav-item fw-light">
+                    <a class="nav-link active" aria-current="page" href="{{url('sell-us')}}">Sell Us</a>
+                </li>
 
 
             </ul>
