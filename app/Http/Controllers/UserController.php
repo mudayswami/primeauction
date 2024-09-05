@@ -91,7 +91,7 @@ class userController extends Controller
             $user = Auth::user();
             if(!isset($user->stripe_id)){
                 $stripeSecretKey = env('STRIPE_SECRET');
-                $YOUR_DOMAIN = 'http://localhost/primeauction/public';
+                $YOUR_DOMAIN = url('/');;
                 $stripe =  new \Stripe\StripeClient($stripeSecretKey);
                 $customer = $stripe->customers->create([
                     'email' => $user->email,
