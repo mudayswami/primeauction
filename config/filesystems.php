@@ -56,6 +56,11 @@ return [
             'throw' => false,
         ],
 
+        'primeauction' => [
+        'driver' => 'local',
+        'root' => '/usr/share/nginx/html/primeauction/public/',
+        ],
+
     ],
 
     /*

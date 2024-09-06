@@ -55,10 +55,6 @@ class AuctionController extends Controller
         // $data['data'] = DB::table('auction_register')->join('tbl_lot','tbl_lot.auction_id','=','auction_register.auction_id')->leftjoin('bids','tbl_lot.id','=','bids.lot')->get();
         return view("auction.bid", $data);
     }
-    function aboutus(Request $request)
-    {
-        return view('auction.aboutus');
-    }
 
     function auctionRegister(Request $request)
     {
@@ -140,7 +136,5 @@ class AuctionController extends Controller
         return view('auction.mainLot',$data);
     }
 
-    function sellUs(){
-        return view('auction.sellUs');
-    }
+    
 }

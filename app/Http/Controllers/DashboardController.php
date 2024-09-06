@@ -17,5 +17,7 @@ class dashboardController extends Controller
         // dd($data);
         return view('dashboard.paynow',$data);
     }
+
+    
     
 }
