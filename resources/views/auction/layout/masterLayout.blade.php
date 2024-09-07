@@ -130,6 +130,10 @@
             color: white;
         }
 
+        .category-item {
+            padding: 0 !important;
+            width:100%;
+        }
 
         @stack('styles')
     </style>

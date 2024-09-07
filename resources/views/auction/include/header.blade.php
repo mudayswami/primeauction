@@ -21,10 +21,10 @@
                             <div class="d-flex fw-light ">
                                 <div>
 
-                                    <li><a class="dropdown-item" href="">{{session('user_data')['email']}}</a></li>
-                                    <li><a class="dropdown-item" href="{{url('account/profile')}}">Profile</a></li>
-                                    <li><a class="dropdown-item" href="{{url('dashboard')}}">Dashboard</a></li>
-                                    <li><a class="dropdown-item" href="{{url('logout')}}">Logout</a></li>
+                                    <li class="category-item"><a class="dropdown-item" href="">{{session('user_data')['email']}}</a></li>
+                                    <li class="category-item"><a class="dropdown-item" href="{{url('account/profile')}}">Profile</a></li>
+                                    <li class="category-item"><a class="dropdown-item" href="{{url('dashboard')}}">Dashboard</a></li>
+                                    <li class="category-item"><a class="dropdown-item" href="{{url('logout')}}">Logout</a></li>
 
                                 </div>
                             </div>
@@ -45,32 +45,24 @@
                 <li class="nav-item fw-light">
                     <a class="nav-link active" aria-current="page" href="{{url('sell-us')}}">Sell</a>
                 </li>
-                <li class="nav-item fw-light dropdown">
+                <li class="nav-item fw-light dropdown ">
                     <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Auction Category
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <ul class="dropdown-menu px-4 dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
                         <div class="d-flex fw-light ">
-                            <div>
-
-                                <li><a class="dropdown-item" href="{{url('category')}}">Retail Returns</a></li>
-                                <li><a class="dropdown-item" href="{{url('category')}}">Liquidations</a></li>
-                                <li><a class="dropdown-item" href="{{url('category')}}">High Street Goods</a></li>
-                                <li><a class="dropdown-item" href="{{url('category')}}">Children & Baby</a></li>
-                                <li><a class="dropdown-item" href="{{url('category')}}">Electronic</a></li>
-                                <li><a class="dropdown-item" href="{{url('category')}}">Home Improvement</a></li>
-                                <li><a class="dropdown-item" href="{{url('category')}}">Bathroomz</a></li>
-                                <li><a class="dropdown-item" href="{{url('category')}}">Antiques & Collectible</a></li>
-                            </div>
-                            <div>
-                                <li><a class="dropdown-item" href="{{url('catorgory')}}">Art</a></li>
-                                <li><a class="dropdown-item" href="{{url('catorgory')}}">Jewellary</a></li>
-                                <li><a class="dropdown-item" href="{{url('catorgory')}}">Watches</a></li>
-                                <li><a class="dropdown-item" href="{{url('catorgory')}}">Fashion</a></li>
-                                <li><a class="dropdown-item" href="{{url('catorgory')}}">Handbags</a></li>
-                                <li><a class="dropdown-item" href="{{url('catorgory')}}">Cars & Automotive</a></li>
-                                <li><a class="dropdown-item" href="{{url('catorgory')}}">Plant & Machinery</a></li>
+                            <div class="row ">
+                                <?php $category = category();
+                                $size = sizeof($category) ?>
+                                @foreach($category as $key => $value)
+                                <li class="category-item col-lg-6 col-6 my-2"><a class="" href="{{url('category')}}">{{$value->category}}</a></li>
+                                <?php  
+                                if(8 === $key){
+                                    //echo '</div><div>';
+                                }
+                                ?>
+                                @endforeach
                             </div>
                         </div>
                         <!-- <li><hr class="dropdown-divider"></li> -->
