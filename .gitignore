@@ -19,3 +19,4 @@ yarn-error.log
 /.vscode
 /app/Http/Controllers/Controller.php
 /config
+/public/storage 
