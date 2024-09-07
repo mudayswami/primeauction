@@ -23,7 +23,7 @@ class detailController extends Controller
     function imageUpload(Request $request){
         $path = $request->path;
         $file = $request->file('image');
-        $storagePath = Storage::disk('primeauction')->put('storage/auction/'.$file->getClientOriginalName(), $file);
+        $storagePath = Storage::disk('primeauction')->put($path, $file);
         return response()->json(['storage_path' => $storagePath]);
     }
 }
