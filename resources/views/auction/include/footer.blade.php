@@ -5,13 +5,13 @@
                 <a href="{{url('signup')}}" class="footer-btn">
                     <h2 class="footer-heading">Sign Up For Email</h2>
                 </a>
-                <a href="{{url('bid')}}" class="footer-btn">
+                <!-- <a href="{{url('')}}" class="footer-btn">
                     <h2 class="footer-heading">Bidding</h2>
-                </a>
+                </a> -->
                 <a href="{{url('store')}}" class="footer-btn">
                     <h2 class="footer-heading">Buy it now</h2>
                 </a>
-                <a href="{{url('dashboard')}}" class="footer-btn">
+                <a href="{{url('sell-us')}}" class="footer-btn">
                     <h2 class="footer-heading">Selling</h2>
                 </a>
                 <a href="{{url('auction')}}" class="footer-btn">

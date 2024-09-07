@@ -123,8 +123,8 @@
     font-size:-webkit-xxx-large !important;
     }
     .owl-item{
-        <!-- box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; -->
-        <!-- margin:1rem 0; -->
+    <!-- box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; -->
+    <!-- margin:1rem 0; -->
     }
     .herobanner{
     background-image:
@@ -136,6 +136,10 @@
     min-height:16rem;
     background-position:center;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+    
+    .caraousel-auction-text{
+        min-height:10rem;
     }
     @media (max-width: 640px) {
     .main-heading {
@@ -171,7 +175,7 @@
         <div class="sub-intro d-flex flex-row align-items-center justify-content-start mx-auto">
             <div class="flex flex-column justify-content-md-center">
                 <h1 class="main-heading text-white fw-bold ">Welcome to Prime Auctions</h1>
-                <a class="btn ms-auto fw-light fs-5 py-3 red-100 exp-btn" href="/auctions">Explore Auctions</a>
+                <a class="btn ms-auto fw-light fs-5 py-3 red-100 exp-btn" href="{{url('auction')}}">Explore Auctions</a>
             </div>
         </div>
     </div>
@@ -201,48 +205,17 @@
         <div class="container text-center mx-auto my-auto">
             <h5 class="fw-bold otc">Upcoming Auctions</h5>
             <div class="owl-carousel">
+                @foreach($auctions as $key => $value)
                 <div class="card">
-                    <img src="https://d42n4qo1elvf2.cloudfront.net/auctions/3Uan2n1JjN69sdqGhlVx9BHs8frvAXgWrI7dty13.jpg"
+                    <img src="{{url($value['img'])}}"
                         class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text fw-bold fw-bold mx-0 text-start">Some quick example text to build on the card title and
-                            make up the bulk of the card's content.</p>
-                            <p class="card-text m-0 text-start">2024-09-01</p>
-                            <p class="card-text m-0 text-start">Pows</p>
+                    <div class="card-body caraousel-auction-text">
+                        <p class="card-text fw-bold fw-bold mx-0 text-start">{{$value['title']}}</p>
+                        <p class="card-text m-0 text-start">{{date('d M Y', strtotime($value['start']))}}</p>
+                        <p class="card-text m-0 text-start"></p>
                     </div>
                 </div>
-                <div class="card">
-                    <img src="https://d42n4qo1elvf2.cloudfront.net/auctions/3Uan2n1JjN69sdqGhlVx9BHs8frvAXgWrI7dty13.jpg"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text fw-bold mx-0 text-start">Some quick example text to build on the card title and
-                            make up the bulk of the card's content.</p>
-                            <p class="card-text m-0 text-start">2024-09-01</p>
-                            <p class="card-text m-0 text-start">Pows</p>
-
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="https://d42n4qo1elvf2.cloudfront.net/auctions/zzQJ5J1KIZAc3gK3d9J2aRPYwK65KxXRblpsbyS4.jpg"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text fw-bold mx-0 text-start">Some quick example text to build on the card title and
-                            make up the bulk of the card's content.</p>
-                            <p class="card-text m-0 text-start">2024-09-01</p>
-                            <p class="card-text m-0 text-start">Nest</p>
-
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="https://d42n4qo1elvf2.cloudfront.net/auctions/zzQJ5J1KIZAc3gK3d9J2aRPYwK65KxXRblpsbyS4.jpg"
-                        class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <p class="card-text fw-bold mx-0 text-start">Some quick example text to build on the card title and
-                            make up the bulk of the card's content.</p>
-                            <p class="card-text m-0 text-start">2024-09-01</p>
-                            <p class="card-text m-0 text-start">Deling</p>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
         <div class="container ">
@@ -278,7 +251,7 @@
             <div class="owl-carousel reviews-carousel">
                 <div class="" style="">
                     <div class="card-body">
-                        <h5 class="card-sub-title d-flex justify-content-center"><img width="30%" 
+                        <h5 class="card-sub-title d-flex justify-content-center"><img width="30%"
                                 src="assets/star_rating.png"></h5>
                         <h6 class="card-subtitle mb-2 text-muted">We've been working with Prime Auction for many years.
                             Helen is a real credit to their team, she's reliable and always willing to help in any way she

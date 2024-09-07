@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Auction;
 
 class homeController extends Controller
 {
     public function index(){
-        return view('auction.mainPage');
+        $data['auctions']    = Auction::select('id','img','title','start')->orderBy('start','desc')->get();
+        return view('auction.mainPage',$data);
     }
 }
