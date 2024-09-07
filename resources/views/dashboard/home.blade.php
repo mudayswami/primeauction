@@ -247,8 +247,8 @@
                     </div>
                 </a>
                 </div>
-                <div class="col-md-4 col-12">
-                    <a href="/sell">
+                <div class="col-md-4 col-12 d-none">
+                    <a href="#">
                     <div class="row item-container">
                         <div class="col-2 section-svg"><svg version="1.1" id="Uploaded to svgrepo.com"    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"    viewBox="0 0 32 32" xml:space="preserve" fill="#000000" transform="rotate(90)">    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>    <g id="SVGRepo_iconCarrier">        <style type="text/css">            .linesandangles_een {                fill: #102342;            }        </style>        <path class="linesandangles_een"            d="M30,13V7H2v6c1.657,0,3,1.343,3,3s-1.343,3-3,3v6h28v-6c-1.657,0-3-1.343-3-3S28.343,13,30,13z M28,20.582V23h-7v-2h-2v2H4v-2.418C5.764,19.81,7,18.046,7,16s-1.236-3.81-3-4.583V9h15v2h2V9h7v2.417 c-1.764,0.773-3,2.536-3,4.583S26.236,19.81,28,20.582z M19,12h2v2h-2V12z M19,15h2v2h-2V15z M19,18h2v2h-2V18z">        </path>    </g></svg></div>
                         <div class="col-10">

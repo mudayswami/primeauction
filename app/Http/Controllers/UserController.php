@@ -116,7 +116,6 @@ class userController extends Controller
 
     function logout(request $request)
     {
-
         Auth::logout();
         $request->session()->flush();
         $request->session()->regenerate();

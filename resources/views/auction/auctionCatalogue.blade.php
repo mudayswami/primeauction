@@ -286,9 +286,9 @@
                 @foreach($lots as $key => $value)
                 <div class="card my-2 mx-1" style="width: 18rem;">
                     <a href="{{url('bid').'/'.$value['id']}}">
-                        <img src="https://portal-images.azureedge.net/auctions-2024/wi415932/images/efc76ed6-93ed-4385-aac2-35d066663c21.png?w=250"
+                        <img src="{{url($value['img'])}}"
                             class="card-img-top"
-                            alt="https://portal-images.azureedge.net/auctions-2024/wi415932/images/efc76ed6-93ed-4385-aac2-35d066663c21.png?w=250">
+                            alt="{{url($value['img'])}}">
                         <div class="card-body">
                             <p class="card-text">{{$value['title']}}</p>
                         </div>
