@@ -61,7 +61,7 @@
                                 if(8 === $key){
                                     //echo '</div><div>';
                                 }
-                                ?>
+                                ?> 
                                 @endforeach
                             </div>
                         </div>
