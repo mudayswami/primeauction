@@ -497,7 +497,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-9 col-12 d-flex flex-column  justify-content-center">
+                                <div class="col-lg-9 col-12 d-flex flex-column justify-content-center px-4">
                                     <div class="item-description fs-6">
                                         {{$value['description']}}
                                     </div>

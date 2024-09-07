@@ -128,8 +128,9 @@
                     <div class="lot-message"></div>
                     <div class="bid-section border border-1">
                         @if((date($lot->auction->end)) > (date('Y-m-d H:i:s')))
-                        <div class="row">
-                            <span class="text-center py-2">Reserve not met</span>
+                        <div class="row ">
+                        <!-- Reserve not met -->
+                            <span class="text-center py-2 "></span>
                         </div>
                         <div class="alert alert-success alert-dismissible fade show d-flex align-items-center <?php if(!empty($bids) && $bids[0]['user_id'] == session('user_data')['user_id']){echo '';}else{ echo 'd-none'; } ?>"  role="alert" id='bid-success'>
                             <svg class="bi flex-shrink-0 me-2" width="24" height="20" role="img" aria-label="Info:">
@@ -154,11 +155,11 @@
                             @endif
                             <div class="row p-3 {{empty($bids) ? 'd-none' : ''}}" id="current-bid">
                                 <div class="col-6 fs-6 fw-bold" >Current Bid</div>
-                                <div class="col-6 fs-6 "><span id="currentBid">{{!empty($bids) ? $bids[0]['bid_amount'] : ''}}</span> £</div>
+                                <div class="col-6 fs-6 ">£ <span id="currentBid">{{!empty($bids) ? $bids[0]['bid_amount'] : ''}}</span></div>
                             </div>
                             <div class="row p-3 {{empty($user_bid) ? 'd-none' : '' }}" id="your-maximum-bid">
                                 <div class="col-6 fs-6 fw-bold" >Your Maximum Bid</div>
-                                <div class="col-6 fs-6 " ><span id="youMaximumBid">{{empty($user_bid) ? '' : $user_bid[0]['bid_amount'] }}</span>£</div>
+                                <div class="col-6 fs-6 " >£ <span id="youMaximumBid">{{empty($user_bid) ? '' : $user_bid[0]['bid_amount'] }}</span></div>
                             </div>
                             <div class="row p-3" id="next-minimum-bid">
                                 <div class="col-6 fs-6  fw-bold" id="next-minimum-bid">Next Minimum Bid</div>
@@ -409,7 +410,9 @@ bidplace.addEventListener('click',()=>{
         return false;
     }
 
-    if(bids == 0 && bid.value.trim() <= Number(openBid.textContent)){
+    console.log(Number(openBid.textContent));
+    console.log(Number(bid.value));
+    if(bids == 0 && Number(bid.value.trim()) < Number(openBid.textContent)){
         $('#bid-error').removeClass('d-none');
         $('#bidErrorText').empty();
         $('#bidErrorText').html('Bid Should be greater than or equal to '+openBid.innerHTML +'£');

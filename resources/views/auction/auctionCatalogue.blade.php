@@ -6,9 +6,7 @@
 @endpush
 
 @push('styles')
-    .auction-item-img{
-    width:-webkit-fill-available;
-    }
+
     .category-header {
     font-weight: 700;
     margin-top: .5rem;
@@ -27,6 +25,8 @@
 
     .auction-item-img {
     border-radius: 8px;
+    width:100%;
+    width:-webkit-fill-available;
     }
     .catalogue-category {
     padding: 12px 0px;
@@ -148,10 +148,6 @@
     display:flex;
     flex-direction:column;
     align-items:center;
-    }
-    .auction-item-img{
-    width:fit-content;
-
     }
     .item-description {
     font-weight: 700;
@@ -320,7 +316,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-lg-3 col-12">
+                <div class="col-lg-3 col-12 d-none">
                     <div class="subsearch">
                         <form class="d-flex mx-auto justify-content-space">
                             <input class="form-control inp-search fs-5" type="search" placeholder="Search By Lot"

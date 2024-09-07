@@ -519,16 +519,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 px-2 text-lg-center text-start  d-flex flex-column justify-content-evenly">
+                                <div class="col-lg-3 px-2 text-lg-center text-start  d-flex flex-column px-4 justify-content-evenly">
                                     <div>
                                         <div class="opening-bid d-none"><span class="light-header">Opening
                                                 Bid:</span>{{$value['start_bid']}} GBP</div>
                                         <div class="opening-bid"><a href="#">(?) Additional Fees</a></div>
                                     </div>
-                                    <a href="{{url('bid').'/'.$value['id']}}">
-                                        <a href="{{url('bid').'/'.$value['id']}}">
+                                    <a href="{{url('bid').'/'.$value['id']}}" class="">
                                             <div class="cata-btn">@if((date($value->auction['end'])) < (date('Y-m-d H:i:s')) ) Bidding Closed @else View & Bid @endif</div>
-                                        </a>
                                     </a>
                                     <div>
                                         <div class="bidding-ends light-header">Bidding Ends: {{date('d M y H:i:s', strtotime($value->auction['end']))}}</div>

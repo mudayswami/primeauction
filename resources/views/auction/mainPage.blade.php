@@ -207,19 +207,21 @@
             <div class="owl-carousel">
                 @foreach($auctions as $key => $value)
                 <div class="card">
+                    <a href="{{url('catalogue').'/'.$value['id']}}">
                     <img src="{{url($value['img'])}}"
-                        class="card-img-top" alt="...">
+                    class="card-img-top" alt="...">
                     <div class="card-body caraousel-auction-text">
                         <p class="card-text fw-bold fw-bold mx-0 text-start">{{$value['title']}}</p>
                         <p class="card-text m-0 text-start">{{date('d M Y', strtotime($value['start']))}}</p>
                         <p class="card-text m-0 text-start"></p>
                     </div>
+                    </a>
                 </div>
                 @endforeach
             </div>
         </div>
-        <div class="container ">
-            <h5 class="fw-bold otc">Our Top Categories</h5>
+        <div class="container mt-3">
+            <h5 class="fw-bold otc ">Our Top Categories</h5>
             <div class="row">
                 <div class="col-12 col-md-4 my-2">
                     <div class="featured-img">
