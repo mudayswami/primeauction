@@ -26,7 +26,7 @@
     .auction-item-img {
     border-radius: 8px;
     width:100%;
-    width:-webkit-fill-available;
+    height:100%;
     }
     .catalogue-category {
     padding: 12px 0px;
