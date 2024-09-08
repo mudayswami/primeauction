@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
@@ -68,3 +69,6 @@ Route::post('store-payment-method',[PaymentController::class,'setupIntent'])->mi
 Route::get('payment-success',[PaymentController::class,'paymentSuccess'])->middleware('auth');
 Route::get('payment-failed',[PaymentController::class,'paymentFailed'])->middleware('auth');
 Route::get('pay/{id}',[PaymentController::class,'pay'])->middleware('auth');
+
+Route::get('verify-mail',[MailController::class,'verifyMail'])->middleware('auth');
+Route::get('verify/{token}',[MailController::class,'verify'])->middleware('auth');
