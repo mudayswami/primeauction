@@ -124,7 +124,7 @@
 
         <div class="email-footer">
             <p>Need help? <a href="https://primeauction.co.uk/contact-us">Contact us</a></p>
-            <p>&copy; {{ date('Y') }} [Your Company]. All rights reserved.</p>
+            <p>&copy; {{ date('Y') }} Primeauction. All rights reserved.</p>
         </div>
     </div>
 </body>

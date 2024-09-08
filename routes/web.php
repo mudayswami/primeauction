@@ -72,3 +72,4 @@ Route::get('pay/{id}',[PaymentController::class,'pay'])->middleware('auth');
 
 Route::get('verify-mail',[MailController::class,'verifyMail'])->middleware('auth');
 Route::get('verify/{token}',[MailController::class,'verify'])->middleware('auth');
+Route::get('cron-winner-mail',[MailController::class,'winnerMail']);

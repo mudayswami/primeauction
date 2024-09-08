@@ -259,7 +259,7 @@
                             <p>Registration Details</p>
                             <hr>
                         </div>
-                        <div class="row mb-4">
+                        <div class="row mb-4 d-none">
                             <div class="col-3">
                                 <label class="  fw-light" for="payment-card">Payment Card <span class="text-red">*</span></label>
                             </div>

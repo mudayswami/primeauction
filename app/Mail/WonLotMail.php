@@ -16,9 +16,10 @@ class WonLotMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($data)
     {
         //
+        $this->data = $data;
     }
 
     /**
@@ -27,7 +28,7 @@ class WonLotMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Won Lot Mail',
+            subject: 'Won A Lot',
         );
     }
 
@@ -37,7 +38,8 @@ class WonLotMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.winner',
+            with: ['data'=> $this->data]
         );
     }
 
