@@ -6,7 +6,7 @@
 @endpush
 
 @push('styles')
-
+<style>
     .category-header {
     font-weight: 700;
     margin-top: .5rem;
@@ -142,6 +142,18 @@
     margin:2rem 0;
     }
 
+    .read-more-btn {
+    color: blue;
+    border: none;
+    cursor: pointer;
+    }
+
+    .preview {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
+    }
     @media(max-width:768px) {
     .featured-lot{
     display:flex;
@@ -159,6 +171,7 @@
     display: none;
     }
     }
+</style>
 @endpush
 
 @push('content')
@@ -253,7 +266,7 @@
                                     </td>
                                     <td><span class="">{{$auction['vat_rate']}}%</span></td>
                                 </tr>
-                                <tr class="width:200px">
+                                <tr class="width:200px d-none">
                                     <td>
                                         <div class="h5">Accepted cards for registeration</div>
                                     </td>
@@ -263,7 +276,7 @@
                                     <td>
                                         <div class="h5">Accepted cards for payment</div>
                                     </td>
-                                    <td><span class=""><img height="65" src ="{{url('assets/cardsoptions.png')}}" alt="cards"></span></td>
+                                    <td><span class=""><img height="50" src ="{{url('assets/cardsoptions.png')}}" alt="cards"></span></td>
                                 </tr>
 
                             </tbody>
@@ -648,7 +661,9 @@
                                     <div class="lot-number light-header py-1">{{$value['lot_num']}}</div>
                                     <div class="lot-title category-header"><a href="{{url('bid').'/'.$value['id']}}">{{$value['title']}}</a></div>
                                     <div class="lot-description  py-2">
-                                        <p>{{$value['description']}}</p>
+                                        <p id="text_{{$value['id']}}" class="preview" style="display: -webkit-box;">{{$value['description']}}</p>
+                                        <button onclick="toggleReadMore({{$value['id']}})" class="read-more-btn" id="readMoreBtn">Read More</button>
+
                                     </div>
                                     <div class="d-flex ">
                                         @foreach (json_decode($value['category'], true) as $category)
@@ -733,7 +748,7 @@
                         type : 'post',
                         success : function(result){
                             console.log("===== " + result + " =====");
-                           
+                        
                         }
                     });
                 });
@@ -756,6 +771,22 @@
                 });
             });
         });
+    </script>
+        <script>
+        function toggleReadMore(e) {
+            var moreContent = document.getElementById("text_"+e);
+            var btnText = document.getElementById("readMoreBtn");
+            
+            if (moreContent.style.display === "-webkit-box") {
+                moreContent.style.display = "";  
+                moreContent.classList.remove("preview");  
+                btnText.innerHTML = "Read Less";      
+            } else {
+                moreContent.style.display = "-webkit-box";   
+                moreContent.classList.add("preview");  
+                btnText.innerHTML = "Read More";       
+            }
+        }
     </script>
 
 @endpush

@@ -384,17 +384,16 @@
 @push('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-    const checkboxes = document.querySelectorAll('input[name="cg"]');  // Get all category checkboxes
-    const allItems = document.querySelectorAll('.auction-list-item');  // Get all auction items
+    const checkboxes = document.querySelectorAll('input[name="cg"]');
+    const allItems = document.querySelectorAll('.auction-list-item');
 
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', function () {
-            // Collect all selected categories
+
             const selectedCategories = Array.from(checkboxes)
-                .filter(cb => cb.checked)   // Only checked boxes
-                .map(cb => cb.value);       // Get the value (category) of each checked box
+                .filter(cb => cb.checked)   
+                .map(cb => cb.value);       
             
-            // Call the function to filter items
             filterItems(selectedCategories);
         });
     });
@@ -411,6 +410,5 @@
         });
     }
 });
-</script>
 </script>
 @endpush
