@@ -358,7 +358,7 @@
                                     </div>
                                     <div class="item-tags">
                                         @foreach (json_decode($value['category'], true) as $category)
-                                            <span class="badge rounded-pill bg-light text-dark">{{$category}} </span>
+                                            <span class="badge rounded-pill bg-web text-white">{{$category}} </span>
                                         @endforeach
                                     </div>
                                     <!-- <div class="catalogue-category">

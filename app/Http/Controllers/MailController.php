@@ -27,7 +27,7 @@ class MailController extends Controller
     }
 
     public function verify($token)
-    {
+    {   
         $user = User::where('remember_token', $token)->first();
         if (!$user) {
             return redirect('account/profile')->with('error', 'Invalid verification token.');

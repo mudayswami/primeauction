@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Verification</title>
+    <title>You've Been Outbid</title>
     <style>
-        /* General styling for email */
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            color: #333;
             margin: 0;
             padding: 0;
         }
@@ -24,11 +22,12 @@
         }
 
         .email-header {
-            background-color: #5b4caf;
+            background-color: #4a368a;
             padding: 20px;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
             text-align: center;
+            color: white;
         }
 
         .email-header img {
@@ -51,9 +50,9 @@
             color: #666;
         }
 
-        .verify-button {
+        .action-button {
             display: inline-block;
-            background-color: #5b4caf;
+            background-color: #4a368a;
             color: white;
             padding: 12px 20px;
             text-decoration: none;
@@ -62,8 +61,8 @@
             margin-top: 20px;
         }
 
-        .verify-button:hover {
-            background-color: #45a049;
+        .action-button:hover {
+            background-color: #c62828;
         }
 
         .email-footer {
@@ -75,33 +74,57 @@
         }
 
         .email-footer a {
-            color: #5b4caf;
+            color: #4a368a;
             text-decoration: none;
+        }
+
+        .lot-details {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .lot-details img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .lot-details h3 {
+            margin: 10px 0;
+            font-size: 18px;
+            color: #333;
         }
     </style>
 </head>
 <body>
     <div class="email-container">
         <div class="email-header">
-            <img src="{{url('assets/logo-bg.png')}}" alt="Company Logo">
+            <h2>You’ve Been Outbid!</h2>
         </div>
 
         <div class="email-body">
             <h1>Hello, {{ $data['name'] }}!</h1>
-            <p>Welcome to PrimeAuction! We are excited to have you on board.</p>
-            <p>Please click the button below to verify your email address:</p>
+            <p>Unfortunately, you've been outbid on the following lot:</p>
             
-            <a href="{{ url('verify').'/'.$data['token'] }}" class="verify-button">Verify Email</a>
+            <div class="lot-details">
+                <img src="{{ url($data['lot_image']) }}" alt="Lot Image">
+                <h3>{{ $data['lot_title'] }}</h3>
+                <p>Current Bid: <strong>{{ $data['current_bid'] }}</strong></p>
+            </div>
 
-            <p>If you did not sign up for this account, you can safely ignore this email.</p>
+            <p>If you want to place a higher bid, click the button below to go to the lot and submit a new bid.</p>
 
-            <p>Thank you,</p>
-            <p>The PrimeAuction Team</p>
+            <a href="{{ url('bid').'/'.$data['lot_id'] }}" class="action-button">Go to Lot</a>
+
+            <p>Thank you for participating in the auction, and good luck with your future bids!</p>
         </div>
 
         <div class="email-footer">
             <p>Need help? <a href="https://primeauction.co.uk/contact-us">Contact us</a></p>
-            <p>&copy; {{ date('Y') }} PrimeAuction. All rights reserved.</p>
+            <p>&copy; {{ date('Y') }} [Your Company]. All rights reserved.</p>
         </div>
     </div>
 </body>

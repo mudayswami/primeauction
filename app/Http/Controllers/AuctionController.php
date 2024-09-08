@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OutBidMail;
 use App\Models\Auction;
 use App\Models\Lot;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use App\Models\AddressBook;
 use App\Models\Bids;
 use Auth;
 use DB;
+use Mail;
 use App\Models\AuctionCategory;
 class AuctionController extends Controller
 {
@@ -93,9 +95,20 @@ class AuctionController extends Controller
             if(($lot[0]['bid_amount'] + $lot[0]['next_bid']) > $request->bid){
                 return 'smallBid';
             }
-            $bids = Bids::findOrFail($lot[0]['bid_id']);
+            $bids = Bids::with('user')->with('lots')->findOrFail($lot[0]['bid_id']);
             $bids->status = 'outbid';
+            if($bids->user->user_id != $user_id){
+            $dd = [
+                'name' => $bids->user->first_name,
+                'lot_title' => $bids->lots->title,
+                'lot_image' => $bids->lots->img,
+                'current_bid'=> $request->bid,
+                'lot_id' => $bids->lots->id,
+            ];
+            Mail::to($bids->user->email)->send(new OutBidMail($dd));
+            }
             $bids->save();
+
         }
         Bids::create([
             'user_id' => $user_id,
