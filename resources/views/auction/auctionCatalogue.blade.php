@@ -26,7 +26,6 @@
     .auction-item-img {
     border-radius: 8px;
     width:100%;
-    height:100%;
     }
     .catalogue-category {
     padding: 12px 0px;
@@ -167,6 +166,13 @@
     <section>
         <div class="container">
             <div class="row">
+                @if(session('user_data')['verified'] == 0)
+            <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
+                        <use xlink:href="#info-fill" />
+                        </svg><div class="px-1"><strong class="fs-5">Verify Your Account </strong><a href="{{url('verify-mail')}}"><button class="btn btn-outline-info">Verify</button></a></div>
+                </div>
+                @endif
                 @if((date($auction['start'])) > (date('Y-m-d H:i:s')) )
                 <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center" role="alert">
                     <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">

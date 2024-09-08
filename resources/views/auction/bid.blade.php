@@ -163,7 +163,7 @@
                             </div>
                             <div class="row p-3" id="next-minimum-bid">
                                 <div class="col-6 fs-6  fw-bold" id="next-minimum-bid">Next Minimum Bid</div>
-                                <div class="col-6 fs-6"><span id="nextMinimumBid">@if(empty($bids)) {{$lot->start_bid + $lot->next_bid}} @else {{$bids[0]['bid_amount']  + $lot->next_bid}} @endif</span>£</div>
+                                <div class="col-6 fs-6">£<span id="nextMinimumBid">@if(empty($bids)) {{$lot->start_bid + $lot->next_bid}} @else {{$bids[0]['bid_amount']  + $lot->next_bid}} @endif</span></div>
                             </div>
                         </div>
                         
@@ -237,7 +237,7 @@
                             <div class="col-7 fs-6 fw-light p-3"></div>
                             <div class="col-5 fs-6 fw-light p-3 d-none"><a href="#"><u>Next Lot: 2</u><img
                                         src="{{url('assets/short-right-arrow.svg')}}" alt></a></div>
-                            <div class="col-12 fs-6 fw-light p-3">
+                            <div class="col-12 fs-6 fw-light p-3 d-none">
                                 <div class="input-group">
                                     <input type="text" class="form-control p-3" placeholder="Jump to Lot" aria-label="bid"
                                         aria-describedby="basic-addon2">
@@ -403,15 +403,13 @@ bidplace.addEventListener('click',()=>{
     const nextMinimumBid = document.getElementById('nextMinimumBid');
     $('#bid-error').removeClass('d-none');
     $('#bid-error').addClass('d-none');
-    if(bids != 0 && bid.value.trim() <= Number(nextMinimumBid.textContent)){
+    if(bids != 0 && bid.value.trim() < Number(nextMinimumBid.textContent)){
         $('#bid-error').removeClass('d-none');
         $('#bidErrorText').empty();
         $('#bidErrorText').html('Bid Should be greater than or equal to '+nextMinimumBid.innerHTML +'£');
         return false;
     }
 
-    console.log(Number(openBid.textContent));
-    console.log(Number(bid.value));
     if(bids == 0 && Number(bid.value.trim()) < Number(openBid.textContent)){
         $('#bid-error').removeClass('d-none');
         $('#bidErrorText').empty();

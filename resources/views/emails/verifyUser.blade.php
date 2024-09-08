@@ -91,7 +91,6 @@
             <p>Welcome to PrimeAuction! We are excited to have you on board.</p>
             <p>Please click the button below to verify your email address:</p>
             
-            <!-- Call-to-action button -->
             <a href="{{ url('verify').'/'.$data['token'] }}" class="verify-button">Verify Email</a>
 
             <p>If you did not sign up for this account, you can safely ignore this email.</p>

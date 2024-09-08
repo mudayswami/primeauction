@@ -23,18 +23,20 @@ class MailController extends Controller
             'token' => $user->remember_token,
         ];
         Mail::to($user->email)->send(new VerifyMail($data));
-        return 1;
+        return redirect('account/profile')->with('status', 'An email has been sent to your email account.');
     }
 
     public function verify($token)
     {
         $user = User::where('remember_token', $token)->first();
         if (!$user) {
-            return redirect('/')->with('error', 'Invalid verification token.');
+            return redirect('account/profile')->with('error', 'Invalid verification token.');
         }
+        session('user_data')['user_id'] = 1;
         $user->remember_token = null;  
-        $user->verified = 1;
+        $user_data['verified']      = $user->verified;
+        session()->put($user_data,'user_data');
         $user->save();
-        return redirect('/')->with('message', 'Your email has been verified!');
+        return redirect('account/profile')->with('status', 'Your email has been verified!');
     }
 }

@@ -62,7 +62,7 @@
                     <ul class="list-group my-2 left-nav">
                         <li class="list-group-item"><b>Profile</b></li>
                         <li class="list-group-item"><a href="{{url('account/profile')}}">Details</a></li>
-                        <li class="list-group-item"><a href="{{url('account/cards')}}">Payment Cards</a></li>
+                        <!-- <li class="list-group-item"><a href="{{url('account/cards')}}">Payment Cards</a></li> -->
                         <li class="list-group-item"><a href="{{url('account/address')}}">Address</a></li>
                     </ul>
                     <ul class="list-group my-2 left-nav">
@@ -95,7 +95,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-6">
                             <div class="mb-3 mt-3">
                                 <label class="form-label" for="email">Email</label>
-                                <p class="p-2" id="email" disabled>anubhavmalik12@gmail.com</p>
+                                <p class="p-2" id="email" disabled>{{session('user_data')['email']}}</p>
                             </div>
                         </div>
                     </div>
