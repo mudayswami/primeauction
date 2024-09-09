@@ -188,7 +188,7 @@
                 <div class="col-12 col-md-4 my-2">
                     <div class="featured-img-{{$key}}">
                         <div class="feature-text">
-                            <h3 class="featured-title">{{json_decode($value->category, true)[0]}}</h3>
+                            <h3 class="featured-title text-dark">{{json_decode($value->category, true)[0]}}</h3>
                             <a href="{{url('catalogue').'/'.$value->id}}" class="featured-button">Discover</a>
                         </div>
                     </div>
@@ -221,7 +221,7 @@
                     <div class="col-12 col-md-3 my-2">
                         <div class="featured-img-{{$key}}">
                             <div class="feature-text">
-                                <h3 class="featured-title">{{$value->title}}</h3>
+                                <h3 class="featured-title text-dark">{{$value->title}}</h3>
                                 <a href="{{url('catalogue').'/'.$value->id}}" class="featured-button">Discover</a>
                             </div>
                         </div>
