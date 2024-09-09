@@ -42,7 +42,7 @@
     color: white;
     }
 
-    .featured-img {
+    .featured-img-0 {
     height: 500px;
     display: flex;
     flex-direction: column;
@@ -50,7 +50,7 @@
     align-items: center;
     background-size: cover;
     background-image:
-    url('assets/auction/retailreturn.jpg');
+    url('assets/auction/featured-img-0.webp');
     }
     .card-sub-title{
     padding:0 2rem;
@@ -63,7 +63,7 @@
     align-items: center;
     background-size: cover;
     background-image:
-    url('assets/auction/art.jpeg');
+    url('assets/auction/featured-img-1.jpg');
     }
 
     .featured-img-2 {
@@ -74,7 +74,7 @@
     align-items: center;
     background-size: cover;
     background-image:
-    url('assets/auction/jewellery.jpg');
+    url('assets/auction/featured-img-2.webp');
     }
 
     .feature-text {
@@ -92,7 +92,7 @@
     text-align: center;
     justify-content: center;
     align-items: center;
-    font-size: 25px;
+    font-size: 30px;
     display: flex;
     font-weight: bold;
     margin-top: 20px;
@@ -223,30 +223,20 @@
         <div class="container mt-3">
             <h5 class="fw-bold otc ">Our Top Categories</h5>
             <div class="row">
+                @foreach (category() as $key => $value)
                 <div class="col-12 col-md-4 my-2">
-                    <div class="featured-img">
+                    <div class="featured-img-{{$key}}">
                         <div class="feature-text">
-                            <h3 class="featured-title">Retail Returns</h3>
-                            <a href="#" class="featured-button">Discover</a>
+                            <h3 class="featured-title text-dark
+                            ">{{$value->category}}</h3>
+                            <a href="{{url('category/')."/".$value->category}}" class="featured-button">Discover</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-4 my-2">
-                    <div class="featured-img-1">
-                        <div class="feature-text">
-                            <h3 class="featured-title">Art</h3>
-                            <a href="#" class="featured-button">Discover</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4 my-2">
-                    <div class="featured-img-2">
-                        <div class="feature-text">
-                            <h3 class="featured-title">Jewellery</h3>
-                            <a href="#" class="featured-button">Discover</a>
-                        </div>
-                    </div>
-                </div>
+                <?php if($key == 2){
+                    break;
+                } ?>
+                @endforeach
             </div>
         </div>
         <div class="container-fluid text-center my-5">
