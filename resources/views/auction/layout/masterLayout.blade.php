@@ -38,6 +38,16 @@
             box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
         }
 
+        .nav-item{
+            line-height: 1.2rem;
+            font-size: large;
+        }
+        .nav-item:hover{
+            text-decoration: underline;
+            line-height: 1.2rem;
+            text-underline-offset:6px;
+            transition: left 0.5s ease-out;
+        }
         .navbar ul li {
             padding: 1.5rem 1rem;
         }
