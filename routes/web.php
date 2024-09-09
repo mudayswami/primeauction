@@ -17,7 +17,7 @@ Route::get("/", [HomeController::class,'index']);
 
 
 Route::get("auction",[AuctionController::class,'auction']);
-Route::get("category",[AuctionController::class,'category']);
+Route::get("category/{slug}",[AuctionController::class,'category']);
 Route::get("catalogue/{id}",[AuctionController::class,"catalogue"]);
 Route::get("bid/{id}",[AuctionController::class,"bid"])->middleware('auth');
 Route::get("catalogue/{id}/register",[AuctionController::class,"registerToBid"])->middleware('auth');

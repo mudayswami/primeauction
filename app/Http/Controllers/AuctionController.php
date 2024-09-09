@@ -33,9 +33,12 @@ class AuctionController extends Controller
         return view("auction.auctionCatalogue", $data);
     }
 
-    function category(Request $request)
-    {
-        return view("auction.category");
+    function category(Request $request, $slug)
+    {   
+        $data['auction'] = Auction::where('category','like','%'.$slug.'%')->get();
+        $data['seemore'] = Auction::limit(4)->get();
+        $data['slug'] = $slug;
+        return view("auction.category", $data);
 
     }
 

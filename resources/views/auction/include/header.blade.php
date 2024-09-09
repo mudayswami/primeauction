@@ -56,7 +56,7 @@
                                 <?php $category = category();
                                 $size = sizeof($category) ?>
                                 @foreach($category as $key => $value)
-                                <li class="category-item col-lg-6 col-6 my-2"><a class="" href="{{url('category')}}">{{$value->category}}</a></li>
+                                <li class="category-item col-lg-6 col-6 my-2"><a class="" href="{{url('category').'/'.$value->category}}">{{$value->category}}</a></li>
                                 <?php  
                                 if(8 === $key){
                                     //echo '</div><div>';

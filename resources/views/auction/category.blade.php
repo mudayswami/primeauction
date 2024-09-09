@@ -2,8 +2,8 @@
 
 @push('meta')
     <title>Prime Auction</title>
-    <link rel="stylesheet" href="css/owlcarousel/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owlcarousel/owl.theme.default.min.css">
+    <link rel="stylesheet" href="{{url('css/owlcarousel/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{url('css/owlcarousel/owl.theme.default.min.css')}}">
 @endpush
 
 @push('styles')
@@ -65,7 +65,8 @@
     justify-content:center;
 
     }
-    .featured-img {
+    @foreach($seemore as $key => $value)
+    .featured-img-{{$key}}{
     height: 500px;
     display: flex;
     flex-direction: column;
@@ -73,32 +74,13 @@
     align-items: center;
     background-size: cover;
     background-image:
-    url('assets/auction/retailreturn.jpg');
+    url('{{url("")."/".$value->img}}');
     }
+    @endforeach
     .card-sub-title{
     padding:0 2rem;
     }
-    .featured-img-1 {
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    align-items: center;
-    background-size: cover;
-    background-image:
-    url('assets/auction/art.jpeg');
-    }
-
-    .featured-img-2 {
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    align-items: center;
-    background-size: cover;
-    background-image:
-    url('assets/auction/jewellery.jpg');
-    }
+    
 
     .feature-text {
     flex-direction: column;
@@ -124,12 +106,12 @@
     }
 
     .featured-button {
-        background-color: var(--redc);
-        text-decoration: none;
-        color: white;
-        padding: .5rem 2rem;
-        border-radius: 30px;
-        font-weight: bold;
+    background-color: var(--redc);
+    text-decoration: none;
+    color: white;
+    padding: .5rem 2rem;
+    border-radius: 30px;
+    font-weight: bold;
     }
     .owl-prev, .owl-next{
     font-size:-webkit-xxx-large !important;
@@ -143,10 +125,10 @@
 @push('content')
     <div class="herobanner">
         <div class="container-fluid hero-container mx-auto">
-            <h1 class="hero-heading h1 fw-bold">Online Retail Returns Auctions</h1>
+            <h1 class="hero-heading h1 fw-bold">{{$slug}}</h1>
         </div>
         <div class="container-fluid d-flex justify-content-center  mx-auto">
-            <a href="auction" class="cata-btn">Explore Auctions</a>
+            <a href="{{url('auction')}}" class="cata-btn">Explore Auctions</a>
         </div>
     </div>
     <div class="seo-section">
@@ -162,7 +144,7 @@
     </div>
 
     <div class="py-5">
-        <div class="container text-center mx-auto my-auto">
+        <div class="container text-center mx-auto my-auto d-none">
             <h2 class="fw-bold otc heading">Upcoming Auctions</h2>
             <div class="owl-carousel">
                 <div class="card">
@@ -202,35 +184,25 @@
         <div class="container">
             <h2 class="fw-bold otc">Shop By Categories</h2>
             <div class="row">
+                @foreach($seemore as $key => $value)
                 <div class="col-12 col-md-4 my-2">
-                    <div class="featured-img">
+                    <div class="featured-img-{{$key}}">
                         <div class="feature-text">
-                            <h3 class="featured-title">Retail Returns</h3>
-                            <a href="#" class="featured-button">Discover</a>
+                            <h3 class="featured-title">{{json_decode($value->category, true)[0]}}</h3>
+                            <a href="{{url('catalogue').'/'.$value->id}}" class="featured-button">Discover</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-4 my-2">
-                    <div class="featured-img-1">
-                        <div class="feature-text">
-                            <h3 class="featured-title">Art</h3>
-                            <a href="#" class="featured-button">Discover</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4 my-2">
-                    <div class="featured-img-2">
-                        <div class="feature-text">
-                            <h3 class="featured-title">Jewellery</h3>
-                            <a href="#" class="featured-button">Discover</a>
-                        </div>
-                    </div>
-                </div>
+                <?php if($key == 2){
+                        break;
+                    }?>
+                @endforeach
+                
             </div>
         </div>
         <div class="container selling-section">
-            <a href="/signup" class="start-selling">
-                <img class="w-100"src="assets/sell-with-us.svg">
+            <a href="{{url('sell-us')}}" class="start-selling">
+                <img class="w-100" src="{{url('assets/sell-with-us.svg')}}">
             </a>
             <div class="selling-info px-3 sub-para">
                 <h2 class="heading">Interested in becoming a seller?</h2>
@@ -238,53 +210,36 @@
                     their purchases for profit. If that’s something you’re thinking or you have other goods to list, find
                     out how quick and easy it really is.</p>
                 <div class="container-fluid d-flex justify-content-center  mx-auto">
-                    <a href="auction" class="cata-btn">Start Selling</a>
+                    <a href="{{url('sell-us')}}" class="cata-btn">Start Selling</a>
                 </div>
             </div>
         </div>
         <div class="container selling-section">
-        <h3 class="fw-bold otc">See More Online Auctions</h3>
-        <div class="row">
-            <div class="col-12 col-md-3 my-2">
-                <div class="featured-img">
-                    <div class="feature-text">
-                        <h3 class="featured-title">Home Improvement</h3>
-                        <a href="#" class="featured-button">Discover</a>
+            <h3 class="fw-bold otc">See More Online Auctions</h3>
+            <div class="row">
+                @foreach ($seemore as $key => $value)
+                    <div class="col-12 col-md-3 my-2">
+                        <div class="featured-img-{{$key}}">
+                            <div class="feature-text">
+                                <h3 class="featured-title">{{$value->title}}</h3>
+                                <a href="{{url('catalogue').'/'.$value->id}}" class="featured-button">Discover</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-3 my-2">
-                <div class="featured-img-1">
-                    <div class="feature-text">
-                        <h3 class="featured-title">Bathroom</h3>
-                        <a href="#" class="featured-button">Discover</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-3 my-2">
-                <div class="featured-img-2">
-                    <div class="feature-text">
-                        <h3 class="featured-title">Fashion</h3>
-                        <a href="#" class="featured-button">Discover</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-3 my-2">
-                <div class="featured-img-1">
-                    <div class="feature-text">
-                        <h3 class="featured-title">High Street Goods</h3>
-                        <a href="#" class="featured-button">Discover</a>
-                    </div>
-                </div>
-            </div>
+                    <?php 
+                    if($key == 3){
+                        break;
+                    } ?>
+                @endforeach    
+
             </div>
         </div>
     </div>
 @endpush
 
 @push('scripts')
-    <script src="js/jquery.min.js"></script>
-    <script src="js/owlcarousel/owl.carousel.min.js"></script>
+    <script src="{{url('js/jquery.min.js')}}"></script>
+    <script src="{{url('js/owlcarousel/owl.carousel.min.js')}}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $(".owl-carousel").owlCarousel({
