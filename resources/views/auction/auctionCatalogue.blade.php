@@ -179,7 +179,7 @@
     <section>
         <div class="container">
             <div class="row">
-                @if(session('user_data')['verified'] == 0)
+                @if(isset(session('user_data')['verified']) && session('user_data')['verified'] == 0)
             <div class="alert alert-warning alert-dismissible fade show d-flex align-items-center" role="alert">
                     <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
                         <use xlink:href="#info-fill" />
