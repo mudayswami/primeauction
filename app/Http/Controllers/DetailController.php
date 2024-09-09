@@ -26,4 +26,8 @@ class detailController extends Controller
         $storagePath = Storage::disk('primeauction')->put($path, $file);
         return response()->json(['storage_path' => $storagePath]);
     }
+
+    function contactUs(){
+        return view('contactUs');
+    }
 }

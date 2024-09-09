@@ -27,7 +27,7 @@
                 <a href="{{url('faq')}}" class="footer-btn">Shipping & Delivery</a>
                 <a href="{{url('faq')}}" class="footer-btn">Orders & Payments</a>
                 <a href="{{url('faq')}}" class="footer-btn">Articles & Guides</a>
-                <a href="{{url('faq')}}" class="footer-btn">Contact Us</a>
+                <a href="{{url('contact-us')}}" class="footer-btn">Contact Us</a>
             </div>
             <div class="col-3 d-flex flex-column footer-col">
                 <a href="{{url('aboutus')}}" class="footer-btn">

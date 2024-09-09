@@ -25,7 +25,7 @@ Route::post("catalogue/{id}/register",[AuctionController::class,"auctionRegister
 Route::post("bp",[AuctionController::class,"bidSet"]);
 Route::get('lot',[AuctionController::class,'searchLot']);
 Route::get("cron-lot-winner",[AuctionController::class,"lotWinner"]);
-
+Route::get("contact-us",[DetailController::class,'contactUs']);
 
 Route::get("store",[StoreController::class,"home"]);
 Route::get("store/products",[StoreController::class,"products"]);
