@@ -10,6 +10,7 @@
     font-weight:300;
     font-size:1rem;
     text-align:center;
+    min-height:3rem;
     }
     .btn-d {
     border-radius: .375rem;
@@ -90,6 +91,8 @@
 
     .card{
     border:none !important;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    margin: 8px 5px;
     }
     @media(max-width:768px){
     .responsive-font{
