@@ -35,6 +35,7 @@ Route::get("store/aboutus",[StoreController::class,"aboutus"]);
 Route::get("cart",[StoreController::class,"cart"])->middleware('auth');
 Route::post("cart/add",[StoreController::class,"addCart"])->middleware('auth');
 Route::get('checkout',[StoreController::class,"cartCheckout"])->middleware('auth');
+Route::get('single-checkout/{slug}',[StoreController::class,"singleCheckout"])->middleware('auth');
 
 Route::get("dashboard",[DashboardController::class,"dashboard"])->middleware('auth');
 Route::get("paynow",[DashboardController::class,"paynow"])->middleware('auth');

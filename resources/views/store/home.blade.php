@@ -152,6 +152,14 @@
     object-fit: cover;
     }
     }
+
+    a{
+    text-decoration:none;
+    color:black;
+    }
+    a:hover{
+    text-decoration:none;
+    }
 @endpush
 
 @push('content')
@@ -164,46 +172,55 @@
         </div>
     </div>
     <div class="container">
-    <div class="row g-1 my-5 ">
-        <h2>Featured Products</h2>
-    </div>
-    <div class="row g-1">
-        @foreach ($products as $product)
-        
-        <div class="col-lg-3 col-6 ">
-            <div class="card ">
-                <img src="{{url('').'/'.$product->img}}" class="card-img-product" alt="...">
-                <div class="card-body">
-                    <p class="card-text responsive-font">{{$product->title}}</p>
-                    <div class="card-title text-center">
-                        <h5 class="responsive-font discount-price text-center"><strong>£ {{$product->discount_price}}</strong></h5>
+        <div class="row g-1 my-5 ">
+            <h2>Featured Products</h2>
+        </div>
+        <div class="row g-1">
+            @foreach ($products as $product)
 
+                <div class="col-lg-3 col-6 ">
+                    <div class="card ">
+                        <img src="{{url('') . '/' . $product->img}}" class="card-img-product" alt="...">
+                        <div class="card-body">
+                            <p class="card-text responsive-font">
+                                <a href="{{url('store/item') . '/' . $product->id}}">
+                                    {{$product->title}}
+                                </a>
+                            </p>
+                            <div class="card-title text-center">
+                                <h5 class="responsive-font discount-price text-center"><strong>£
+                                        {{$product->discount_price}}</strong></h5>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
+            @endforeach
+
+            <div class="container-fluid d-flex justify-content-center  mx-auto">
+                <a href="store/products" class="cata-btn">Shop all</a>
             </div>
         </div>
-        @endforeach
-        
-        <div class="container-fluid d-flex justify-content-center  mx-auto">
-            <a href="store/products" class="cata-btn">Shop all</a>
-        </div>
-    </div>
     </div>
 
     <div class="container">
         <div class="row g-1 my-5">
-            <h2>Depratments</h2>
+            <h2>Departments</h2>
         </div>
         <div class="row g-1 mt-4 mb-3">
             <div class="col-lg-4 col-6 ">
                 <div class="card ">
                     <img src="{{url('assets/department/appliances.jpg')}}" class="card-img-top" alt="...">
                     <div class="card-body ">
-                        <h4 class="card-text">Small Domestic Appliances <svg xmlns="http://www.w3.org/2000/svg" width="84"
-                                height="34" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-                            </svg></h4>
+                        <a href="{{url('store/products')}}">
+                            <h4 class="card-text">Small Domestic Appliances <svg xmlns="http://www.w3.org/2000/svg"
+                                    width="84" height="34" fill="currentColor" class="bi bi-arrow-right"
+                                    viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                                </svg></h4>
+                        </a>
+                        </a>
                     </div>
                 </div>
 
@@ -212,11 +229,13 @@
                 <div class="card ">
                     <img src="{{url('assets/department/homeware.jpeg')}}" class="card-img-top" alt="...">
                     <div class="card-body ">
-                        <h4 class="card-text">Homeware <svg xmlns="http://www.w3.org/2000/svg" width="84" height="34"
-                                fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-                            </svg></h4>
+                        <a href="{{url('store/products')}}">
+                            <h4 class="card-text">Homeware <svg xmlns="http://www.w3.org/2000/svg" width="84" height="34"
+                                    fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                                </svg></h4>
+                        </a>
                     </div>
                 </div>
 
@@ -227,11 +246,13 @@
                 <div class="card ">
                     <img src="{{url('assets/department/jewellery.jpeg')}}" class="card-img-top" alt="...">
                     <div class="card-body ">
-                        <h4 class="card-text">Jewellery <svg xmlns="http://www.w3.org/2000/svg" width="84" height="34"
-                                fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-                            </svg></h4>
+                        <a href="{{url('store/products')}}">
+                            <h4 class="card-text">Jewellery <svg xmlns="http://www.w3.org/2000/svg" width="84" height="34"
+                                    fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                                </svg></h4>
+                        </a>
                     </div>
                 </div>
 
@@ -240,11 +261,13 @@
                 <div class="card ">
                     <img src="{{url('assets/department/healthbeauty.jpeg')}}" class="card-img-top" alt="...">
                     <div class="card-body ">
-                        <h4 class="card-text">Health & Beauty <svg xmlns="http://www.w3.org/2000/svg" width="84" height="34"
-                                fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-                            </svg></h4>
+                        <a href="{{url('store/products')}}">
+                            <h4 class="card-text">Health & Beauty <svg xmlns="http://www.w3.org/2000/svg" width="84"
+                                    height="34" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                                </svg></h4>
+                        </a>
                     </div>
                 </div>
 
@@ -253,11 +276,13 @@
                 <div class="card ">
                     <img src="{{url('assets/department/cloth.jpeg')}}" class="card-img-top" alt="...">
                     <div class="card-body ">
-                        <h4 class="card-text">Clothing <svg xmlns="http://www.w3.org/2000/svg" width="84" height="34"
-                                fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-                            </svg></h4>
+                        <a href="{{url('store/products')}}">
+                            <h4 class="card-text">Clothing <svg xmlns="http://www.w3.org/2000/svg" width="84" height="34"
+                                    fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                                </svg></h4>
+                        </a>
                     </div>
                 </div>
 
@@ -266,11 +291,13 @@
                 <div class="card ">
                     <img src="{{url('assets/department/baby.jpeg')}}" class="card-img-top" alt="...">
                     <div class="card-body ">
-                        <h4 class="card-text">Baby and Toddler <svg xmlns="http://www.w3.org/2000/svg" width="84"
-                                height="34" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-                            </svg></h4>
+                        <a href="{{url('store/products')}}">
+                            <h4 class="card-text">Baby and Toddler <svg xmlns="http://www.w3.org/2000/svg" width="84"
+                                    height="34" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+                                </svg></h4>
+                        </a>
                     </div>
                 </div>
             </div>
