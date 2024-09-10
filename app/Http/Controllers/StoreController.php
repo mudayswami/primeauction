@@ -8,6 +8,7 @@ use App\Models\Cart;
 use App\Models\Orders;
 use App\Models\OrderItems;
 use DB;
+use Auth;
 
 class StoreController extends Controller 
 {
@@ -43,6 +44,9 @@ class StoreController extends Controller
     }
 
     function addCart(Request $request){
+        if(!Auth::check()){
+        return response()->json(['message' => 'login']);
+        }
         $request->validate([
             'product_id' => 'required|integer',
         ]);
@@ -89,7 +93,7 @@ class StoreController extends Controller
 
         DB::beginTransaction();
         
-        // try {
+        try {
             $order = Orders::create([
                 'user_id' => $userId,
                 'total_amount' => $totalAmount,
@@ -107,13 +111,50 @@ class StoreController extends Controller
                 ]);
             }
 
-            // Cart::where('user_id', $userId)->delete();
-            return $paymentController->checkout($order->id, $totalAmount);
+            Cart::where('user_id', $userId)->delete();
             DB::commit();
+            return $paymentController->checkout($order->id, $totalAmount);
+            
+            return response()->json(['message' => 'Checkout successful! Order placed.']);
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response()->json(['message' => 'Checkout failed! Please try again.'], 500);
+        }
+    }
+
+
+    function singleCheckout(Request $request, $slug){
+        $userId = session('user_data')['user_id'];
+        $paymentController = new PaymentController();
+        $item = Products::where('id',$slug)->get()->first();
+
+        if (empty($item)) {
+            return response()->json(['message' => 'Your cart is empty!'], 400);
+        }
+        DB::beginTransaction();
+        
+        // try {
+            $order = Orders::create([
+                'user_id' => $userId,
+                'total_amount' => $item->discount_price,
+            ]);
+
+                OrderItems::create([
+                    'user_id'=> $userId,
+                    'order_id' => $order->id,
+                    'product_id' => $item->id,
+                    'item_name' => $item->title,
+                    'price' => $item->discount_price,
+                    'quantity' => 1,
+                    'total_price' => $item->discount_price,
+                ]);
+
+            DB::commit();
+            return $paymentController->checkout($item->title, $item->discount_price);
             
             return response()->json(['message' => 'Checkout successful! Order placed.']);
         // } catch (\Exception $e) {
-        //     // Rollback the transaction in case of any error
         //     DB::rollback();
 
         //     return response()->json(['message' => 'Checkout failed! Please try again.'], 500);

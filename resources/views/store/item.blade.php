@@ -164,7 +164,7 @@
                     </div>
                     <div class="btn-group-vertical">
                         <button class="btn btn-outline-secondary my-2 add_to_cart add-to-cart-btn">Add to cart</button>
-                        <button class="btn btn-secondary bg-web my-2 buy_now">Buy Now</button>
+                        <button class="btn btn-secondary bg-web my-2 buy_now"><a href="{{url('single-checkout').'/'.$item->id}}">Buy Now</a></button>
                     </div>
                     <div class="product_description">
                         <p class="fs-3 py-2">{{$item->title}}</p>
@@ -234,8 +234,12 @@ function addToCart(productId,quantity) {
         success: function (response) {
 
         },
-        error: function (error) {
-            alert('Error adding product to cart.');
+        error: function (xhr, status, error) {
+            if (xhr.status === 401) {
+            window.location.href = "{{url('login')}}";
+        } else {
+            alert('Error: ' + xhr.responseJSON.message);
+        }
         }
     });
 }
