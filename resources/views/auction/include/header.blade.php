@@ -53,9 +53,7 @@
                     <ul class="dropdown-menu px-4 dropdown-menu-lg-end" aria-labelledby="navbarDropdown">
                         <div class="d-flex  ">
                             <div class="row ">
-                                <?php $category = category();
-                                $size = sizeof($category) ?>
-                                @foreach($category as $key => $value)
+                                @foreach($categories as $key => $value)
                                 <li class="category-item col-lg-6 col-6 my-2"><a class="" href="{{url('category').'/'.$value->category}}">{{$value->category}}</a></li>
                                 <?php  
                                 if(8 === $key){
