@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('layouts.header', function ($view) {
+        View::composer('auction.include.header', function ($view) {
             $view->with('categories', AuctionCategory::getActiveCategories()); 
         });
     }
