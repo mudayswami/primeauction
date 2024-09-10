@@ -18,9 +18,16 @@ class StoreController extends Controller
     }
 
     function products(Request $request){
-        $data['products'] = Products::where([
-            'status' => 1,
-        ])->where('status','>',0)->get();
+        $data['products'] = null;
+        if($request->query('minimum') || $request->query('maximum')){
+            $data['products'] = Products::where([
+                'status' => 1,
+            ])->where('status','>',0)->whereBetween('discount_price',[$request->query('minimum'),$request->query('maximum')])->get();
+        }else{
+            $data['products'] = Products::where([
+                'status' => 1,
+            ])->where('status','>',0)->get();
+        }
         return view('store.products', $data);
     }
 
@@ -39,7 +46,7 @@ class StoreController extends Controller
     }
 
     function cart(Request $request){
-        $data['items'] = Cart::with('product')->where('user_id',session('user_data')['user_id'])->get();
+        $data['items'] = Cart::with('product')->where('user_id',session('user_data')['user_id'],)->get();
         return view('store.cart',$data);
     }
 
@@ -57,11 +64,15 @@ class StoreController extends Controller
         ->where('product_id', $productId)
         ->first();
 
-
         if ($cartItem) {
-            $cartItem->quantity += $request->quantity;
+        if($request->quantity <= 0){
+             $cartItem->delete();
+        }else{
+
+            $cartItem->quantity = $request->quantity;
             $cartItem->final_price = $cartItem->quantity * $cartItem->price;
             $cartItem->save();
+            }
         } else {
             $item = Products::where('id',$productId)->get()->first();
             Cart::create([
@@ -73,7 +84,11 @@ class StoreController extends Controller
                 'quantity'      => $request->quantity,
             ]);
         }
-
+        $cart_count = Cart::where('user_id',$userId)->count();
+        $user_data = session('user_data');
+        $user_data['cart_count'] = $cart_count;
+        session(['user_data'=>$user_data]);
+        return $cart_count;
         return response()->json(['message' => 'Product added to cart successfully.']);
         
     }

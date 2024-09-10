@@ -14,14 +14,12 @@ class PaymentController extends Controller
         Stripe::setApiKey($stripeSecretKey);
         $user = Auth::user();
 
-        // Create a SetupIntent
         $setupIntent = SetupIntent::create([
             'customer'=>$user->stripe_id,
             'usage' => 'on_session',
             'payment_method_options' => ['card' => ['request_three_d_secure' => 'any']],
         ]);
 
-        // Pass the client secret to the view
         return view('stripe.checkout', [
             'clientSecret' => $setupIntent->client_secret,
         ]);
@@ -44,7 +42,7 @@ class PaymentController extends Controller
           'submit_type' => 'pay',
           'billing_address_collection' => 'required',
           'shipping_address_collection' => [
-            'allowed_countries' => ['US', 'CA','IN'],
+            'allowed_countries' => ['US', 'GB','IN'],
           ],
           'line_items' => [[
                 'price_data' => [

@@ -9,8 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 use Illuminate\Support\Facades\LoginRequest;
+use App\Models\Cart;
 
-class userController extends Controller
+class UserController extends Controller
 {
     function login()
     {   
@@ -81,14 +82,15 @@ class userController extends Controller
         $user_data['email'] = $user->email;
         $user_data['phone_number'] = $user->phone_number;
         session()->put('user_data', $user_data);
+
+        $mail = new MailController();
+        $mail->verifyMail();
         return redirect('/');
     }
 
     function sign_in(request $request)
     {
-        // if(Auth::check()){
-        //     return redirect('/');
-        // }
+
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
             if(!isset($user->stripe_id)){
@@ -108,7 +110,11 @@ class userController extends Controller
             $user_data['last_name']     = $user->last_name;
             $user_data['email']         = $user->email;
             $user_data['phone_number']  = $user->phone_number;
+            $cart_count = Cart::where('user_id',$user->user_id)->count();
+            $user_data['cart_count']  = $cart_count;
             session()->put('user_data', $user_data);
+
+
             return redirect('dashboard');
         } else {
             return back()->withErrors("Email or Password doesn't match");

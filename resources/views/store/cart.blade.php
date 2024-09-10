@@ -483,7 +483,7 @@
                 <div class="col-lg-8">
                 <ul class="items">
                     @foreach($items as $key => $item)
-                <li class="grid_4 item">
+                <li class="grid_4 item" data-product="{{$item->product_id}}">
                     <a href="#" class="btn-remove">
                         <i class="far fa-trash-alt"></i>
                     </a>
@@ -512,7 +512,7 @@
                             </a>
                             </p>
                             <input type="hidden" class="quantity_field" name="quantity" data-price="{{$item->price}}" value="{{$item->quantity}}" />
-                            <input type="hidden" id="product_id" name="product_id" value="{{$item->product_id}}" />
+                            <input type="hidden" class="product_id" name="product_id" value="{{$item->product_id}}" />
                         </div>
                     </div>
                 </li>
@@ -557,7 +557,58 @@
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        function atc() {
+    const productId = document.getElementById("product_id").value;
+    const quantity = document.getElementsByClassName("quantity_field").value;
+    addToCart(productId,quantity);
+};
+
+function addToCart(productId,quantity) {
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': '{{csrf_token()}}'
+        },
+        url: '{{url('cart/add')}}', 
+        method: 'POST',
+        data: {
+            product_id: productId,
+            quantity:quantity,
+        },
+        success: function (response) {
+            let spans = document.querySelectorAll('.cart-count'); 
+            spans.forEach(function(span) {
+                span.innerHTML = response; 
+            });
+            Swal.fire({
+            position: "bottom-end",
+            icon: "success",
+            title: "Item Added",
+            showConfirmButton: false,
+            timer: 1500,
+            showClass: {
+                popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+                `
+            },
+            hideClass: {
+                popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+                `
+            }
+            });
+        },
+        error: function (error) {
+            alert('Error adding product to cart.');
+        }
+    });
+}
+
         var $addQuantity = $(".btn-quantity.plus"),
   $minusQuantity = $(".btn-quantity.minus"),
   $removeItem = $(".btn-remove");
@@ -566,26 +617,35 @@ $addQuantity.on("click", function (e) {
   e.preventDefault();
   var $item = $(this).parents(".item"),
     $quantityField = $item.find(".quantity_field"),
+    $productId = $item.find(".product_id"),
+
     currentQuantity = $quantityField.val(),
+    product = $productId.val(),
     nextQuantity = parseFloat(currentQuantity) + 1;
 
   $item.find(".current_quantity").html(nextQuantity);
   $quantityField.val(nextQuantity);
 
   calculateTotal();
+  addToCart(product,nextQuantity);
+
 });
 
 $minusQuantity.on("click", function (e) {
   e.preventDefault();
   var $item = $(this).parents(".item"),
     $quantityField = $item.find(".quantity_field"),
+    $productId = $item.find(".product_id"),
     currentQuantity = $quantityField.val();
+    product = $productId.val();
   var prevQuantity = currentQuantity <= 1 ? 0 : parseFloat(currentQuantity) - 1;
-
+console.log(product);
   $item.find(".current_quantity").html(prevQuantity);
   $quantityField.val(prevQuantity);
 
   calculateTotal();
+  addToCart(product,prevQuantity);
+
 });
 
 $removeItem.on("click", function () {
@@ -614,36 +674,6 @@ var calculateTotal = function () {
 };
 
 calculateTotal();
-atc();
 
-    </script>
-    <script>
-
-                
-function addToCart(productId,quantity) {
-    $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': '{{csrf_token()}}'
-        },
-        url: '{{url('cart/add')}}', 
-        method: 'POST',
-        data: {
-            product_id: productId,
-            quantity:quantity,
-        },
-        success: function (response) {
-
-        },
-        error: function (error) {
-            alert('Error adding product to cart.');
-        }
-    });
-}
-
-function atc() {
-    const productId = document.getElementById("product_id").value;
-    const quantity = document.getElementsByClassName("quantity_field").value;
-    addToCart(productId,quantity);
-};
     </script>
 @endpush

@@ -182,7 +182,10 @@
                     <div class="card ">
                         <img src="{{url('').'/'.$product->img}}" class="card-img-product" alt="...">
                         <div class="card-body">
+                        <a href="{{url('store/item') . '/' . $product->id}}">
                             <p class="card-text responsive-font">{{$product->title}}</p>
+                            </a>
+
                             <div class="card-title d-flex ">
                                 <h5 class="responsive-font discount-price"><strong>£{{$product->discount_price}}</strong></h5>
 
@@ -199,6 +202,7 @@
 
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         var buttonPlus = document.getElementsByClassName("qty-btn-plus");
@@ -232,7 +236,31 @@ function addToCart(productId,quantity) {
             quantity:quantity,
         },
         success: function (response) {
-
+            let spans = document.querySelectorAll('.cart-count'); 
+            spans.forEach(function(span) {
+                span.innerHTML = response; 
+            });
+            Swal.fire({
+            position: "bottom-end",
+            icon: "success",
+            title: "Item Added",
+            showConfirmButton: false,
+            timer: 1500,
+            showClass: {
+                popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+                `
+            },
+            hideClass: {
+                popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+                `
+            }
+            });
         },
         error: function (xhr, status, error) {
             if (xhr.status === 401) {

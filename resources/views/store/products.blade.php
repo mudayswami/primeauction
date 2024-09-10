@@ -10,7 +10,16 @@
     font-weight:300;
     font-size:1rem;
     text-align:center;
-    min-height:3rem;
+    margin: auto auto;
+    }
+    p.card-text.responsive-font {
+    min-height: 5rem;
+    max-height: 5rem;
+    overflow: hidden;
+    }
+    .spinner-border {
+        width:1rem !important;
+        height:1rem !important;
     }
     .btn-d {
     border-radius: .375rem;
@@ -143,17 +152,18 @@
                                 Filter: Price <i class="bi bi-caret-down"></i>
                             </button>
                             <div class="dropdown-menu p-4" aria-labelledby="dropdownMenuButton1">
-                                <form id="price-filter d-flex flex-row">
+                                <form id="price-filter" class="d-flex flex-row" action="" >
                                     <div class="form-group">
                                         <label id="fname-label" for="minimum">Minimum:</label>
-                                        <input type="text" name="minimum" id="minimum" placeholder="£" class="form-control"
+                                        <input type="text" name="minimum" id="minimum" placeholder="£" value="{{Request::query('minimum')}}" class="form-control"
                                             required="">
                                     </div>
                                     <div class="form-group">
                                         <label id="fname-label" for="maximum">Maximum:</label>
-                                        <input type="text" name="maximum" id="maximum" placeholder="£" class="form-control"
+                                        <input type="text" name="maximum" id="maximum" placeholder="£" value="{{Request::query('maximum')}}" class="form-control"
                                             required="">
                                     </div>
+                                    <button type="submit" class="btn btn-outline-primary mt-1">Apply Filter</button>
                                 </form>
                             </div>
                         </div>
@@ -202,11 +212,73 @@
 @endpush
 
 @push('scripts')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 
 const cartBtn = document.getElementsByClassName('cart-btn');
 
+$(document).on('click', '.cart-btn', function() {
 
+    var productId = $(this).data('id');
+    var quantity = 1;
+
+   var button = $(this);
+
+    button.html('<div class="spinner-border text-light" role="status"><span class="visually-hidden">Loading...</span></div>');
+
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        url: '{{ url('cart/add') }}',
+        method: 'POST',
+        data: {
+            product_id: productId,
+            quantity: quantity,
+        },
+        success: function(response) {
+            button.html('Added');
+            let spans = document.querySelectorAll('.cart-count');
+            spans.forEach(function(span) {
+                span.innerHTML = response; 
+            });
+
+            Swal.fire({
+                position: 'bottom-end',
+                icon: 'success',
+                title: 'Item Added',
+                showConfirmButton: false,
+                timer: 1500,
+                showClass: {
+                    popup: 'animate__animated animate__fadeInUp animate__faster'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutDown animate__faster'
+                }
+            });
+        },
+        error: function(error) {
+            alert('Error adding product to cart.');
+        }
+    });
+});
+
+document.getElementById('price-filter').addEventListener('submit', function(event) {
+    event.preventDefault(); 
+    const minPrice = document.getElementById('minimum').value;
+    const maxPrice = document.getElementById('maximum').value;
+
+    const url = new URL(window.location.href); 
+    if (minPrice) {
+        url.searchParams.set('min_price', minPrice); 
+    }
+    if (maxPrice) {
+        url.searchParams.set('max_price', maxPrice);
+    }
+    window.location.href = url;
+    console.log("Price filter applied: Minimum - £" + minPrice + ", Maximum - £" + maxPrice);
+});
 
 
 </script>
