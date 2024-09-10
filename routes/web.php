@@ -29,10 +29,12 @@ Route::get("contact-us",[DetailController::class,'contactUs']);
 
 Route::get("store",[StoreController::class,"home"]);
 Route::get("store/products",[StoreController::class,"products"]);
-Route::get("store/item",[StoreController::class,"item"]);
+Route::get("store/item/{slug}",[StoreController::class,"item"]);
 Route::get("store/department",[StoreController::class,"department"]);
 Route::get("store/aboutus",[StoreController::class,"aboutus"]);
-
+Route::get("cart",[StoreController::class,"cart"])->middleware('auth');
+Route::post("cart/add",[StoreController::class,"addCart"])->middleware('auth');
+Route::get('checkout',[StoreController::class,"cartCheckout"])->middleware('auth');
 
 Route::get("dashboard",[DashboardController::class,"dashboard"])->middleware('auth');
 Route::get("paynow",[DashboardController::class,"paynow"])->middleware('auth');
@@ -61,7 +63,6 @@ Route::get('account/won-lots',[AccountController::class,'wonLots'])->middleware(
 Route::get('account/lost-lots',[AccountController::class,'lostLots'])->middleware('auth');
 Route::get('account/watchlist',[AccountController::class,'watchlist'])->middleware('auth');
 Route::post("wl",[AccountController::class,"addIntoWatchlist"]);
-
 
 Route::get('checkout/{id}',[PaymentController::class,'checkout'])->middleware('auth');
 Route::get('store-payment-method',[PaymentController::class,'saveCard'])->middleware('auth');

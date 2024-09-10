@@ -110,7 +110,7 @@
             <div class="row">
                 <div class="col-md-6 col-12">
                     <div class="img-container">
-                        <img class="" src="{{url('assets/store/img4.jpg')}}">
+                        <img class="" src="{{url('').'/'.$item->img}}">
                     </div>
                 </div>
                 <div class="col-md-6 col-12">
@@ -125,13 +125,13 @@
                         </div>
                     </div>
                     <div class="product_title">
-                        <span class="text-muted h5">Safari</span>
-                        <h1>Small Cabin Suitcase (55 cm) 4 Wheels - Magnum Fury 55 - Teal</h1>
+                        <span class="text-muted h5">{{$item->brand}}</span>
+                        <h1>{{$item->title}}</h1>
                     </div>
                     <div class="product_price">
-                        <span class="h2 fw-bold discount-price">£180.00</span>
-                        <span class="h5 og-price"><del>£300.00</del></span>
-                        <span class="h5 discount">64% OFF</span>
+                        <span class="h2 fw-bold discount-price">£ {{$item->discount_price}}</span>
+                        <span class="h5 og-price"><del>£ {{$item->original_price}}</del></span>
+                        <span class="h5 discount">{{$item->discount_percent}}% OFF</span>
                     </div>
                     <div class="terms">
                         <span>Tax included. <a href="#"><u>Shipping</u></a> calculated at checkout.</span>
@@ -148,7 +148,7 @@
                                             stroke-linejoin="round"></path>
                                     </g>
                                 </svg></button>
-                            <input type="text" name="qty" value="0" class="input-qty" />
+                            <input type="text" name="qty" id="qty" value="1" class="input-qty" />
                             <button class="qty-btn-plus btn-light" type="button"><svg style="width:15px" width="15px"
                                     height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg')}}"
                                     stroke="#000000">
@@ -163,16 +163,13 @@
                         </div>
                     </div>
                     <div class="btn-group-vertical">
-                        <button class="btn btn-outline-secondary my-2 add_to_cart">Add to cart</button>
+                        <button class="btn btn-outline-secondary my-2 add_to_cart add-to-cart-btn">Add to cart</button>
                         <button class="btn btn-secondary bg-web my-2 buy_now">Buy Now</button>
                     </div>
                     <div class="product_description">
-                        <p class="fs-3 py-2">Shark FlexStyle 5-in-1 Air Styler & Hair Dryer with Storage Case, Black/Rose
-                            Gold</p>
-                        <p class="fs-3 py-2">Grade: B</p>
-                        <p class="fs-3 py-2">Any hair type. Any skill set. For all Hairkind. With a single twist, Shark
-                            FlexStyle rotates between a powerful hair dryer and a versatile multi-styler. Style while you
-                            dry with no heat damage. 5 ways to style: Curl, Straighten, Volumise, Smooth, Define.</p>
+                        <p class="fs-3 py-2">{{$item->title}}</p>
+                        <p class="fs-3 py-2">Grade: {{$item->condition}}</p>
+                        <p class="fs-3 py-2">{{$item->description}}</p>
                     </div>
                 </div>
             </div>
@@ -180,61 +177,20 @@
                 <div class="py-3">
                     <h2>More Like This</h2>
                 </div>
+                @foreach($products as $key => $product)
                 <div class="col-md-3 col-6 ">
                     <div class="card ">
-                        <img src="{{url('assets/store/img1.jpg')}}" class="card-img-product" alt="...">
+                        <img src="{{url('').'/'.$product->img}}" class="card-img-product" alt="...">
                         <div class="card-body">
-                            <p class="card-text responsive-font">Mid Set of 2 for Adults Set of 2 for Adults Size Caps Set
-                                of 2 for
-                                Adults</p>
+                            <p class="card-text responsive-font">{{$product->title}}</p>
                             <div class="card-title d-flex ">
-                                <h5 class="responsive-font discount-price"><strong>£99</strong></h5>
+                                <h5 class="responsive-font discount-price"><strong>£{{$product->discount_price}}</strong></h5>
 
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-6 ">
-                    <div class="card ">
-                        <img src="{{url('assets/store/img2.jpg')}}" class="card-img-product" alt="...">
-                        <div class="card-body">
-                            <p class="card-text responsive-font">Mid Size Caps Set of Set of 2 for Adults 2 for Adults</p>
-                            <div class="card-title d-flex ">
-                                <h5 class="responsive-font discount-price"><strong>£99</strong></h5>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col-md-3 col-6 ">
-                    <div class="card ">
-                        <img src="{{url('assets/store/img3.jpg')}}" class="card-img-product" alt="...">
-                        <div class="card-body">
-                            <p class="card-text responsive-font">Lorem Ipsum has been the industry's standard Set of 2 for
-                                Adults</p>
-                            <div class="card-title d-flex ">
-                                <h5 class="responsive-font discount-price"><strong>£99</strong></h5>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-6 ">
-                    <div class="card ">
-                        <img src="{{url('assets/store/img4.jpg')}}" class="card-img-product" alt="...">
-                        <div class="card-body">
-                            <p class="card-text responsive-font">Lorem Ipsum has been the industry's standard</p>
-                            <div class="card-title d-flex ">
-                                <h5 class="responsive-font discount-price"><strong>£99</strong></h5>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
+                @endforeach
             </div>
             </div>
         </section>
@@ -242,6 +198,8 @@
 @endpush
 
 @push('scripts')
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
     <script>
         var buttonPlus = document.getElementsByClassName("qty-btn-plus");
         var buttonMinus = document.getElementsByClassName("qty-btn-minus");
@@ -260,6 +218,33 @@
                 }
             });
         });
+
+                
+function addToCart(productId,quantity) {
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': '{{csrf_token()}}'
+        },
+        url: '{{url('cart/add')}}', 
+        method: 'POST',
+        data: {
+            product_id: productId,
+            quantity:quantity,
+        },
+        success: function (response) {
+
+        },
+        error: function (error) {
+            alert('Error adding product to cart.');
+        }
+    });
+}
+
+$(document).on('click', '.add-to-cart-btn', function () {
+    const productId = {{$item->id}};
+    const quantity =document.getElementById("qty").value;
+    addToCart(productId,quantity);
+});
 
     </script>
 @endpush
