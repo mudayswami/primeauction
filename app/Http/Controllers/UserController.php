@@ -10,11 +10,13 @@ use Illuminate\Support\Facades\Hash;
 use Validator;
 use Illuminate\Support\Facades\LoginRequest;
 
-
 class userController extends Controller
 {
     function login()
-    {
+    {   
+        if(Auth::check()){
+            return redirect('dashboard');
+        }
         return view('auction.login');
     }
 

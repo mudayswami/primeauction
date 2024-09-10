@@ -168,57 +168,22 @@
         <h2>Featured Products</h2>
     </div>
     <div class="row g-1">
+        @foreach ($products as $product)
+        
         <div class="col-lg-3 col-6 ">
             <div class="card ">
-                <img src="{{url('assets/store/img1.jpg')}}" class="card-img-product" alt="...">
+                <img src="{{url('').'/'.$product->img}}" class="card-img-product" alt="...">
                 <div class="card-body">
-                    <p class="card-text responsive-font">Mid Set of 2 for Adults Set of 2 for Adults Size Caps Set of 2 for
-                        Adults</p>
+                    <p class="card-text responsive-font">{{$product->title}}</p>
                     <div class="card-title text-center">
-                        <h5 class="responsive-font discount-price text-center"><strong>£99</strong></h5>
+                        <h5 class="responsive-font discount-price text-center"><strong>£ {{$product->discount_price}}</strong></h5>
 
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-6 ">
-            <div class="card ">
-                <img src="{{url('assets/store/img2.jpg')}}" class="card-img-product" alt="...">
-                <div class="card-body">
-                    <p class="card-text responsive-font">Mid Size Caps Set of Set of 2 for Adults 2 for Adults</p>
-                    <div class="card-title text-center">
-                        <h5 class="responsive-font discount-price"><strong>£99</strong></h5>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-lg-3 col-6 ">
-            <div class="card ">
-                <img src="{{url('assets/store/img3.jpg')}}" class="card-img-product" alt="...">
-                <div class="card-body">
-                    <p class="card-text responsive-font">Mid Size Caps Set of 2 for Adults Set of 2 for Adults</p>
-                    <div class="card-title text-center">
-                        <h5 class="responsive-font discount-price"><strong>£99</strong></h5>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-3 col-6 ">
-            <div class="card ">
-                <img src="{{url('assets/store/img4.jpg')}}" class="card-img-product" alt="...">
-                <div class="card-body">
-                    <p class="card-text responsive-font">Mid Size Caps Set of 2 for Adults</p>
-                    <div class="card-title text-center">
-                        <h5 class="responsive-font discount-price"><strong>£99</strong></h5>
-
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endforeach
+        
         <div class="container-fluid d-flex justify-content-center  mx-auto">
             <a href="store/products" class="cata-btn">Shop all</a>
         </div>

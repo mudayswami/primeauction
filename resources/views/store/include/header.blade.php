@@ -29,7 +29,7 @@
                     </svg>
                 </span></li>
             <li class="nav-item">
-                <a href="/account/login" class="header__icon header__icon--account link focus-inset small-hide">
+                <a href="{{url('login')}}" class="header__icon header__icon--account link focus-inset small-hide">
                     <svg viewBox="-2 -2 24.00 24.00" version="1.1" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -86,7 +86,7 @@
                         <a class="nav-link active" aria-current="page" href="{{url('store/aboutus')}}">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{url('signup')}}">Contact us</a>
+                        <a class="nav-link active" aria-current="page" href="{{url('contact-us')}}">Contact us</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 user-btns d-none d-md-flex  ">
@@ -102,7 +102,7 @@
                     </svg>
                 </span></li>
             <li class="nav-item">
-                <a href="/account/login" class="header__icon header__icon--account link focus-inset small-hide">
+                <a href="{{url('login')}}" class="header__icon header__icon--account link focus-inset small-hide">
                     <svg viewBox="-2 -2 24.00 24.00" version="1.1" xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -127,7 +127,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/cart" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble"><svg
+                <a href="{{url('cart')}}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble"><svg
                         width="256px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                         <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>

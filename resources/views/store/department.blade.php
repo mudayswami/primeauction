@@ -172,7 +172,7 @@
                 </div>
                 <div class="row g-1 mt-4 mb-3">
                     <div class="col-lg-4 col-6 ">
-                        <a href="small-d">
+                        <a href="{{url('store/products')}}">
                             <div class="card ">
                                 <img src="{{url('assets/department/appliances.jpg')}}"
                                     class="card-img-top zoom-eff" alt="...">
