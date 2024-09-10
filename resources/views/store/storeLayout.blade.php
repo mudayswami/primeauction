@@ -146,7 +146,18 @@
             clip-path: inset(calc((1 - 1/var(--f)) * 50%));
             scale: var(--f)
         }
+        .cart-count {
+            position: absolute;
+            top: 0px;
+            right:0px;
+            background: red;
+            border-radius: 100px;
+            width: 28px;
+            height: 28px;
+            padding: 0px 8px;
+            color: white;
 
+        }
         @stack('styles')
     </style>
 </head>

@@ -223,7 +223,7 @@
         <div class="container mt-3">
             <h5 class="fw-bold otc ">Our Top Categories</h5>
             <div class="row">
-                @foreach (category() as $key => $value)
+                @foreach ($categories as $key => $value)
                 <div class="col-12 col-md-4 my-2">
                     <div class="featured-img-{{$key}}">
                         <div class="feature-text">

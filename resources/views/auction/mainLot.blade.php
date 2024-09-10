@@ -198,7 +198,7 @@
                     <div class="list-group category-header">Category</div>
                     <div class="category">
                         <div class="secondary-category">
-                            @foreach(category() as $key => $value)
+                            @foreach($categories as $key => $value)
                             <div class="category-item">
                                 <div class="form-check checkbox" href="auction?">
                                     <input class="form-check-input" type="checkbox" value="{{$value['category']}}" href="" id="cg_+{{$key}}" name="cg">
@@ -268,7 +268,7 @@
                     <div class="list-group category-header">Category</div>
                     <div class="category">
                         <div class="secondary-category">
-                            @foreach(category() as $key => $value)
+                            @foreach($categories as $key => $value)
                             <div class="category-item">
                                 <div class="form-check checkbox" href="auction?">
                                     <input class="form-check-input" type="checkbox" value="{{$value['category']}}" href="" id="cg_+{{$key}}" name="cg">

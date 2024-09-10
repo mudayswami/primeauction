@@ -53,7 +53,7 @@
                     <span class="d-none">Log in</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item position-relative">
                 <a href="/cart" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble"><svg
                         width="256px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -65,7 +65,14 @@
                             </path>
                         </g>
                     </svg>
-                    <span class="d-none">Cart</span></a>
+                    <span class="d-none">Cart</span>
+                    @if(isset(session('user_data')['cart_count']))
+                    <span class="cart-count">{{session('user_data')['cart_count']}}</span>
+                    @else
+                    <span class="cart-count">0</span>
+                    @endif
+                    
+                </a>
             </li>
         </ul>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -126,7 +133,7 @@
                     <span class="d-none">Log in</span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item position-relative">
                 <a href="{{url('cart')}}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble"><svg
                         width="256px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -139,6 +146,11 @@
                         </g>
                     </svg>
                     <span class="d-none">Cart</span></a>
+                    @if(isset(session('user_data')['cart_count']))
+                    <span class="cart-count">{{session('user_data')['cart_count']}}</span>
+                    @else
+                    <span class="cart-count">0</span>
+                    @endif
             </li>
         </ul>
             </div>

@@ -11,5 +11,7 @@ class AuctionCategory extends Model
 
     protected $table = 'tbl_auction_category';
 
-    
+    public static function getActiveCategories() {
+        return self::where('status', 1)->get(); 
+    }
 }

@@ -166,6 +166,8 @@ class AuctionController extends Controller
     function searchLot(Request $request)
     {
         $data['lots'] = Lot::with('auction')->where('description', 'like', '%' . $request->search . '%')->get();
+        $data['categories'] = AuctionCategory::getActiveCategories();
+
         return view('auction.mainLot', $data);
     }
 
