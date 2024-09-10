@@ -38,7 +38,7 @@ class userController extends Controller
             'country' => ['required'],
             'pcode' => ['required'],
             'phcountry' => ['required', 'integer'],
-            'phone_number' => ['required',],
+            'phone_number' => ['required'],
             'entity' => ['required'],
         ]);
         $address = "";

@@ -172,7 +172,7 @@
             <h2 class="hero-heading h1 fw-bold">Summer Sale-additional 10% off at checkout</h2>
         </div>
         <div class="container-fluid text-center  mx-auto">
-            <a href="auction" class="cata-btn">Shop all</a>
+            <a href="{{url('store/products')}}" class="cata-btn">Shop all</a>
         </div>
     </div>
     <div class="container">
@@ -202,7 +202,7 @@
             @endforeach
 
             <div class="container-fluid d-flex justify-content-center  mx-auto">
-                <a href="store/products" class="cata-btn">Shop all</a>
+                <a href="{{url('store/products')}}" class="cata-btn">Shop all</a>
             </div>
         </div>
     </div>
