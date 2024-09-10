@@ -190,7 +190,7 @@
                                     <h5 class="responsive-font og-price"><del>£{{$product->original_price}}</del></h5>
                                     <h5 class="responsive-font discount"><em>{{$product->discount_percentage}}% Off</em></h5>
                                 </div>
-                                <div class="card-text text-center"><span class=" btn-d responsive-font">Add to cart</span></div>
+                                <div class="card-text text-center"><span class="cart-btn btn-d responsive-font" data-id="{{$product->id}}">Add to cart</span></div>
                             </div>
                         </div>
                     </div>
@@ -202,4 +202,12 @@
 @endpush
 
 @push('scripts')
+<script>
+
+const cartBtn = document.getElementsByClassName('cart-btn');
+
+
+
+
+</script>
 @endpush

@@ -669,7 +669,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 d-none">
                             <div class="form-group">
                                 <label id="town-label" for="phcountry">Phone Country</label>
                                 <select id="phcountry" name="phcountry" class="form-control" required>
