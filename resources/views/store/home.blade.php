@@ -62,9 +62,13 @@
     .selling-section{
     margin: 5rem auto 5rem auto;
     }
-
     .card{
-    border:none;
+        border:none !important;
+    }
+
+    .bx-s-1{
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    margin: 8px 5px;
     }
 
     .card-img-top {
@@ -178,8 +182,8 @@
         <div class="row g-1">
             @foreach ($products as $product)
 
-                <div class="col-lg-3 col-6 ">
-                    <div class="card ">
+                <div class=" col-lg-3 col-6 ">
+                    <div class="card bx-s-1">
                         <img src="{{url('') . '/' . $product->img}}" class="card-img-product" alt="...">
                         <div class="card-body">
                             <p class="card-text responsive-font">
