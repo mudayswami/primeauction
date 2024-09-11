@@ -18,16 +18,40 @@ class StoreController extends Controller
     }
 
     function products(Request $request){
-        $data['products'] = null;
-        if($request->query('minimum') || $request->query('maximum')){
-            $data['products'] = Products::where([
-                'status' => 1,
-            ])->where('status','>',0)->whereBetween('discount_price',[$request->query('minimum'),$request->query('maximum')])->get();
-        }else{
-            $data['products'] = Products::where([
-                'status' => 1,
-            ])->where('status','>',0)->get();
-        }
+
+        $data['products'] = Products::query()->where('status', 1)
+        ->when($request->query('search'), function($query, $search) {
+            return $query->where(function($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%') 
+                ->orWhere('description', 'like', '%' . $search . '%'); 
+            });
+        })
+        ->when($request->query('min_price') || $request->query('max_price'), function($query) use ($request) {
+            $minPrice = $request->query('min_price') ?: 0; 
+            $maxPrice = $request->query('max_price') ?: PHP_INT_MAX; 
+            return $query->whereBetween('discount_price', [$minPrice, $maxPrice]);
+        })->when($request->query('sort'), function($query, $sort) {
+            switch ($sort) {
+                case 'featured':
+                    return $query->where('featured', 1);
+                case 'best_selling':
+                    return $query->where('featured', 2);
+                case 'price_high_low':
+                    return $query->orderBy('discount_price', 'desc');
+                case 'price_low_high':
+                        return $query->orderBy('discount_price', 'asc');
+                case 'alphabetical_asc':
+                    return $query->orderBy('title', 'asc');
+                case 'alphabetical_desc':
+                    return $query->orderBy('title', 'desc');
+                case 'date_new_old':
+                    return $query->orderBy('created_at', 'desc');
+                case 'date_old_new':
+                    return $query->orderBy('created_at', 'asc');
+                default:
+                    return $query;
+            }
+        })->get();
         return view('store.products', $data);
     }
 

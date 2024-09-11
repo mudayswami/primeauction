@@ -1027,7 +1027,7 @@
                     const entity = document.getElementById('entity');
                     const is_vat = document.getElementById('is_vat');
 
-                    if (postcode.value.trim() === "") {
+                    if (postcode.value === "") {
                         postcode.classList.add("is-invalid");
                         console.log('entered-pcode');
                         return false;

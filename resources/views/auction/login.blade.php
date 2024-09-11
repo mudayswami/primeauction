@@ -10,6 +10,14 @@
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.4/components/logins/login-5/assets/css/login-5.css">
     <style>
+                :root {
+            --bluec: rgb(16 35 67);
+            --redc: #ff013c;
+        }
+
+        .bg-web {
+            background-color: var(--bluec);
+        }
         body {
             background: #fff;
         }
@@ -20,6 +28,20 @@
 
         .bg-shadow {
             box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+        }
+        .cata-btn {
+            padding: .6rem 2rem;
+            background: var(--redc);
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            border-radius: 4px;
+        }
+
+        .cata-btn:hover {
+            background: white;
+            color: var(--bluec) !important;
+            border: solid 1px var(--redc);
         }
     </style>
 </head>
@@ -85,7 +107,7 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="d-grid">
-                                            <button class="btn bsb-btn-xl btn-primary" type="submit">Login</button>
+                                            <button class="btn bsb-btn-xl cata-btn" type="submit">Login</button>
                                         </div>
                                     </div>
                                 </div>
@@ -96,11 +118,11 @@
                                     <div class="d-flex gap-2 gap-md-4 flex-column flex-md-row justify-content-md-end">
                                         <a href="signup" class="link-secondary text-decoration-none">Create new
                                             account</a>
-                                        <a href="#!" class="link-secondary text-decoration-none">Forgot password</a>
+                                        <a href="#!" class="d-none link-secondary text-decoration-none">Forgot password</a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row d-none">
                                 <div class="col-12">
                                     <p class="mt-5 mb-4">Or sign in with</p>
                                     <div class="d-flex gap-3 flex-column flex-xl-row">

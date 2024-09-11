@@ -202,7 +202,7 @@
         </div>
         <div class="container selling-section">
             <a href="{{url('sell-us')}}" class="start-selling">
-                <img class="w-100" src="{{url('assets/sell-with-us.svg')}}">
+                <img class="w-100" src="{{url('assets/sell-us.jpg')}}">
             </a>
             <div class="selling-info px-3 sub-para">
                 <h2 class="heading">Interested in becoming a seller?</h2>

@@ -42,7 +42,7 @@ class PaymentController extends Controller
           'submit_type' => 'pay',
           'billing_address_collection' => 'required',
           'shipping_address_collection' => [
-            'allowed_countries' => ['US', 'GB','IN'],
+            'allowed_countries' => ['GB','IN'],
           ],
           'line_items' => [[
                 'price_data' => [
