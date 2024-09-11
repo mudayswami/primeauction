@@ -176,10 +176,14 @@
                                 <ul class="dropdown-menu p-2" aria-labelledby="dropdownMenuButton1">
                                     <li><a class="dropdown-item" data-sort="featured" href="#">Featured</a></li>
                                     <li><a class="dropdown-item" data-sort="best_selling" href="#">Best Selling</a></li>
-                                    <li><a class="dropdown-item" data-sort="alphabetical_asc" href="#">Alphabetically,A-Z</a></li>
-                                    <li><a class="dropdown-item" data-sort="alphabetical_desc" href="#">Alphabetically,Z-A</a></li>
-                                    <li><a class="dropdown-item" data-sort="price_low_high" href="#">Price: Low to High</a></li>
-                                    <li><a class="dropdown-item" data-sort="price_high_low" href="#">Price: High to Low</a></li>
+                                    <li><a class="dropdown-item" data-sort="alphabetical_asc"
+                                            href="#">Alphabetically,A-Z</a></li>
+                                    <li><a class="dropdown-item" data-sort="alphabetical_desc"
+                                            href="#">Alphabetically,Z-A</a></li>
+                                    <li><a class="dropdown-item" data-sort="price_low_high" href="#">Price: Low to High</a>
+                                    </li>
+                                    <li><a class="dropdown-item" data-sort="price_high_low" href="#">Price: High to Low</a>
+                                    </li>
                                     <li><a class="dropdown-item" data-sort="date_new_old" href="#">Date: New to Old</a></li>
                                     <li><a class="dropdown-item" data-sort="date_old_new" href="#">Date: Old to New</a></li>
 
@@ -192,13 +196,14 @@
                     @foreach ($products as $product)
                         <div class="col-lg-3 col-6 ">
                             <div class="card">
-                                <a href="{{url('store/item') . '/' . $product->id}}"><img src="{{url('') . '/' . $product->img}}"
-                                        class="card-img-top zoom-eff" alt="..."></a>
+                                <a href="{{url('store/item') . '/' . $product->id}}"><img
+                                        src="{{url('') . '/' . $product->img}}" class="card-img-top zoom-eff" alt="..."></a>
                                 <div class="card-body">
                                     <p class="card-text responsive-font">{{$product->title}}</p>
                                     <div class="card-title d-flex flex-row justify-content-around text-align">
                                         <h5 class="responsive-font discount-price">
-                                            <strong>£{{$product->discount_price}}</strong></h5>
+                                            <strong>£{{$product->discount_price}}</strong>
+                                        </h5>
                                         <h5 class="responsive-font og-price"><del>£{{$product->original_price}}</del></h5>
                                         <h5 class="responsive-font discount"><em>{{$product->discount_percentage}}% Off</em>
                                         </h5>
@@ -262,8 +267,12 @@
                         }
                     });
                 },
-                error: function (error) {
-                    alert('Error adding product to cart.');
+                error: function (xhr, status, error) {
+                    if (xhr.status === 401) {
+                        window.location.href = "{{url('login')}}";
+                    } else {
+                        alert('Error: ' + xhr.responseJSON.message);
+                    }
                 }
             });
         });
@@ -284,16 +293,16 @@
             console.log("Price filter applied: Minimum - £" + minPrice + ", Maximum - £" + maxPrice);
         });
 
-        $(document).on('click', '.dropdown-item', function(event) {
+        $(document).on('click', '.dropdown-item', function (event) {
 
-    var sortOption = $(this).data('sort');
+            var sortOption = $(this).data('sort');
 
-    var url = new URL(window.location.href); 
-    url.searchParams.set('sort', sortOption); 
-console.log(url);
-    window.location.href = url          ;
+            var url = new URL(window.location.href);
+            url.searchParams.set('sort', sortOption);
+            console.log(url);
+            window.location.href = url;
 
-});
+        });
 
     </script>
 @endpush

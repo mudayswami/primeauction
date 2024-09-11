@@ -603,8 +603,12 @@ function addToCart(productId,quantity) {
             }
             });
         },
-        error: function (error) {
-            alert('Error adding product to cart.');
+        error: function (xhr, status, error) {
+            if (xhr.status === 401) {
+            window.location.href = "{{url('login')}}";
+        } else {
+            alert('Error: ' + xhr.responseJSON.message);
+        }
         }
     });
 }
