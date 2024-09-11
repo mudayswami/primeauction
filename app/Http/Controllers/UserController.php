@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Hash;
 use Validator;
 use Illuminate\Support\Facades\LoginRequest;
 use App\Models\Cart;
+use Str;
+use Mail;
+use App\Mail\VerifyMail;
 
 class UserController extends Controller
 {
@@ -83,8 +86,13 @@ class UserController extends Controller
         $user_data['phone_number'] = $user->phone_number;
         session()->put('user_data', $user_data);
 
-        $mail = new MailController();
-        $mail->verifyMail();
+        $user->remember_token = Str::random(32);
+        $user->save();        
+        $data = [
+            'name' => $user->first_name,
+            'token' => $user->remember_token,
+        ];
+        Mail::to($user->email)->send(new VerifyMail($data));
         return redirect('/');
     }
 

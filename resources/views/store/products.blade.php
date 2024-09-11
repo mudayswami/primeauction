@@ -18,8 +18,8 @@
     overflow: hidden;
     }
     .spinner-border {
-        width:1rem !important;
-        height:1rem !important;
+    width:1rem !important;
+    height:1rem !important;
     }
     .btn-d {
     border-radius: .375rem;
@@ -152,16 +152,16 @@
                                 Filter: Price <i class="bi bi-caret-down"></i>
                             </button>
                             <div class="dropdown-menu p-4" aria-labelledby="dropdownMenuButton1">
-                                <form id="price-filter" class="d-flex flex-row" action="" >
+                                <form id="price-filter" class="d-flex flex-row" action="">
                                     <div class="form-group">
                                         <label id="fname-label" for="minimum">Minimum:</label>
-                                        <input type="text" name="minimum" id="minimum" placeholder="£" value="{{Request::query('minimum')}}" class="form-control"
-                                            required="">
+                                        <input type="text" name="minimum" id="minimum" placeholder="£"
+                                            value="{{Request::query('minimum')}}" class="form-control" required="">
                                     </div>
                                     <div class="form-group">
                                         <label id="fname-label" for="maximum">Maximum:</label>
-                                        <input type="text" name="maximum" id="maximum" placeholder="£" value="{{Request::query('maximum')}}" class="form-control"
-                                            required="">
+                                        <input type="text" name="maximum" id="maximum" placeholder="£"
+                                            value="{{Request::query('maximum')}}" class="form-control" required="">
                                     </div>
                                     <button type="submit" class="btn btn-outline-primary mt-1">Apply Filter</button>
                                 </form>
@@ -174,14 +174,15 @@
                                     Sort: <i class="bi bi-caret-down"></i>
                                 </button>
                                 <ul class="dropdown-menu p-2" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item " href="#">Featured</a></li>
-                                    <li><a class="dropdown-item " href="#">Best Selling</a></li>
-                                    <li><a class="dropdown-item " href="#">Alphabetically, A-Z</a></li>
-                                    <li><a class="dropdown-item " href="#">Alphabetically, Z-A</a></li>
-                                    <li><a class="dropdown-item " href="#">Price: Low to High</a></li>
-                                    <li><a class="dropdown-item " href="#">Price: High to Low</a></li>
-                                    <li><a class="dropdown-item " href="#">Date: New to Old</a></li>
-                                    <li><a class="dropdown-item " href="#">Date: Old to New</a></li>
+                                    <li><a class="dropdown-item" data-sort="featured" href="#">Featured</a></li>
+                                    <li><a class="dropdown-item" data-sort="best_selling" href="#">Best Selling</a></li>
+                                    <li><a class="dropdown-item" data-sort="alphabetical_asc" href="#">Alphabetically,A-Z</a></li>
+                                    <li><a class="dropdown-item" data-sort="alphabetical_desc" href="#">Alphabetically,Z-A</a></li>
+                                    <li><a class="dropdown-item" data-sort="price_low_high" href="#">Price: Low to High</a></li>
+                                    <li><a class="dropdown-item" data-sort="price_high_low" href="#">Price: High to Low</a></li>
+                                    <li><a class="dropdown-item" data-sort="date_new_old" href="#">Date: New to Old</a></li>
+                                    <li><a class="dropdown-item" data-sort="date_old_new" href="#">Date: Old to New</a></li>
+
                                 </ul>
                             </div>
                         </div>
@@ -189,21 +190,24 @@
                 </div>
                 <div class="row g-1">
                     @foreach ($products as $product)
-                    <div class="col-lg-3 col-6 ">
-                        <div class="card">
-                            <a href="{{url('store/item').'/'.$product->id}}"><img src="{{url('').'/'.$product->img}}"
-                                    class="card-img-top zoom-eff" alt="..."></a>
-                            <div class="card-body">
-                                <p class="card-text responsive-font">{{$product->title}}</p>
-                                <div class="card-title d-flex flex-row justify-content-around text-align">
-                                    <h5 class="responsive-font discount-price"><strong>£{{$product->discount_price}}</strong></h5>
-                                    <h5 class="responsive-font og-price"><del>£{{$product->original_price}}</del></h5>
-                                    <h5 class="responsive-font discount"><em>{{$product->discount_percentage}}% Off</em></h5>
+                        <div class="col-lg-3 col-6 ">
+                            <div class="card">
+                                <a href="{{url('store/item') . '/' . $product->id}}"><img src="{{url('') . '/' . $product->img}}"
+                                        class="card-img-top zoom-eff" alt="..."></a>
+                                <div class="card-body">
+                                    <p class="card-text responsive-font">{{$product->title}}</p>
+                                    <div class="card-title d-flex flex-row justify-content-around text-align">
+                                        <h5 class="responsive-font discount-price">
+                                            <strong>£{{$product->discount_price}}</strong></h5>
+                                        <h5 class="responsive-font og-price"><del>£{{$product->original_price}}</del></h5>
+                                        <h5 class="responsive-font discount"><em>{{$product->discount_percentage}}% Off</em>
+                                        </h5>
+                                    </div>
+                                    <div class="card-text text-center"><span class="cart-btn btn-d responsive-font"
+                                            data-id="{{$product->id}}">Add to cart</span></div>
                                 </div>
-                                <div class="card-text text-center"><span class="cart-btn btn-d responsive-font" data-id="{{$product->id}}">Add to cart</span></div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
                 </div>
             </div>
@@ -214,72 +218,82 @@
 @push('scripts')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
+    <script>
 
-const cartBtn = document.getElementsByClassName('cart-btn');
+        const cartBtn = document.getElementsByClassName('cart-btn');
 
-$(document).on('click', '.cart-btn', function() {
+        $(document).on('click', '.cart-btn', function () {
 
-    var productId = $(this).data('id');
-    var quantity = 1;
+            var productId = $(this).data('id');
+            var quantity = 1;
 
-   var button = $(this);
+            var button = $(this);
 
-    button.html('<div class="spinner-border text-light" role="status"><span class="visually-hidden">Loading...</span></div>');
+            button.html('<div class="spinner-border text-light" role="status"><span class="visually-hidden">Loading...</span></div>');
 
-    $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        },
-        url: '{{ url('cart/add') }}',
-        method: 'POST',
-        data: {
-            product_id: productId,
-            quantity: quantity,
-        },
-        success: function(response) {
-            button.html('Added');
-            let spans = document.querySelectorAll('.cart-count');
-            spans.forEach(function(span) {
-                span.innerHTML = response; 
-            });
-
-            Swal.fire({
-                position: 'bottom-end',
-                icon: 'success',
-                title: 'Item Added',
-                showConfirmButton: false,
-                timer: 1500,
-                showClass: {
-                    popup: 'animate__animated animate__fadeInUp animate__faster'
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
-                hideClass: {
-                    popup: 'animate__animated animate__fadeOutDown animate__faster'
+                url: '{{ url('cart/add') }}',
+                method: 'POST',
+                data: {
+                    product_id: productId,
+                    quantity: quantity,
+                },
+                success: function (response) {
+                    button.html('Added');
+                    let spans = document.querySelectorAll('.cart-count');
+                    spans.forEach(function (span) {
+                        span.innerHTML = response;
+                    });
+
+                    Swal.fire({
+                        position: 'bottom-end',
+                        icon: 'success',
+                        title: 'Item Added',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInUp animate__faster'
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__fadeOutDown animate__faster'
+                        }
+                    });
+                },
+                error: function (error) {
+                    alert('Error adding product to cart.');
                 }
             });
-        },
-        error: function(error) {
-            alert('Error adding product to cart.');
-        }
-    });
+        });
+
+        document.getElementById('price-filter').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const minPrice = document.getElementById('minimum').value;
+            const maxPrice = document.getElementById('maximum').value;
+
+            const url = new URL(window.location.href);
+            if (minPrice) {
+                url.searchParams.set('min_price', minPrice);
+            }
+            if (maxPrice) {
+                url.searchParams.set('max_price', maxPrice);
+            }
+            window.location.href = url;
+            console.log("Price filter applied: Minimum - £" + minPrice + ", Maximum - £" + maxPrice);
+        });
+
+        $(document).on('click', '.dropdown-item', function(event) {
+
+    var sortOption = $(this).data('sort');
+
+    var url = new URL(window.location.href); 
+    url.searchParams.set('sort', sortOption); 
+console.log(url);
+    window.location.href = url          ;
+
 });
 
-document.getElementById('price-filter').addEventListener('submit', function(event) {
-    event.preventDefault(); 
-    const minPrice = document.getElementById('minimum').value;
-    const maxPrice = document.getElementById('maximum').value;
-
-    const url = new URL(window.location.href); 
-    if (minPrice) {
-        url.searchParams.set('min_price', minPrice); 
-    }
-    if (maxPrice) {
-        url.searchParams.set('max_price', maxPrice);
-    }
-    window.location.href = url;
-    console.log("Price filter applied: Minimum - £" + minPrice + ", Maximum - £" + maxPrice);
-});
-
-
-</script>
+    </script>
 @endpush
