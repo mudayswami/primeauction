@@ -126,9 +126,9 @@
     <div class="herobanner">
         <div class="container-fluid hero-container mx-auto">
             <h1 class="hero-heading h1 fw-bold">{{$slug}}</h1>
-        </div>
+        </div> 
         <div class="container-fluid d-flex justify-content-center  mx-auto">
-            <a href="{{url('auction')}}" class="cata-btn">Explore Auctions</a>
+            <a href="{{url('lot?category=').Request::segment(2)}}" class="cata-btn">Explore Auctions</a>
         </div>
     </div>
     <div class="seo-section">

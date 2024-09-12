@@ -177,12 +177,13 @@
                                 <img src="{{url('assets/department/appliances.jpg')}}"
                                     class="card-img-top zoom-eff" alt="...">
                                 <div class="card-body ">
-                                    <h4 class="card-text underline-anim">Small Domestic Appliances <svg
+                                <a href="{{url('store/products?department=small-domestic-appliances')}}"><h4 class="card-text underline-anim">Small Domestic Appliances <svg
                                             xmlns="http://www.w3.org/2000/svg" width="84" height="34" fill="currentColor"
                                             class="bi bi-arrow-right" viewBox="0 0 16 16">
                                             <path fill-rule="evenodd"
                                                 d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
                                         </svg></h4>
+                                        </a> 
                                 </div>
                             </div>
                         </a>
@@ -192,6 +193,7 @@
                             <img src="{{url('assets/department/homeware.jpeg')}}" class="card-img-top zoom-eff"
                                 alt="...">
                             <div class="card-body ">
+                            <a href="{{url('store/products?department=homeware')}}">
                                 <h4 class="card-text underline-anim">Homeware <svg xmlns="http://www.w3.org/2000/svg"
                                         width="84" height="34" fill="currentColor" class="bi bi-arrow-right"
                                         viewBox="0 0 16 16">
@@ -209,12 +211,12 @@
                             <img src="{{url('assets/department/jewellery.jpeg')}}" class="card-img-top zoom-eff"
                                 alt="...">
                             <div class="card-body ">
-                                <h4 class="card-text underline-anim">Jewellery <svg xmlns="http://www.w3.org/2000/svg"
+                                <a href="{{'store/products?department=jewellery'}}"><h4 class="card-text underline-anim">Jewellery <svg xmlns="http://www.w3.org/2000/svg"
                                         width="84" height="34" fill="currentColor" class="bi bi-arrow-right"
                                         viewBox="0 0 16 16">
                                         <path fill-rule="evenodd"
                                             d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-                                    </svg></h4>
+                                    </svg></h4></a>
                             </div>
                         </div>
 
@@ -224,12 +226,13 @@
                             <img src="{{url('assets/department/healthbeauty.jpeg')}}"
                                 class="card-img-top zoom-eff" alt="...">
                             <div class="card-body ">
+                            <a href="{{'store/products?department=health-beauty'}}">
                                 <h4 class="card-text underline-anim">Health & Beauty <svg xmlns="http://www.w3.org/2000/svg"
                                         width="84" height="34" fill="currentColor" class="bi bi-arrow-right"
                                         viewBox="0 0 16 16">
                                         <path fill-rule="evenodd"
                                             d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-                                    </svg></h4>
+                                    </svg></h4></a>
                             </div>
                         </div>
 
@@ -239,12 +242,13 @@
                             <img src="{{url('assets/department/cloth.jpeg')}}" class="card-img-top zoom-eff"
                                 alt="...">
                             <div class="card-body ">
+                            <a href="{{'store/products?department=clothing'}}">
                                 <h4 class="card-text underline-anim">Clothing <svg xmlns="http://www.w3.org/2000/svg"
                                         width="84" height="34" fill="currentColor" class="bi bi-arrow-right"
                                         viewBox="0 0 16 16">
                                         <path fill-rule="evenodd"
                                             d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
-                                    </svg></h4>
+                                    </svg></h4></a>
                             </div>
                         </div>
 
@@ -254,12 +258,14 @@
                             <img src="{{url('assets/department/baby.jpeg')}}" class="card-img-top zoom-eff"
                                 alt="...">
                             <div class="card-body ">
+                            <a href="{{'store/products?department=baby-toddler'}}">
                                 <h4 class="card-text underline-anim">Baby and Toddler <svg
                                         xmlns="http://www.w3.org/2000/svg" width="84" height="34" fill="currentColor"
                                         class="bi bi-arrow-right" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd"
                                             d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
                                     </svg></h4>
+                                </a>
                             </div>
                         </div>
 
@@ -269,6 +275,7 @@
                             <img src="{{url('assets/department/haircare.jpeg')}}" class="card-img-top zoom-eff"
                                 alt="...">
                             <div class="card-body ">
+                            <a href="{{'store/products?department=hair-care'}}">
                                 <h4 class="card-text underline-anim">Hair Care <svg xmlns="http://www.w3.org/2000/svg"
                                         width="84" height="34" fill="currentColor" class="bi bi-arrow-right"
                                         viewBox="0 0 16 16">
@@ -284,6 +291,7 @@
                             <img src="{{url('assets/department/furniture.jpeg')}}" class="card-img-top zoom-eff"
                                 alt="...">
                             <div class="card-body ">
+                            <a href="{{'store/products?department=furniture'}}">
                                 <h4 class="card-text underline-anim">Furniture <svg xmlns="http://www.w3.org/2000/svg"
                                         width="84" height="34" fill="currentColor" class="bi bi-arrow-right"
                                         viewBox="0 0 16 16">

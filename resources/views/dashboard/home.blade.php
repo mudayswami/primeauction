@@ -175,10 +175,10 @@
                             Buy Now
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li class="dropdown-item" >Buyer Dashboard</li>
-                            <li class="dropdown-item" >Browse current auctions</li>
-                            <li class="dropdown-item" >Won Lots</li>
-                            <li class="dropdown-item" >Inovices</li>
+                            <li class="dropdown-item " ><a href="{{url('store/products')}}">Store</a></li>
+                            <li class="dropdown-item" ><a href="{{url('auction')}}">Browse current auctions</a></li>
+                            <li class="dropdown-item"><a href="{{url('account/won-lots')}}">Won Lots</a></li>
+                            <li class="dropdown-item d-none" >Inovices</li>
                         </ul>
                     </li>
                     <li class="nav-item d-none">

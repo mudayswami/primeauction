@@ -36,8 +36,9 @@ class MailController extends Controller
         }
         session('user_data')['user_id'] = 1;
         $user->remember_token = null;  
-        $user_data['verified']      = $user->verified;
-        session()->put($user_data,'user_data');
+        $user_data = session('user_data');
+        $user_data['verified']     = $user->verified;
+        session(['user_data'=>$user_data]);
         $user->save();
         return redirect('account/profile')->with('status', 'Your email has been verified!');
     }

@@ -18,8 +18,25 @@ class StoreController extends Controller
     }
 
     function products(Request $request){
+        $departmentCategoryMap = [
+            'small-domestic-appliance' => ['Home Appliances', 'High Street Goods'],
+            'homeware' => ['Decor', 'Home Improvements', 'Kitchens', 'Bathrooms'],
+            'baby-toddler' => ['Children & Baby'],
+            'jewellery' => ['Jewellery & Watches'],
+            'hair-care' => ['Health & Beauty'],
+            'health-beauty' => ['Health & Beauty', 'Liquidations, Returns & Pallets'],
+            'clothing' => ['Fashion'],
+            'furniture' => ['Furniture', 'Home Improvements'],
+        ];
+        $department = $request->query('department');
+
+        $categories = $departmentCategoryMap[$department] ?? [];
+
 
         $data['products'] = Products::query()->where('status', 1)
+        ->when($categories, function ($query) use ($categories) {
+            return $query->whereIn('department', $categories);
+        })
         ->when($request->query('search'), function($query, $search) {
             return $query->where(function($q) use ($search) {
                 $q->where('name', 'like', '%' . $search . '%') 
