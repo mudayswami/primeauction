@@ -1,4 +1,4 @@
-@extends('auction.layout.masterLayout')
+@extends('store.storeLayout')
 
 @push('meta')
 @endpush
@@ -125,20 +125,20 @@
             <!-- Contact Info -->
             <div class="row justify-content-center contact-info text-center mt-5">
                 <div class="col-md-4 address-info">
-                    <p><i class="bi bi-geo-alt"></i> 123 Street, City, Country</p>
+                    <p><i class="bi bi-geo-alt"></i> Unit 4, 680 Retford Road, Sheffield, United Kingdom, S13 9WG</p>
                 </div>
                 <div class="col-md-4 address-info">
-                    <p><i class="bi bi-envelope"></i> info@primeauction.co.uk</p>
+                    <p><i class="bi bi-envelope"></i> info@primeauctions.co.uk</p>
                 </div>
                 <div class="col-md-4 address-info">
-                    <p><i class="bi bi-telephone"></i> +123 456 7890</p>
+                    <p><i class="bi bi-telephone"></i> 07450000063</p>
                 </div>
             </div>
 
             <!-- Map Embed -->
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                    <iframe class="map-embed" src="https://maps.google.com/maps?q=London&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+                <iframe class="map-embed" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2380.7061997883516!2d-1.3521422232586073!3d53.36641277322189!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48799d9486a4578f%3A0x3e92ae5a07e793fe!2sUnit%204%2C%20680%20Retford%20Rd%2C%20Sheffield%20S13%209WG%2C%20UK!5e0!3m2!1sen!2sin!4v1726129823625!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </div>
