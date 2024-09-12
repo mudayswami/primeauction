@@ -343,7 +343,7 @@
                                     <div class="item-description fs-6">
                                     <a class="" href="{{url('catalogue')."/".$value['id']}}">{{$value['title']}}</a>
                                     </div>
-                                    <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex justify-content-between align-items-center auction-details-section">
                                         <div class="dates-section">
                                             <div class="item-dates-header category-header">Auction Dates</div>
                                             <div class="item-dates">
