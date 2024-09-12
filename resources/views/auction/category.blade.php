@@ -65,18 +65,18 @@
     justify-content:center;
 
     }
-    @foreach($seemore as $key => $value)
-    .featured-img-{{$key}}{
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    align-items: center;
-    background-size: cover;
-    background-image:
-    url('{{url("")."/".$value->img}}');
-    }
-    @endforeach
+{{--    @foreach($seemore as $key => $value)--}}
+{{--    .featured-img-{{$key}}{--}}
+{{--    height: 500px;--}}
+{{--    display: flex;--}}
+{{--    flex-direction: column;--}}
+{{--    justify-content: end;--}}
+{{--    align-items: center;--}}
+{{--    background-size: cover;--}}
+{{--    background-image:--}}
+{{--    url('{{url("")."/".$value->img}}');--}}
+{{--    }--}}
+{{--    @endforeach--}}
     .card-sub-title{
     padding:0 2rem;
     }
@@ -116,7 +116,9 @@
     .owl-prev, .owl-next{
     font-size:-webkit-xxx-large !important;
     }
-
+    .featured-img{
+        max-width: 100%;
+    }
     .selling-section{
     margin: 5rem auto 5rem auto;
     }
@@ -187,6 +189,7 @@
                 @foreach($seemore as $key => $value)
                 <div class="col-12 col-md-4 my-2">
                     <div class="featured-img-{{$key}}">
+                        <img src="{{url("")."/".$value->img}}" alt="" class="featured-img">
                         <div class="feature-text">
                             <h3 class="featured-title text-dark">{{json_decode($value->category, true)[0]}}</h3>
                             <a href="{{url('catalogue').'/'.$value->id}}" class="featured-button">Discover</a>
@@ -220,6 +223,7 @@
                 @foreach ($seemore as $key => $value)
                     <div class="col-12 col-md-3 my-2">
                         <div class="featured-img-{{$key}}">
+                            <img src="{{url("")."/".$value->img}}" alt="" class="featured-img">
                             <div class="feature-text">
                                 <h3 class="featured-title text-dark">{{$value->title}}</h3>
                                 <a href="{{url('catalogue').'/'.$value->id}}" class="featured-button">Discover</a>
