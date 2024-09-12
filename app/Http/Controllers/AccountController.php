@@ -54,7 +54,7 @@ class AccountController extends Controller
         $request->validate([
             'address1' => ['required','max:255'],
             'town' => ['required','max:155'],
-            'post_code' => ['required','integer','max:999999'],
+            'post_code' => ['required',],
             'country' => ['required','string','max:20'],
         ]);
 

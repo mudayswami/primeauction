@@ -94,7 +94,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="post_code">Post Code<span class="text-red">*</span></label>
-                            <input type="number" class="form-control" name="post_code" id="post_code" value="{{old('post_code')}}">
+                            <input type="text" class="form-control" name="post_code" id="post_code" value="{{old('post_code')}}">
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="country">Country <span class="text-red">*</span></label>

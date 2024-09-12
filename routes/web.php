@@ -44,7 +44,8 @@ Route::get("paynow",[DashboardController::class,"paynow"])->middleware('auth');
 Route::get("faq",[DetailController::class,"faqs"]);
 Route::get('sell-us',[DetailController::class,'sellUs']);
 Route::get("aboutus",[DetailController::class,"aboutus"]);
-
+Route::get('terms&condition/{slug}',[DetailController::class,"termsConditions"]);
+Route::get('important-info/{slug}',[DetailController::class,"shippingPolicy"]);
 
 Route::get("signup",[UserController::class,"signup"]);
 Route::post("signup",[UserController::class,"create_user"]);

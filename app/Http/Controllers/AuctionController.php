@@ -30,6 +30,8 @@ class AuctionController extends Controller
         if (Auth::check()) {
             $data['registered'] = AuctionRegister::select('approved')->where(['user_id' => session('user_data')['user_id'], 'auction_id' => $id])->get()->first();
         }
+        $data['category'] = AuctionCategory::getActiveCategories();
+
         return view("auction.auctionCatalogue", $data);
     }
 

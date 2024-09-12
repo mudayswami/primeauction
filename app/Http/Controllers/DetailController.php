@@ -30,4 +30,12 @@ class detailController extends Controller
     function contactUs(){
         return view('contactUs');
     }
+
+    function termsConditions(){
+        return view('auction.terms&conditions');
+    }
+
+    function shippingPolicy(){
+        return view('auction.shippingPolicy');
+    }
 }

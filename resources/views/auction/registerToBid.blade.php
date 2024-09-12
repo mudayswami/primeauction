@@ -323,7 +323,7 @@
                             <div class="form-group">
                                 
                                 <label for="terms&conditions"><input type="checkbox" name="terms&conditions" id="terms&conditions"> I confirm that I have read and accept the auction's <a
-                                        href="#"><u>terms & conditions</u></a></label>
+                                href="{{url('terms&condition/'.$auction['id'])}}"><u>terms & conditions</u></a></label>
                             </div>
                         </div>
                         <div class="row mb-4">
