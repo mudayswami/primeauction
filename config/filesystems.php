@@ -58,7 +58,7 @@ return [
 
         'primeauction' => [
         'driver' => 'local',
-        'root' => '/usr/share/nginx/html/primeauction/public/',
+        'root' => public_path(''),
         ],
 
     ],
