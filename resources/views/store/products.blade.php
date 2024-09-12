@@ -139,7 +139,7 @@
 
 @push('content')
     <main>
-        <section>
+        <section class="products_list">
             <div class="container py-5">
                 <div class="row g-1">
                     <h1>Products</h1>
@@ -200,7 +200,7 @@
                                         src="{{url('') . '/' . $product->img}}" class="card-img-top zoom-eff" alt="..."></a>
                                 <div class="card-body">
                                     <p class="card-text responsive-font">{{$product->title}}</p>
-                                    <div class="card-title d-flex flex-row justify-content-around text-align">
+                                    <div class="card-title price-container d-flex flex-row justify-content-around text-align">
                                         <h5 class="responsive-font discount-price">
                                             <strong>£{{$product->discount_price}}</strong>
                                         </h5>

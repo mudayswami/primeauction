@@ -82,7 +82,7 @@ class PaymentController extends Controller
         // }
 
         function paymentSuccess(request $request){
-            // $stripeSecretKey = env('STRIPE_SECRET');
+            // $stripeSecretKey = .env('STRIPE_SECRET');
             // $stripeSecretKey = 'sk_test_51PZCCv2KFnGSCktKCxvlYCl4nozRiVDdXZTDyjAP2FUnFNWtTIksgQZZjcJMoWIkukYIyT5VS4RuRfycuLHr12xr005EQVxDOH';
             // $stripe = new \Stripe\StripeClient($stripeSecretKey);
 

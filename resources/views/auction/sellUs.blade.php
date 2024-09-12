@@ -50,6 +50,13 @@
     border-radius: 12px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     }
+    @media(max-width: 767px){
+        .heading img{
+            height: 100%;
+            width: 100%;
+            aspect-ratio: auto;
+        }
+    }
 @endpush
 
 @push('content')
@@ -107,14 +114,14 @@
             </h1>
                 <form class="contact-form" >
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-12 col-sm-6">
                             <div class="mb-3">
                                 <label for="name" class="form-label fw-bold">Name</label>
                                 <input type="text" class="form-control" id="name" name="name" required
                                     placeholder="Jonathon Hawkins">
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-sm-6">
                             <div class="mb-3">
                                 <label for="email" class="form-label fw-bold">Email address</label>
                                 <input type="email" class="form-control" id="email" required
