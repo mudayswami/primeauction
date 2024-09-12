@@ -46,6 +46,8 @@ Route::get('sell-us',[DetailController::class,'sellUs']);
 Route::get("aboutus",[DetailController::class,"aboutus"]);
 Route::get('terms&condition/{slug}',[DetailController::class,"termsConditions"]);
 Route::get('important-info/{slug}',[DetailController::class,"shippingPolicy"]);
+Route::get('retail-partnership',[DetailController::class,"retailPartnership"]);
+Route::get('our-values',[DetailController::class,"ourValues"]);
 
 Route::get("signup",[UserController::class,"signup"]);
 Route::post("signup",[UserController::class,"create_user"]);

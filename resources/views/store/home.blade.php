@@ -181,7 +181,6 @@
         </div>
         <div class="row g-1">
             @foreach ($products as $product)
-
                 <div class=" col-lg-3 col-6 ">
                     <div class="card bx-s-1">
                         <img src="{{url('') . '/' . $product->img}}" class="card-img-product" alt="...">

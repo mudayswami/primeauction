@@ -13,7 +13,7 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 @if(session('user_data'))
                     <li class="nav-item dropdown">
-                        <a class="nav-link  dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                        <a class="nav-link  dropdown-toggle " href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Hi, {{session('user_data')['first_name']}}
                         </a>
@@ -33,20 +33,20 @@
                     </li>
                 @else
                     <li class="nav-item">
-                        <a class="nav-link active " aria-current="page" href="{{url('login')}}">Login</a>
+                        <a class="nav-link " aria-current="page" href="{{url('login')}}">Login</a>
                     </li>
                 @endif
                 <li class="nav-item">
-                    <a class="nav-link active " aria-current="page" href="{{url('auction')}}">Auctions</a>
+                    <a class="nav-link {{str_contains(url()->full(),url('auction')) == true ? 'active' : '' }} " aria-current="page" href="{{url('auction')}}">Auctions</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{url('store')}}">Buy Now</a>
+                    <a class="nav-link " href="{{url('store')}}">Buy Now</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link active" aria-current="page" href="{{url('sell-us')}}">Sell</a>
+                    <a class="nav-link {{str_contains(url()->full(),url('sellus')) == true ? 'active' : '' }}" aria-current="page" href="{{url('sell-us')}}">Sell</a>
                 </li>
                 <li class="nav-item  dropdown ">
-                    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
+                    <a class="nav-link {{str_contains(url()->full(),url('category')) == true ? 'active' : '' }} dropdown-toggle " href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Auction Category
                     </a>
@@ -68,7 +68,7 @@
                     </ul>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link active" aria-current="page" href="{{url('aboutus')}}">About Us</a>
+                    <a class="nav-link {{str_contains(url()->full(),url('aboutus')) == true ? 'active' : '' }}" aria-current="page" href="{{url('aboutus')}}">About Us</a>
                 </li>
                 
 

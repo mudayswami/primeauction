@@ -38,4 +38,14 @@ class detailController extends Controller
     function shippingPolicy(){
         return view('auction.shippingPolicy');
     }
+
+    function ourValues(){
+        return view('auction.ourValues');
+    }
+
+    function retailPartnership(){
+        return view('auction.retailPartnership');
+    }
+
+
 }

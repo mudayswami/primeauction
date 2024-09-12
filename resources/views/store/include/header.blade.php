@@ -93,22 +93,22 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{url('store')}}">Home</a>
+                        <a class="nav-link {{url()->full() == url('store') ? 'active' : '' }}" aria-current="page" href="{{url('store')}}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{url('store/department')}}">Departments</a>
+                        <a class="nav-link {{str_contains(url()->full(),url('store/department')) == true ? 'active' : 'store/department' }}" href="{{url('store/department')}}">Departments</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{url('')}}">Auction</a>
+                        <a class="nav-link " href="{{url('')}}">Auction</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{url('store/products')}}">Products</a>
+                        <a class="nav-link {{str_contains(url()->full(),url('store/products')) == true ? 'active' : '' }}" href="{{url('store/products')}}">Products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{url('store/aboutus')}}">About Us</a>
+                        <a class="nav-link {{str_contains(url()->full(),url('store/aboutus')) == true ? 'active' : '' }}" aria-current="page" href="{{url('store/aboutus')}}">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{url('contact-us')}}">Contact us</a>
+                        <a class="nav-link {{str_contains(url()->full(),url('contact-us')) == true ? 'active' : '' }}" aria-current="page" href="{{url('contact-us')}}">Contact us</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 user-btns d-none d-md-flex  ">
@@ -191,7 +191,7 @@
 @push('scripts')
     <script>
         $('.search-icon').on('click',function () {
-           $('.search-wrapper').toggle();
+        $('.search-wrapper').toggle();
         });
     </script>
 @endpush
