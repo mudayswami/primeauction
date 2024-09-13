@@ -330,7 +330,12 @@
             align-items: flex-end;
         }
 
+        .btn-checkout:hover{
+            background: #ffffff;
+            border-color: #478298;
+            border: solid 1px;
 
+        }
         @media only screen and (max-width: 900px) {
             h1 {
                 font-size: 3em;

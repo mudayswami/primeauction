@@ -163,6 +163,8 @@
 
 
             <div class="col-sm-12 col-md-12 col-lg-3">
+            <h3 class="text-left fw-bolder py-3" id="page-heading">Lost Lots</h3>
+
                 <div>
                 <ul class="list-group my-2 left-nav">
                         <li class="list-group-item"><b>Profile</b></li>

@@ -179,6 +179,7 @@
                         </div>
                     @endif
                     <div class="row">
+                    <h3 class="text-left fw-bolder py-3" id="page-heading">Registered Auctions</h3>
                         <div class="col-sm-12 col-md-12 col-lg-12">
                             <div class="mb-3 auction-items">
                                 @foreach ($auction as $key => $value)                    

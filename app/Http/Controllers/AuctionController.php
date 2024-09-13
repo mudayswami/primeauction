@@ -26,31 +26,32 @@ class AuctionController extends Controller
     function catalogue(Request $request, $id)
     {
         $data['auction'] = Auction::findOrFail($id)->toArray();
+
         $data['lots'] = Lot::where('auction_id', $id)
-        ->when($request->query('search'), function($query, $search) {
-            return $query->where(function($q) use ($search) {
-                $q->where('title', 'like', '%' . $search . '%') 
-                ->orWhere('description', 'like', '%' . $search . '%'); 
-            });
-        })
-        ->leftJoin('watchlist', function($join) {
-            $join->on('tbl_lot.id', '=', 'watchlist.lot_id')
-                ->where('watchlist.user_id', session('user_data')['user_id']);
-        })
-        ->select('tbl_lot.*','watchlist.id as wl_id')
-        ->get()->toArray();   
+            ->when($request->query('search'), function ($query, $search) {
+                return $query->where(function ($q) use ($search) {
+                    $q->where('title', 'like', '%' . $search . '%')
+                        ->orWhere('description', 'like', '%' . $search . '%');
+                });
+            })
+            ->leftJoin('watchlist', function ($join) {
+                $join->on('tbl_lot.id', '=', 'watchlist.lot_id')
+                    ->where('watchlist.user_id', isset(session('user_data')['user_id']) ? session('user_data')['user_id'] : -1);
+            })
+            ->select('tbl_lot.*', 'watchlist.id as wl_id')
+            ->get()->toArray();
         if (Auth::check()) {
             $data['registered'] = AuctionRegister::select('approved')
-            ->where(['user_id' => session('user_data')['user_id'], 'auction_id' => $id])
-            ->get()->first();
+                ->where(['user_id' => session('user_data')['user_id'], 'auction_id' => $id])
+                ->get()->first();
         }
         $data['category'] = AuctionCategory::getActiveCategories();
         return view("auction.auctionCatalogue", $data);
     }
 
     function category(Request $request, $slug)
-    {   
-        $data['auction'] = Auction::where('category','like','%'.$slug.'%')->get();
+    {
+        $data['auction'] = Auction::where('category', 'like', '%' . $slug . '%')->get();
         $data['seemore'] = Auction::limit(4)->get();
         $data['slug'] = $slug;
         return view("auction.category", $data);
@@ -181,13 +182,13 @@ class AuctionController extends Controller
     function searchLot(Request $request)
     {
         $data['lots'] = Lot::with('auction')
-        ->when($request->filled('search'), function ($query) use ($request) {
-            $query->where('description', 'like', '%' . $request->search . '%');
-        })
-        ->when($request->filled('category'), function ($query) use ($request) {
-            $query->where('category', 'like', '%' . $request->category . '%');
-        })
-        ->get();
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $query->where('description', 'like', '%' . $request->search . '%');
+            })
+            ->when($request->filled('category'), function ($query) use ($request) {
+                $query->where('category', 'like', '%' . $request->category . '%');
+            })
+            ->get();
         $data['categories'] = AuctionCategory::getActiveCategories();
 
         return view('auction.mainLot', $data);

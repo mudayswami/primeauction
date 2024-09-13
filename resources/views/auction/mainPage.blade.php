@@ -194,9 +194,7 @@
                     auctions or Buy It Now Shop where you’ll discover a world of choice, for you, for your home or for your
                     business and at prices you’ll struggle to find elsewhere. In fact, many of our auctions have no reserve
                     and our simple, secure site, sustainability aims, and stellar service means you can shop with peace of
-                    mind. If you have goods to sell, we offer 0% seller commission, so the profit is all yours. Come on in
-                    and take a look around...
-
+                    mind. 
                 </p>
             </div>
         </div>

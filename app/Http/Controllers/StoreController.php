@@ -168,7 +168,7 @@ class StoreController extends Controller
 
             Cart::where('user_id', $userId)->delete();
             DB::commit();
-            return $paymentController->checkout($order->id, $totalAmount);
+            return $paymentController->checkout("Total Amount:", $totalAmount);
             
             return response()->json(['message' => 'Checkout successful! Order placed.']);
         } catch (\Exception $e) {

@@ -198,6 +198,8 @@
                         </div>
                     @endif
                     <div class="row">
+                    <h3 class="text-left fw-bolder py-3" id="page-heading">Placed Bids</h3>
+
                         <div class="col-sm-12 col-md-12 col-lg-12">
                             @foreach ($lots as $key => $value)
                         <div class="auction-items">
