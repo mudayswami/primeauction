@@ -183,7 +183,9 @@
                             </div>
                             @if(empty($auction_register))
                                 <div class="col-4 "><a href="{{url('catalogue/'.$lot->auction->id.'/register')}}"><button class="cata-btn">Place Bid</button></a></div>
-                            @else
+                            @elseif(!empty($auction_register) && $auction_register->approved == 0)
+                                <div class="col-4 "><button class="cata-btn" >Place Bid</button></div>
+                            @elseif(!empty($auction_register) && $auction_register->approved == 1)
                                 <div class="col-4 "><button class="cata-btn" id='bidplace'>Place Bid</button></div>
                             @endif
                         </div>
@@ -503,7 +505,7 @@
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="{{asset('js/bp.js')}}"></script>
-@if((date($lot->auction->end)) > (date('Y-m-d H:i:s')))
+@if((date($lot->auction->end)) > (date('Y-m-d H:i:s')) && !empty($auction_register) && $auction_register->approved == 1)
 <script>
     const bidplace  = document.getElementById('bidplace');
     const bid       = document.getElementById('bid');

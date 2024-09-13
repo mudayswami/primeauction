@@ -26,12 +26,25 @@ class AuctionController extends Controller
     function catalogue(Request $request, $id)
     {
         $data['auction'] = Auction::findOrFail($id)->toArray();
-        $data['lots'] = Lot::where('auction_id', $id)->get()->toArray();
+        $data['lots'] = Lot::where('auction_id', $id)
+        ->when($request->query('search'), function($query, $search) {
+            return $query->where(function($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%') 
+                ->orWhere('description', 'like', '%' . $search . '%'); 
+            });
+        })
+        ->leftJoin('watchlist', function($join) {
+            $join->on('tbl_lot.id', '=', 'watchlist.lot_id')
+                ->where('watchlist.user_id', session('user_data')['user_id']);
+        })
+        ->select('tbl_lot.*','watchlist.id as wl_id')
+        ->get()->toArray();   
         if (Auth::check()) {
-            $data['registered'] = AuctionRegister::select('approved')->where(['user_id' => session('user_data')['user_id'], 'auction_id' => $id])->get()->first();
+            $data['registered'] = AuctionRegister::select('approved')
+            ->where(['user_id' => session('user_data')['user_id'], 'auction_id' => $id])
+            ->get()->first();
         }
         $data['category'] = AuctionCategory::getActiveCategories();
-
         return view("auction.auctionCatalogue", $data);
     }
 

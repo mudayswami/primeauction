@@ -32,14 +32,13 @@ class StoreController extends Controller
 
         $categories = $departmentCategoryMap[$department] ?? [];
 
-
         $data['products'] = Products::query()->where('status', 1)
         ->when($categories, function ($query) use ($categories) {
             return $query->whereIn('department', $categories);
         })
         ->when($request->query('search'), function($query, $search) {
             return $query->where(function($q) use ($search) {
-                $q->where('name', 'like', '%' . $search . '%') 
+                $q->where('title', 'like', '%' . $search . '%') 
                 ->orWhere('description', 'like', '%' . $search . '%'); 
             });
         })

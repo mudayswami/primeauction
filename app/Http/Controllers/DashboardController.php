@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bids;
 use Illuminate\Http\Request;
 
-class dashboardController extends Controller
+class DashboardController extends Controller
 {
     function dashboard(){
         return view("dashboard.home");

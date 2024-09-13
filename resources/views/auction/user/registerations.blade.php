@@ -146,19 +146,19 @@
 
             <div class="col-sm-12 col-md-12 col-lg-3">
                 <div>
-                    <ul class="list-group my-2 left-nav">
+                <ul class="list-group my-2 left-nav">
                         <li class="list-group-item"><b>Profile</b></li>
-                        <li class="list-group-item"><a href="{{url('account/profile')}}">Details</a></li>
-                        <!-- <li class="list-group-item"><a href="{{url('account/cards')}}">Payment Cards</a></li> -->
-                        <li class="list-group-item"><a href="{{url('account/address')}}">Address</a></li>
+                        <li class="list-group-item {{url()->full() == url('account/profile') ? 'active' : '' }}"><a href="{{url('account/profile')}}">Details</a></li>
+                        <li class="list-group-item d-none"><a href="#">Payment Cards</a></li>
+                        <li class="list-group-item {{url()->full() == url('account/address') ? 'active' : '' }}"><a href="{{url('account/address')}}">Address</a></li>
                     </ul>
                     <ul class="list-group my-2 left-nav">
                         <li class="list-group-item"><b>Activity</b></li>
-                        <li class="list-group-item"><a href="{{url('account/registeration')}}">Registerations</a></li>
-                        <li class="list-group-item"><a href="{{url('account/placed-bids')}}">Placed Bids</a></li>
-                        <li class="list-group-item"><a href="{{url('account/won-lots')}}">Won Lots</a></li>
-                        <li class="list-group-item"><a href="{{url('account/lost-lots')}}">Lost Lots</a></li>
-                        <li class="list-group-item"><a href="{{url('account/watchlist')}}">Watchlist</a></li>
+                        <li class="list-group-item {{url()->full() == url('account/registeration') ? 'active' : '' }}"><a href="{{url('account/registeration')}}">Registerations</a></li>
+                        <li class="list-group-item {{url()->full() == url('account/placed-bids') ? 'active' : '' }}"><a href="{{url('account/placed-bids')}}">Placed Bids</a></li>
+                        <li class="list-group-item {{url()->full() == url('account/won-lots') ? 'active' : '' }}"><a href="{{url('account/won-lots')}}">Won Lots</a></li>
+                        <li class="list-group-item {{url()->full() == url('account/lost-lots') ? 'active' : '' }}"><a href="{{url('account/lost-lots')}}">Lost Lots</a></li>
+                        <li class="list-group-item {{url()->full() == url('account/watchlist') ? 'active' : '' }}"><a href="{{url('account/watchlist')}}">Watchlist</a></li>
                     </ul>
                 </div>
             </div>

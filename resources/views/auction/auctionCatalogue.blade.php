@@ -318,10 +318,10 @@
                 <div class="col-lg-6 col-12">
                     <div class="subsearch ">
                         <div class="fw-bold py-1">There are {{$auction['lots']}} within this auction</div>
-                        <form class="d-flex mx-auto justify-content" >
-                            <input class="form-control inp-search fs-5" type="search" placeholder="Search"
+                        <form class="d-flex mx-auto justify-content" action="{{url()->full()}}" method="get">
+                            <input class="form-control inp-search fs-5" type="text" placeholder="Search"name="search"
                                 aria-label="Search">
-                            <a class=" suggestion-search" type="submit"><svg viewBox="0 0 24 24" fill="none"
+                            <button class=" suggestion-search" type="submit"><svg viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -331,13 +331,13 @@
                                             stroke="#ffffff" stroke-width="2" stroke-linecap="round"
                                             stroke-linejoin="round"></path>
                                     </g>
-                                </svg></a>
+                                </svg></button>
                         </form>
                     </div>
                 </div>
                 <div class="col-lg-3 col-12 d-none">
                     <div class="subsearch">
-                        <form class="d-flex mx-auto justify-content-space">
+                        <form class="d-flex mx-auto justify-content-space" >
                             <input class="form-control inp-search fs-5" type="search" placeholder="Search By Lot"
                                 aria-label="Search">
                             <a class="suggestion-search" type="submit">-></a>
@@ -527,9 +527,9 @@
                                     </div>
                                     <div class="extra">
                                         <div class="watchlist">
-                                            <div class="add"><img width="30" src="{{url('assets/svg/outline-heart.svg')}}" > Add to WatchList</div>
+                                            <div class="add" data-id="{{$value['id']}}"><img width="30" src="{{url('assets/svg/outline-heart.svg')}}" > Add to WatchList</div>
                                             <div class="loading d-none"></div>
-                                            <div class="remove" style="display:none;"><img width="30" src="{{url('assets/svg/filled-heart.svg')}}" > Remove from WatchList</div>
+                                            <div class="remove" data-id="{{$value['id']}}" style="display:none;"><img width="30" src="{{url('assets/svg/filled-heart.svg')}}" > Remove from WatchList</div>
                                         </div>
                                         <div class="type">
                                             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -587,9 +587,10 @@
                 var loadingDiv = watchlist.querySelector('.loading');
                 var removeButton = watchlist.querySelector('.remove');
 
-                addButton.addEventListener('click', function () {
+                addButton.addEventListener('click', function (e) {
                     addButton.style.display = 'none';
                     removeButton.style.display = 'block';
+                    const lot_id = e.currentTarget.getAttribute('data-id');
                     // setTimeout(function () {
                     //     loadingDiv.style.display = 'none';
                     //     removeButton.style.display = 'block';
@@ -599,29 +600,43 @@
                             'X-CSRF-TOKEN': '{{csrf_token()}}'
                         },
                         url : "{{ url('wl') }}",
-                        data : {'status' : 1 ,'lot':'s'},
+                        data : {'lot_id':lot_id},
                         type : 'post',
                         success : function(result){
                             console.log("===== " + result + " =====");
                         
-                        }
+                        },error: function (xhr, status, error) {
+                    if (xhr.status === 401) {
+                        window.location.href = "{{url('login')}}";
+                    } else {
+                        alert('Error: ' + xhr.responseJSON.message);
+                    }
+                }
                     });
                 });
 
-                removeButton.addEventListener('click', function () {
+                removeButton.addEventListener('click', function (e) {
                     removeButton.style.display = 'none';
                     addButton.style.display = 'block';
+                    const lot_id = e.currentTarget.getAttribute('data-id');
+                    console.log(lot_id);
                     $.ajax({
                         headers: {
                             'X-CSRF-TOKEN': '{{csrf_token()}}'
                         },
                         url : "{{ url('wl') }}",
-                        data : {'status' : 0 ,'lot':'s' },
+                        data : {'lot_id': lot_id },
                         type : 'post',
                         success : function(result){
                             console.log("===== " + result + " =====");
                             
+                        },error: function (xhr, status, error) {
+                        if (xhr.status === 401) {
+                            window.location.href = "{{url('login')}}";
+                        } else {
+                            alert('Error: ' + xhr.responseJSON.message);
                         }
+                    }
                     });
                 });
             });

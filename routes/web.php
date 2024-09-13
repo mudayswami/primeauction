@@ -61,12 +61,13 @@ Route::post("update-profile",[AccountController::class,'updateProfile'])->middle
 Route::get("account/address",[AccountController::class,'address'])->middleware('auth');
 Route::get("account/add-address",[AccountController::class,'addAddress'])->middleware('auth');
 Route::post("add-address",[AccountController::class,"postAddress"])->middleware('auth');
+Route::get("remove-address/{id}",[AccountController::class,'removeAddress'])->middleware('auth');
 Route::get('account/registeration',[AccountController::class,'registerations'])->middleware('auth');
 Route::get('account/placed-bids',[AccountController::class,'placedBids'])->middleware('auth');
 Route::get('account/won-lots',[AccountController::class,'wonLots'])->middleware('auth');
 Route::get('account/lost-lots',[AccountController::class,'lostLots'])->middleware('auth');
 Route::get('account/watchlist',[AccountController::class,'watchlist'])->middleware('auth');
-Route::post("wl",[AccountController::class,"addIntoWatchlist"]);
+Route::post("wl",[AccountController::class,"addIntoWatchlist"])->middleware('auth');
 
 Route::get('checkout/{id}',[PaymentController::class,'checkout'])->middleware('auth');
 Route::get('store-payment-method',[PaymentController::class,'saveCard'])->middleware('auth');

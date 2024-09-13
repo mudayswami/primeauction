@@ -124,7 +124,7 @@
                     </svg>
                 </span>
                 <div class="search-wrapper">
-                    <form action="">
+                    <form action="{{url('store/products')}}" method="get">
                         <input type="text" name="search" placeholder="Enter Keyword..." class="search">
                         <button type="submit"><svg width="209px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

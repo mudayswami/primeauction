@@ -6,6 +6,7 @@ use App\Models\AddressBook;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Auction;
+use App\Models\Watchlist;
 use App\Models\Lot;
 use Auth;
 use DB;
@@ -120,11 +121,33 @@ class AccountController extends Controller
     }
 
     function watchlist(Request $request){
-        
+        $data['lots'] = Watchlist::join('tbl_lot','tbl_lot.id','=','watchlist.lot_id')
+        ->where('user_id',session('user_data')['user_id'])
+        ->select('tbl_lot.*')
+        ->get();
+        return view('auction.user.watchlist',$data);
     }
 
-    function addIntoWatchlist(Request $reqeust){
+    function addIntoWatchlist(Request $request){
+        $userId = session('user_data')['user_id'];
+        $lotId = $request->lot_id;  
 
+        $watchlistItem = Watchlist::where('user_id', $userId)
+                                ->where('lot_id', $lotId)
+                                ->first();
+
+        if ($watchlistItem) {
+            $watchlistItem->delete();
+            return response()->json(['message' => 'Lot removed from watchlist']);
+        } else {
+            Watchlist::create([
+                'user_id' => $userId,
+                'lot_id' => $lotId,
+            ]);
+            return response()->json(['message' => 'Lot added to watchlist']);
+        }
     }
+
+    
     
 }
