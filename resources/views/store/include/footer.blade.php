@@ -3,41 +3,39 @@
         <div class="row">
             <div class="col-3 d-flex flex-column footer-col">
                 <a href="{{url('signup')}}" class="footer-btn">
-                    <h2 class="footer-heading">Sign Up For Email</h2>
+                    <h2 class="footer-heading">Sign Up </h2>
                 </a>
-                <a href="{{url('bid')}}" class="footer-btn">
+                <!-- <a href="{{url('')}}" class="footer-btn">
                     <h2 class="footer-heading">Bidding</h2>
-                </a>
+                </a> -->
                 <a href="{{url('store')}}" class="footer-btn">
                     <h2 class="footer-heading">Buy it now</h2>
                 </a>
-                <a href="{{url('dashboard')}}" class="footer-btn">
+                <a href="{{url('sell-us')}}" class="footer-btn">
                     <h2 class="footer-heading">Selling</h2>
                 </a>
                 <a href="{{url('auction')}}" class="footer-btn">
                     <h2 class="footer-heading">Online Auctions</h2>
                 </a>
-
+                
             </div>
             <div class="col-3 d-flex flex-column footer-col">
                 <a href="#" class="footer-btn">
                     <h2 class="footer-heading">Get Help</h2>
                 </a>
                 <a href="{{url('faq')}}" class="footer-btn">FAQs</a>
-                <a href="{{url('faq')}}" class="footer-btn">Shipping & Delivery</a>
+                <a href="{{url('important-info')}}" class="footer-btn">Shipping & Delivery</a>
                 <a href="{{url('faq')}}" class="footer-btn">Orders & Payments</a>
                 <a href="{{url('faq')}}" class="footer-btn">Articles & Guides</a>
-                <a href="{{url('faq')}}" class="footer-btn">Contact Us</a>
+                <a href="{{url('contact-us')}}" class="footer-btn">Contact Us</a>
             </div>
             <div class="col-3 d-flex flex-column footer-col">
                 <a href="{{url('aboutus')}}" class="footer-btn">
                     <h2 class="footer-heading">About Prime Auction</h2>
                 </a>
-                <a href="#" class="footer-btn">History</a>
-                <a href="#" class="footer-btn">Our Team</a>
-                <a href="#" class="footer-btn">Our Values</a>
+                <a href="{{url('our-values')}}" class="footer-btn">Our Values</a>
                 <a href="#" class="footer-btn">Sustainability</a>
-                <a href="#" class="footer-btn">Retail Partnership</a>
+                <a href="{{url('retail-partnership')}}" class="footer-btn">Retail Partnership</a>
             </div>
             <div class="col-3 d-flex flex-row justify-content-evenly footer-col">
                 <a href="https://www.facebook.com/share/F3b5TFnHcnPxfu72/?mibextid=LQQJ4d"><span id="socialmedia-i">

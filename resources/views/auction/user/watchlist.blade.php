@@ -46,13 +46,14 @@
         .text-red {
             color: red;
         }
+
         .auction-items {
             margin-top: 12px;
             box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-            border-radius:6px;
-            padding:1rem 1rem;
-            margin-bottom:1rem;
-            position:relative;
+            border-radius: 6px;
+            padding: 1rem 1rem;
+            margin-bottom: 1rem;
+            position: relative;
         }
 
         .auction-list-item {
@@ -71,9 +72,9 @@
             overflow: auto;
             max-width: 100px;
             /* width: 100%;
-                            height: 100%;
-                            object-fit: cover;
-                            position: absolute; */
+                                            height: 100%;
+                                            object-fit: cover;
+                                            position: absolute; */
         }
 
         .catalogue-category {
@@ -91,6 +92,12 @@
             color: white;
             font-weight: 600;
             border-radius: 4px;
+        }
+
+        .read-more-btn {
+            color: blue;
+            border: none;
+            cursor: pointer;
         }
 
         .cata-btn:hover {
@@ -119,6 +126,12 @@
             font-weight: 700;
         }
 
+        .preview {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
 
         @media(max-width:768px) {
             .auction-item-img {
@@ -148,19 +161,26 @@
 
             <div class="col-sm-12 col-md-12 col-lg-3">
                 <div>
-                <ul class="list-group my-2 left-nav">
+                    <ul class="list-group my-2 left-nav">
                         <li class="list-group-item"><b>Profile</b></li>
-                        <li class="list-group-item {{url()->full() == url('account/profile') ? 'active' : '' }}"><a href="{{url('account/profile')}}">Details</a></li>
+                        <li class="list-group-item {{url()->full() == url('account/profile') ? 'active' : '' }}"><a
+                                href="{{url('account/profile')}}">Details</a></li>
                         <li class="list-group-item d-none"><a href="#">Payment Cards</a></li>
-                        <li class="list-group-item {{url()->full() == url('account/address') ? 'active' : '' }}"><a href="{{url('account/address')}}">Address</a></li>
+                        <li class="list-group-item {{url()->full() == url('account/address') ? 'active' : '' }}"><a
+                                href="{{url('account/address')}}">Address</a></li>
                     </ul>
                     <ul class="list-group my-2 left-nav">
                         <li class="list-group-item"><b>Activity</b></li>
-                        <li class="list-group-item {{url()->full() == url('account/registeration') ? 'active' : '' }}"><a href="{{url('account/registeration')}}">Registerations</a></li>
-                        <li class="list-group-item {{url()->full() == url('account/placed-bids') ? 'active' : '' }}"><a href="{{url('account/placed-bids')}}">Placed Bids</a></li>
-                        <li class="list-group-item {{url()->full() == url('account/won-lots') ? 'active' : '' }}"><a href="{{url('account/won-lots')}}">Won Lots</a></li>
-                        <li class="list-group-item {{url()->full() == url('account/lost-lots') ? 'active' : '' }}"><a href="{{url('account/lost-lots')}}">Lost Lots</a></li>
-                        <li class="list-group-item {{url()->full() == url('account/watchlist') ? 'active' : '' }}"><a href="{{url('account/watchlist')}}">Watchlist</a></li>
+                        <li class="list-group-item {{url()->full() == url('account/registeration') ? 'active' : '' }}"><a
+                                href="{{url('account/registeration')}}">Registerations</a></li>
+                        <li class="list-group-item {{url()->full() == url('account/placed-bids') ? 'active' : '' }}"><a
+                                href="{{url('account/placed-bids')}}">Placed Bids</a></li>
+                        <li class="list-group-item {{url()->full() == url('account/won-lots') ? 'active' : '' }}"><a
+                                href="{{url('account/won-lots')}}">Won Lots</a></li>
+                        <li class="list-group-item {{url()->full() == url('account/lost-lots') ? 'active' : '' }}"><a
+                                href="{{url('account/lost-lots')}}">Lost Lots</a></li>
+                        <li class="list-group-item {{url()->full() == url('account/watchlist') ? 'active' : '' }}"><a
+                                href="{{url('account/watchlist')}}">Watchlist</a></li>
                     </ul>
                 </div>
             </div>
@@ -181,45 +201,52 @@
                         </div>
                     @endif
                     <div class="row">
-                    <h3 class="text-left fw-bolder py-3" id="page-heading">Watchlist</h3>
+                        <h3 class="text-left fw-bolder py-3" id="page-heading">Watchlist</h3>
                         <div class="col-sm-12 col-md-12 col-lg-12">
                             @foreach ($lots as $key => $value)
-                        <div class="auction-items">
-                            
-                            <div class="row">
-                                <div class="col-lg-2 ">
-                                    <img class="auction-item-img "
-                                    src="{{'/primeshop/public/' . $value['img']}}">
-                                </div>
-                                <div class="col-lg-7 px-4">
-                                    <div class="lot-title category-header"><a href="{{url('bid/'.$value['id'])}}">{{$value['title']}}</a></div>
-                                    <div class="lot-description  py-2">
-                                        <p>{{$value['description']}}</p>
+                                <div class="auction-items">
+
+                                    <div class="row">
+                                        <div class="col-lg-2 ">
+                                            <img class="auction-item-img " src="{{'/primeshop/public/' . $value['img']}}">
+                                        </div>
+                                        <div class="col-lg-7 px-4">
+                                            <div class="lot-title category-header"><a
+                                                    href="{{url('bid/' . $value['id'])}}">{{$value['title']}}</a></div>
+                                            <div class="lot-description  py-2">
+                                                <p id="text_{{$value['id']}}" class="preview" style="display: -webkit-box;">
+                                                    {{$value['description']}}
+                                                </p>
+                                                <button onclick="toggleReadMore({{$value['id']}})" class="read-more-btn"
+                                                    id="readMoreBtn">Read More</button>
+
+                                            </div>
+                                            <div class="d-flex">
+                                                @foreach (json_decode($value['category'], true) as $category)
+                                                    <div class="tags mx-1"><span
+                                                            class="badge rounded-pill bg-web">{{$category}}</span></div>
+                                                @endforeach
+                                            </div>
+
+                                        </div>
+                                        <div
+                                            class="col-lg-3 px-2 text-lg-center text-start  d-flex flex-column justify-content-evenly">
+
+                                            <a href="catalogue">
+
+                                            </a>
+                                            <div class="d-none">
+                                                <div class="bidding-ends light-header">Bidding Ends: </div>
+                                                <div class="lot-location"><span class="light-header">Lot
+                                                        Location:</span></div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="d-flex">
-                                    @foreach (json_decode($value['category'], true) as $category)
-                                        <div class="tags mx-1"><span class="badge rounded-pill bg-web">{{$category}}</span></div>
-                                    @endforeach
-                                    </div>
-                                   
                                 </div>
-                                <div class="col-lg-3 px-2 text-lg-center text-start  d-flex flex-column justify-content-evenly">
-                                    
-                                    <a href="catalogue">
-                                        
-                                    </a>
-                                    <div class="d-none">
-                                        <div class="bidding-ends light-header">Bidding Ends: </div>
-                                        <div class="lot-location"><span class="light-header">Lot
-                                                Location:</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
+                            @endforeach
                         </div>
                     </div>
-                    
+
                 </div>
 
             </div>
@@ -230,4 +257,20 @@
 
 
 @push('scripts')
+    <script>
+        function toggleReadMore(e) {
+            var moreContent = document.getElementById("text_" + e);
+            var btnText = document.getElementById("readMoreBtn");
+
+            if (moreContent.style.display === "-webkit-box") {
+                moreContent.style.display = "";
+                moreContent.classList.remove("preview");
+                btnText.innerHTML = "Read Less";
+            } else {
+                moreContent.style.display = "-webkit-box";
+                moreContent.classList.add("preview");
+                btnText.innerHTML = "Read More";
+            }
+        }
+    </script>
 @endpush

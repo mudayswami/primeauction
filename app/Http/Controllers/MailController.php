@@ -31,10 +31,10 @@ class MailController extends Controller
     public function verify($token)
     {   
         $user = User::where('remember_token', $token)->first();
-        if (!$user) {
+        if (!$user || $user->user_id != session('user_data')['user_id']) {
             return redirect('account/profile')->with('error', 'Invalid verification token.');
         }
-        session('user_data')['user_id'] = 1;
+        $user->verified = 1;
         $user->remember_token = null;  
         $user_data = session('user_data');
         $user_data['verified']     = $user->verified;

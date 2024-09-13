@@ -192,27 +192,19 @@
                         <div class="row">
                             <div class="col-4 fs-6 p-3 fw-bold">Buyer's Premium</div>
                             <div class="col-8 fs-6 p-3 fw-bold">{{$lot->buyer_premium}}%</div>
-                            <div class="col-6 py-3 btn-outline-light text-center border border-1"><a href="#">
-
-                                    <svg width="32px" height="32px" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                        <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                        <g id="SVGRepo_iconCarrier">
-                                            <path
-                                                d="M2 9.1371C2 14 6.01943 16.5914 8.96173 18.9109C10 19.7294 11 20.5 12 20.5C13 20.5 14 19.7294 15.0383 18.9109C17.9806 16.5914 22 14 22 9.1371C22 4.27416 16.4998 0.825464 12 5.50063C7.50016 0.825464 2 4.27416 2 9.1371Z"
-                                                fill="#1C274C"></path>
-                                        </g>
-                                    </svg>Add to watchlist</a></div>
-                            <div class="col-6 py-3 btn-outline-light text-center border border-1"><a href="#">
-                                    <img src="{{url('assets/svg/mail.svg')}}">Ask a
-                                    question</a>
+                            <div class="col-6 py-3 btn text-center border border-1">
+                                <div class="add" data-id="{{$lot->id}}"><img width="30" src="{{url('assets/svg/outline-heart.svg')}}" > Add to WatchList</div>
+                                <div class="loading d-none"></div>
+                                <div class="remove" data-id="{{$lot->id}}" style="display:none;"><img width="30" src="{{url('assets/svg/filled-heart.svg')}}" > Remove from WatchList</div>
+                            </div>
+                            <div class="col-6 py-3 btn-outline-light text-center border border-1">
+                                <a href="mailto:info@primeauction.co.uk"><img src="{{url('assets/svg/mail.svg')}}">Ask a question</a>
                             </div>
                             <div class="col-6 py-3 btn-outline-light text-center border border-1">
                                 @if(empty($auction_register))
                                 <a href="{{url('catalogue/'.$lot->auction->id.'/register')}}"><img src="{{url('assets/svg/hammer.svg')}}">Register to bid</a>
                                 @else
-                                <a href=""><img src="{{url('assets/svg/hammer.svg')}}">Registered</a>
+                                <a href="#"><img src="{{url('assets/svg/hammer.svg')}}">Registered</a>
                                 @endif
                             </div>
                             <div class="col-6 py-3 btn-outline-light text-center border border-1"><a href="#">Share</a>
@@ -542,6 +534,62 @@ bidplace.addEventListener('click',()=>{
         }
     });
 });
+var addButton = document.querySelector('.add');
+                var loadingDiv = document.querySelector('.loading');
+                var removeButton = document.querySelector('.remove');
+
+                addButton.addEventListener('click', function (e) {
+                    addButton.style.display = 'none';
+                    removeButton.style.display = 'block';
+                    const lot_id = e.currentTarget.getAttribute('data-id');
+                    // setTimeout(function () {
+                    //     loadingDiv.style.display = 'none';
+                    //     removeButton.style.display = 'block';
+                    // }, 1000);
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': '{{csrf_token()}}'
+                        },
+                        url : "{{ url('wl') }}",
+                        data : {'lot_id':lot_id},
+                        type : 'post',
+                        success : function(result){
+                            console.log("===== " + result + " =====");
+                        
+                        },error: function (xhr, status, error) {
+                    if (xhr.status === 401) {
+                        window.location.href = "{{url('login')}}";
+                    } else {
+                        alert('Error: ' + xhr.responseJSON.message);
+                    }
+                }
+                    });
+                });
+
+                removeButton.addEventListener('click', function (e) {
+                    removeButton.style.display = 'none';
+                    addButton.style.display = 'block';
+                    const lot_id = e.currentTarget.getAttribute('data-id');
+                    console.log(lot_id);
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': '{{csrf_token()}}'
+                        },
+                        url : "{{ url('wl') }}",
+                        data : {'lot_id': lot_id },
+                        type : 'post',
+                        success : function(result){
+                            console.log("===== " + result + " =====");
+                            
+                        },error: function (xhr, status, error) {
+                        if (xhr.status === 401) {
+                            window.location.href = "{{url('login')}}";
+                        } else {
+                            alert('Error: ' + xhr.responseJSON.message);
+                        }
+                    }
+                    });
+                });
     </script>
     @endif
 @endpush
