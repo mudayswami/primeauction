@@ -14,7 +14,7 @@ class Authenticate extends Middleware
     {
         // return $request->expectsJson() ? null :  redirect('login')->with('error','You must login first');
         if(!auth()->check()){
-            return route('login');
+            return route('login',['redirectTo' => $request->path()]);
         }
     }
 

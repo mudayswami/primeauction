@@ -95,16 +95,20 @@ class AuctionController extends Controller
 
     function registerToBid(Request $request)
     {
-        $auction_id = $request->segment(2);
-        $data['auction'] = Auction::findOrFail($auction_id);
-        $user_id = session('user_data')['user_id'];
-        $count = AuctionRegister::where(['user_id' => $user_id, 'auction_id' => $auction_id])->count();
-        $data['address'] = AddressBook::where('user_id', $user_id)->get();
-        $data['phone_number'] = session('user_data')['phone_number'];
-        if ($count == 0) {
-            return view('auction.registerToBid', $data);
-        } else {
-            return redirect('catalogue/' . $auction_id);
+        try {
+            $auction_id = $request->segment(2);
+            $data['auction'] = Auction::findOrFail($auction_id);
+            $user_id = session('user_data')['user_id'];
+            $count = AuctionRegister::where(['user_id' => $user_id, 'auction_id' => $auction_id])->count();
+            $data['address'] = AddressBook::where('user_id', $user_id)->get();
+            $data['phone_number'] = session('user_data')['phone_number'];
+            if ($count == 0) {
+                return view('auction.registerToBid', $data);
+            } else {
+                return redirect('catalogue/' . $auction_id);
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 

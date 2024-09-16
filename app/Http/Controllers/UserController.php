@@ -122,8 +122,12 @@ class UserController extends Controller
             $user_data['cart_count']  = $cart_count;
             session()->put('user_data', $user_data);
 
-
-            return redirect('dashboard');
+            $redirectTo = $request->query('redirectTo');
+            if(isset($redirectTo) && $redirectTo != ''){
+                return redirect($request->query('redirectTo'));
+            }else{
+                return redirect('dashboard');
+            }
         } else {
             return back()->withErrors("Email or Password doesn't match");
         }

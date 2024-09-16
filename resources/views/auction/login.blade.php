@@ -81,7 +81,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <form action="login" method="post">
+                            <form action="{{url('login').Request::query('redirectTo') ? '?redirectTo='.Request::query('redirectTo') : '' }}" method="post">
                                 @csrf
                                 <div class="row gy-3 gy-md-4 overflow-hidden">
                                     <div class="col-12">

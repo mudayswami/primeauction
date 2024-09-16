@@ -252,6 +252,20 @@
         </div>
         <form action="{{url('')}}/catalogue/{{$auction['id']}}/register" method="post" id="myform">
             @csrf
+            @if(session('status'))
+                        <div class="alert alert-success">
+                            {{session('status')}}
+                        </div>
+                    @endif
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
             <div class="container pt-4 mx-auto">
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12 text-center mx-auto">

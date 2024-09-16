@@ -28,8 +28,8 @@ class PaymentController extends Controller
 
 
     public function checkout($name, $amount){
-        $stripeSecretKey = env('STRIPE_SECRET');
-        // $stripeSecretKey = 'sk_test_51PZCCv2KFnGSCktKCxvlYCl4nozRiVDdXZTDyjAP2FUnFNWtTIksgQZZjcJMoWIkukYIyT5VS4RuRfycuLHr12xr005EQVxDOH';
+        // $stripeSecretKey = env('STRIPE_SECRET');
+        $stripeSecretKey = 'sk_test_51PZCCv2KFnGSCktKCxvlYCl4nozRiVDdXZTDyjAP2FUnFNWtTIksgQZZjcJMoWIkukYIyT5VS4RuRfycuLHr12xr005EQVxDOH';
         $YOUR_DOMAIN = url('/');
 
         \Stripe\Stripe::setApiKey($stripeSecretKey);
@@ -42,7 +42,7 @@ class PaymentController extends Controller
           'submit_type' => 'pay',
           'billing_address_collection' => 'required',
           'shipping_address_collection' => [
-            'allowed_countries' => ['GB','IN'],
+            'allowed_countries' => ['GB'],
           ],
           'line_items' => [[
                 'price_data' => [

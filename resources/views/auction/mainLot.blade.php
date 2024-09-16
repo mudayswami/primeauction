@@ -326,7 +326,7 @@
                                     src="{{ url($value["img"])}}">
                                 </div>
                                 <div class="col-lg-7 px-4">
-                                    <div class="lot-number light-header py-1">{{$value['lot_num']}}</div>
+                                    <div class="lot-number light-header py-1 d-none">{{$value['lot_num']}}</div>
                                     <div class="lot-title category-header"><a href="{{url('bid').'/'.$value['id']}}">{{$value['title']}}</a></div>
                                     <div class="lot-description  py-2">
                                     <p id="text_{{$value['id']}}" class="preview" style="display: -webkit-box;">{{$value['description']}}</p>
