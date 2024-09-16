@@ -186,7 +186,7 @@
                         <div class="auction-list-item">
                             <div class="row">
                                 <div class="col-lg-3 col-12 d-flex justify-content-evenly align-items-center flex-column">
-                                    <img class="auction-item-img" src="{{'/primeshop/public/' . $value['img']}}">
+                                    <img class="auction-item-img" src="{{url('/') . $value['img']}}">
                                     
                                     <div>
                                         <div>

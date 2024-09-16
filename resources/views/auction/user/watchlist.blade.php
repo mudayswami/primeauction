@@ -208,7 +208,7 @@
 
                                     <div class="row">
                                         <div class="col-lg-2 ">
-                                            <img class="auction-item-img " src="{{'/primeshop/public/' . $value['img']}}">
+                                            <img class="auction-item-img " src="{{url('/') . $value['img']}}">
                                         </div>
                                         <div class="col-lg-7 px-4">
                                             <div class="lot-title category-header"><a
