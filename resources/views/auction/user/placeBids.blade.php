@@ -215,16 +215,18 @@
                                     <img class="auction-item-img "
                                     src="{{url('/') . '/' . $value['img']}}">
                                 </div>
-                                <div class="col-lg-7 px-4">'/primeshop/public/'
+                                <div class="col-lg-7 px-4">
                                     <div class="lot-title category-header"><a href="{{url('bid/'.$value['id'])}}">{{$value['title']}}</a></div>
                                     <div class="lot-description  py-2">
                                         <p>{{$value['description']}}</p>
                                     </div>
+                                    @if(isset($value['category']))
                                     <div class="d-flex">
                                     @foreach (json_decode($value['category'], true) as $category)
                                         <div class="tags mx-1"><span class="badge rounded-pill bg-web">{{$category}}</span></div>
                                     @endforeach
                                     </div>
+                                    @endif
                                    
                                 </div>
                                 <div class="col-lg-3 px-2 text-lg-center text-start  d-flex flex-column justify-content-evenly">

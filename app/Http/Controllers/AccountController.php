@@ -83,7 +83,7 @@ class AccountController extends Controller
         $user_id = session('user_data')['user_id'];
 
         DB::statement("SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));");
-        $data['lots'] = Lot::rightjoin('bids','bids.lot','=','tbl_lot.id')->where('bids.user_id', $user_id)
+        $data['lots'] = Lot::join('bids','bids.lot','=','tbl_lot.id')->where('bids.user_id', $user_id)
             ->where(function ($query) {
                 $query->where('bids.status', 'leading')
                     ->orWhere('bids.status', 'outbid');
@@ -100,7 +100,7 @@ class AccountController extends Controller
         $user_id = session('user_data')['user_id'];
 
         DB::statement("SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));");
-        $data['lots'] = Lot::rightjoin('bids','bids.lot','=','tbl_lot.id')->where(['bids.user_id'=> $user_id,'bids.status'=>'won'])
+        $data['lots'] = Lot::join('bids','bids.lot','=','tbl_lot.id')->where(['bids.user_id'=> $user_id,'bids.status'=>'won'])
             ->select('tbl_lot.*', 'bids.status as bid_status', 'bids.bid_amount')
             ->groupBy('tbl_lot.id')
             ->get()
@@ -112,7 +112,7 @@ class AccountController extends Controller
         $user_id = session('user_data')['user_id'];
 
         DB::statement("SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));");
-        $data['lots'] = Lot::rightjoin('bids','bids.lot','=','tbl_lot.id')->where(['bids.user_id'=> $user_id,'bids.status'=>'lost'])
+        $data['lots'] = Lot::join('bids','bids.lot','=','tbl_lot.id')->where(['bids.user_id'=> $user_id,'bids.status'=>'lost'])
             ->select('tbl_lot.*', 'bids.status as bid_status', 'bids.bid_amount')
             ->groupBy('tbl_lot.id')
             ->get()
